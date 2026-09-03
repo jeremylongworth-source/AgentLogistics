@@ -35,8 +35,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY`
 - `AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY`
 - `AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY`
+- `AGENTLOGISTICS_AL_19_SPECIALIZATION_FRAMEWORK_READY`
 
-The next planned wave is AL-19: Specialized Logistics Framework.
+The next planned wave is AL-20: Food and Cold-Chain Logistics.
 
 ## Scope
 
@@ -96,6 +97,7 @@ Core architecture artifacts:
 - `docs/architecture/master-taxonomy-v1.md`
 - `docs/architecture/taxonomy-audit.md`
 - `docs/architecture/dependency-map.md`
+- `docs/architecture/specialization-roadmap.md`
 
 Core standards artifacts:
 
@@ -199,6 +201,7 @@ Current test target:
 - `tests/fixtures/canada-compliance-source-triage.json`
 - `tests/fixtures/us-compliance-source-triage.json`
 - `tests/fixtures/professional-skillset-composition.json`
+- `tests/fixtures/specialization-framework-roadmap.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

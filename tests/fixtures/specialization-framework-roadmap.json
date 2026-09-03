@@ -1,0 +1,57 @@
+{
+  "completion_token": "AGENTLOGISTICS_AL_19_SPECIALIZATION_FRAMEWORK_READY",
+  "scenario_file": "tests/scenarios/specialization-framework-roadmap.md",
+  "required_artifact": "docs/architecture/specialization-roadmap.md",
+  "required_candidates": [
+    "cold-chain",
+    "food-logistics",
+    "dangerous-goods",
+    "ecommerce",
+    "manufacturing",
+    "retail-distribution",
+    "automotive",
+    "pharmaceuticals",
+    "international-logistics"
+  ],
+  "required_candidate_fields": [
+    "domain need",
+    "unique knowledge",
+    "unique regulations",
+    "unique workflows",
+    "shared core skills",
+    "new atomic skills required",
+    "priority"
+  ],
+  "required_extension_rules": [
+    "specializations may depend on core",
+    "core skills must not depend on specializations",
+    "reuse existing core skills",
+    "add new atomic skills only when composition is insufficient",
+    "require source maps before ready status",
+    "qualified review for safety or regulatory outputs"
+  ],
+  "required_priorities": {
+    "P0": [
+      "cold-chain",
+      "food-logistics"
+    ],
+    "P1": [
+      "dangerous-goods",
+      "ecommerce",
+      "manufacturing"
+    ],
+    "P2": [
+      "retail-distribution",
+      "automotive",
+      "pharmaceuticals",
+      "international-logistics"
+    ]
+  },
+  "blocked_actions": [
+    "build_all_specialization_packages",
+    "add_unsourced_regulatory_claims",
+    "create_core_dependency_on_specialization",
+    "treat_candidate_skill_names_as_ready_packages",
+    "make_hard_cross_project_dependency"
+  ]
+}

@@ -116,3 +116,12 @@ does not have public releases yet.
   evaluation report, and AL-18 handoff.
 - Extended skillset and test validation for AL-18 role-component,
   composition-gate, routing, escalation, dependency, and boundary checks.
+- Completed Wave AL-19 specialized logistics framework.
+- Added the specialization roadmap architecture artifact for cold-chain,
+  food-logistics, dangerous-goods, ecommerce, manufacturing,
+  retail-distribution, automotive, pharmaceuticals, and
+  international-logistics.
+- Added the AL-19 specialization framework scenario, fixture, evaluation
+  report, and handoff.
+- Extended docs and test validation for AL-19 candidate fields, priorities,
+  extension rules, and specialization-boundary checks.

@@ -48,6 +48,8 @@ REQUIRED_FILES = (
     "docs/development/handoffs/AL-16-final-handoff.md",
     "docs/development/handoffs/AL-17-final-handoff.md",
     "docs/development/handoffs/AL-18-final-handoff.md",
+    "docs/architecture/specialization-roadmap.md",
+    "docs/development/handoffs/AL-19-final-handoff.md",
     "skillsets/README.md",
     "specializations/canada/README.md",
     "specializations/canada/references/canadian-authority-map.md",
@@ -59,6 +61,7 @@ REQUIRED_TOKENS = {
     "ROADMAP.md": (
         "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY",
         "AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY",
+        "AGENTLOGISTICS_AL_19_SPECIALIZATION_FRAMEWORK_READY",
         "AGENTLOGISTICS_AL_25_V1_RC_AUDIT_COMPLETE",
         "Roadmap version: 0.1",
     ),
@@ -185,7 +188,35 @@ REQUIRED_TOKENS = {
     "skillsets/README.md": (
         "AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY",
     ),
+    "docs/architecture/specialization-roadmap.md": (
+        "AGENTLOGISTICS_AL_19_SPECIALIZATION_FRAMEWORK_READY",
+    ),
+    "docs/development/handoffs/AL-19-final-handoff.md": (
+        "AGENTLOGISTICS_AL_19_SPECIALIZATION_FRAMEWORK_READY",
+    ),
 }
+
+SPECIALIZATION_CANDIDATES = (
+    "cold-chain",
+    "food-logistics",
+    "dangerous-goods",
+    "ecommerce",
+    "manufacturing",
+    "retail-distribution",
+    "automotive",
+    "pharmaceuticals",
+    "international-logistics",
+)
+
+SPECIALIZATION_FIELDS = (
+    "domain need",
+    "unique knowledge",
+    "unique regulations",
+    "unique workflows",
+    "shared core skills",
+    "new atomic skills required",
+    "priority",
+)
 
 IGNORED_DIRS = {".git", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
 
@@ -199,6 +230,32 @@ def find_empty_dirs(repo_root: Path) -> list[Path]:
         if not any(path.iterdir()):
             empty_dirs.append(path)
     return empty_dirs
+
+
+def validate_specialization_roadmap(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    relative = "docs/architecture/specialization-roadmap.md"
+    path = repo_root / relative
+    if not path.is_file():
+        return errors
+
+    text = path.read_text(encoding="utf-8")
+    lower_text = text.lower()
+    for candidate in SPECIALIZATION_CANDIDATES:
+        if candidate not in text:
+            errors.append(f"{relative}: missing candidate {candidate}")
+    for field in SPECIALIZATION_FIELDS:
+        if field not in lower_text:
+            errors.append(f"{relative}: missing candidate field {field}")
+    for phrase in (
+        "Universal core skills must not depend on specializations.",
+        "Do not create industry specialization packages in AL-19.",
+        "qualified review",
+        "source maps",
+    ):
+        if phrase not in text:
+            errors.append(f"{relative}: missing specialization boundary phrase {phrase}")
+    return errors
 
 
 def validate(repo_root: Path) -> list[str]:
@@ -221,6 +278,7 @@ def validate(repo_root: Path) -> list[str]:
     for path in find_empty_dirs(repo_root):
         errors.append(f"Empty directory should not be committed: {path.relative_to(repo_root)}")
 
+    errors.extend(validate_specialization_roadmap(repo_root))
     return errors
 
 

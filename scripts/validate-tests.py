@@ -23,6 +23,7 @@ AL_15_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_15_REVERSE_LOGISTICS_READY"
 AL_16_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY"
 AL_17_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY"
 AL_18_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY"
+AL_19_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_19_SPECIALIZATION_FRAMEWORK_READY"
 REQUIRED_CATEGORIES = {
     "correct_invocation",
     "incorrect_invocation",
@@ -330,6 +331,33 @@ REQUIRED_PROFESSIONAL_BOUNDARIES = (
     "HR_or_labor_law_decision",
     "financial_approval",
     "live_system_change",
+)
+REQUIRED_SPECIALIZATION_CANDIDATES = {
+    "cold-chain",
+    "food-logistics",
+    "dangerous-goods",
+    "ecommerce",
+    "manufacturing",
+    "retail-distribution",
+    "automotive",
+    "pharmaceuticals",
+    "international-logistics",
+}
+REQUIRED_SPECIALIZATION_FIELDS = (
+    "domain need",
+    "unique knowledge",
+    "unique regulations",
+    "unique workflows",
+    "shared core skills",
+    "new atomic skills required",
+    "priority",
+)
+REQUIRED_SPECIALIZATION_BLOCKED_ACTIONS = (
+    "build_all_specialization_packages",
+    "add_unsourced_regulatory_claims",
+    "create_core_dependency_on_specialization",
+    "treat_candidate_skill_names_as_ready_packages",
+    "make_hard_cross_project_dependency",
 )
 
 
@@ -724,6 +752,57 @@ def validate_professional_composition_fixture(repo_root: Path, known_skills: set
     return errors
 
 
+def validate_specialization_framework_fixture(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "specialization-framework-roadmap.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing fixture file: tests/fixtures/specialization-framework-roadmap.json"]
+
+    try:
+        fixture = read_fixture(fixture_path)
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if fixture.get("completion_token") != AL_19_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-19 completion token")
+
+    required_artifact = fixture.get("required_artifact")
+    if required_artifact != "docs/architecture/specialization-roadmap.md":
+        errors.append(f"{relative}: missing specialization roadmap artifact reference")
+    elif not (repo_root / required_artifact).is_file():
+        errors.append(f"{relative}: required artifact {required_artifact} does not exist")
+
+    scenario_file = fixture.get("scenario_file")
+    if scenario_file != "tests/scenarios/specialization-framework-roadmap.md":
+        errors.append(f"{relative}: missing specialization framework scenario reference")
+    elif not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    candidates = set(fixture.get("required_candidates", []))
+    for candidate in sorted(REQUIRED_SPECIALIZATION_CANDIDATES - candidates):
+        errors.append(f"{relative}: required_candidates missing {candidate}")
+
+    fields = set(fixture.get("required_candidate_fields", []))
+    for field in REQUIRED_SPECIALIZATION_FIELDS:
+        if field not in fields:
+            errors.append(f"{relative}: required_candidate_fields missing {field}")
+
+    priority_map = fixture.get("required_priorities", {})
+    if set(priority_map.get("P0", [])) != {"cold-chain", "food-logistics"}:
+        errors.append(f"{relative}: P0 priorities must be cold-chain and food-logistics")
+    for candidate in REQUIRED_SPECIALIZATION_CANDIDATES:
+        if not any(candidate in priority_map.get(priority, []) for priority in ("P0", "P1", "P2")):
+            errors.append(f"{relative}: priority map missing {candidate}")
+
+    blocked_actions = set(fixture.get("blocked_actions", []))
+    for action in REQUIRED_SPECIALIZATION_BLOCKED_ACTIONS:
+        if action not in blocked_actions:
+            errors.append(f"{relative}: blocked_actions missing {action}")
+
+    return errors
+
+
 def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     fixture_path = repo_root / "tests" / "fixtures" / "calculate-reorder-point-cases.json"
@@ -784,6 +863,7 @@ def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     errors.extend(validate_canada_compliance_fixture(repo_root, known_skills))
     errors.extend(validate_us_compliance_fixture(repo_root, known_skills))
     errors.extend(validate_professional_composition_fixture(repo_root, known_skills))
+    errors.extend(validate_specialization_framework_fixture(repo_root))
     return errors
 
 
@@ -845,6 +925,10 @@ def validate_evaluation_reports(repo_root: Path) -> list[str]:
         (
             repo_root / "tests" / "evaluations" / "professional-skillsets-al-18-report.md",
             AL_18_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "specialization-framework-al-19-report.md",
+            AL_19_COMPLETION_TOKEN,
         ),
     )
 

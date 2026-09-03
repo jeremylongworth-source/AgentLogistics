@@ -73,6 +73,10 @@ The AL-18 professional composition index is:
 
 - `skillsets/README.md`
 
+The AL-19 specialization framework target is:
+
+- `docs/architecture/specialization-roadmap.md`
+
 The reverse-logistics skill family target is:
 
 - `skills/reverse-logistics/`
@@ -110,6 +114,7 @@ Coverage includes:
 - the AL-18 professional skillset composition scenario and fixture.
 - AL-18 role fixtures for receiving specialist, logistics coordinator,
   distribution manager, and logistics operations manager.
+- the AL-19 specialization framework scenario and fixture.
 
 Run:
 

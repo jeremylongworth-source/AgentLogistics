@@ -304,3 +304,7 @@ scenarios:
       - logistics-systems-analyst
       - continuous-improvement-specialist
       - logistics-operations-manager
+  specialization-framework-roadmap:
+    prompt_file: tests/scenarios/specialization-framework-roadmap.md
+    category: specialization_framework
+    expected_routes: []
