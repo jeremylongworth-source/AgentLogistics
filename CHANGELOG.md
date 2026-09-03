@@ -43,3 +43,9 @@ does not have public releases yet.
   report, and AL-07 handoff.
 - Extended validation for separate warehouse-operator and
   inventory-control-specialist skillset gates.
+- Completed Wave AL-08 storage, slotting, and facility planning.
+- Added 20 storage, slotting, pick-path, and warehouse-planning skill packages
+  and composed them into `skillsets/warehouse-planner/`.
+- Added the warehouse-planner layout concept scenario, fixture, evaluation
+  report, and AL-08 handoff.
+- Extended validation for the warehouse-planner skillset gate.

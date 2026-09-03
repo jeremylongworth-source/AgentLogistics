@@ -30,6 +30,10 @@ The inventory-control skillset target is:
 
 - `skillsets/inventory-control-specialist/`
 
+The warehouse-planning skillset target is:
+
+- `skillsets/warehouse-planner/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -39,6 +43,7 @@ Coverage includes:
 - a reference evaluation report;
 - the AL-06 warehouse-operator receive-to-ship scenario and flow fixture.
 - the AL-07 inventory discrepancy investigation scenario and fixture.
+- the AL-08 warehouse-planner layout concept scenario and fixture.
 
 Run:
 

@@ -24,8 +24,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY`
 - `AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY`
 - `AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY`
+- `AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY`
 
-The next planned wave is AL-08: Storage, Slotting and Facility Planning.
+The next planned wave is AL-09: Replenishment and Fulfillment Optimization.
 
 ## Scope
 
@@ -107,10 +108,15 @@ Inventory skillset:
 
 - `skillsets/inventory-control-specialist/`
 
+Warehouse planning skillset:
+
+- `skillsets/warehouse-planner/`
+
 Current test target:
 
 - `tests/fixtures/calculate-reorder-point-cases.json`
 - `tests/fixtures/inventory-discrepancy-investigation.json`
+- `tests/fixtures/warehouse-planner-layout-concept.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

@@ -12,6 +12,7 @@ from typing import Any
 COMPLETION_TOKEN = "AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY"
 AL_06_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY"
 AL_07_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY"
+AL_08_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY"
 REQUIRED_CATEGORIES = {
     "correct_invocation",
     "incorrect_invocation",
@@ -333,6 +334,10 @@ def validate_evaluation_reports(repo_root: Path) -> list[str]:
         (
             repo_root / "tests" / "evaluations" / "inventory-control-specialist-al-07-report.md",
             AL_07_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "warehouse-planner-al-08-report.md",
+            AL_08_COMPLETION_TOKEN,
         ),
     )
 

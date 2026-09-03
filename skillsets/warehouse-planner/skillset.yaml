@@ -1,0 +1,35 @@
+name: warehouse-planner
+description: Storage, slotting, and facility planning skillset for storage-system selection, capacity, cube, density, forward and reserve allocation, slotting, affinity, travel, congestion, zoning, and conceptual layout work.
+completion_token: AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY
+skills:
+  - analyze-product-flow
+  - analyze-order-profile
+  - classify-inventory
+  - calculate-inventory-turns
+  - classify-storage-requirements
+  - select-storage-system
+  - calculate-storage-capacity
+  - calculate-pallet-positions
+  - calculate-cube-utilization
+  - analyze-storage-utilization
+  - plan-reserve-storage
+  - plan-forward-pick-storage
+  - slot-warehouse-inventory
+  - analyze-slotting-efficiency
+  - optimize-storage-density
+  - evaluate-racking-strategy
+  - analyze-product-affinity
+  - optimize-pick-path
+  - calculate-warehouse-capacity
+  - forecast-capacity-requirements
+  - analyze-space-utilization
+  - plan-warehouse-zones
+  - plan-dock-capacity
+  - analyze-warehouse-flow
+  - identify-warehouse-congestion
+  - design-conceptual-warehouse-layout
+  - compare-warehouse-layouts
+  - plan-warehouse-expansion
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/warehouse-planner-layout-concept.md
+fixture_file: tests/fixtures/warehouse-planner-layout-concept.json

@@ -10,6 +10,7 @@ from typing import Any
 
 WAREHOUSE_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY"
 INVENTORY_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY"
+WAREHOUSE_PLANNER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY"
 REQUIRED_WAREHOUSE_SKILLS = {
     "analyze-logistics-operation",
     "map-logistics-flow",
@@ -56,6 +57,36 @@ REQUIRED_INVENTORY_SKILLS = {
     "select-inventory-rotation-policy",
     "analyze-inventory-shrinkage",
 }
+REQUIRED_WAREHOUSE_PLANNER_SKILLS = {
+    "analyze-product-flow",
+    "analyze-order-profile",
+    "classify-inventory",
+    "calculate-inventory-turns",
+    "classify-storage-requirements",
+    "select-storage-system",
+    "calculate-storage-capacity",
+    "calculate-pallet-positions",
+    "calculate-cube-utilization",
+    "analyze-storage-utilization",
+    "plan-reserve-storage",
+    "plan-forward-pick-storage",
+    "slot-warehouse-inventory",
+    "analyze-slotting-efficiency",
+    "optimize-storage-density",
+    "evaluate-racking-strategy",
+    "analyze-product-affinity",
+    "optimize-pick-path",
+    "calculate-warehouse-capacity",
+    "forecast-capacity-requirements",
+    "analyze-space-utilization",
+    "plan-warehouse-zones",
+    "plan-dock-capacity",
+    "analyze-warehouse-flow",
+    "identify-warehouse-congestion",
+    "design-conceptual-warehouse-layout",
+    "compare-warehouse-layouts",
+    "plan-warehouse-expansion",
+}
 REQUIRED_FLOW_STEPS = [
     "receive",
     "inspect",
@@ -81,6 +112,37 @@ REQUIRED_DISCREPANCY_INVARIANTS = (
     "no guessed root cause",
     "review or adjustment approval boundary",
 )
+REQUIRED_WAREHOUSE_PLANNER_COMPONENTS = (
+    "storage_system_selection",
+    "pallet_positions",
+    "cube_utilization",
+    "storage_density",
+    "forward_reserve_allocation",
+    "slotting",
+    "sku_velocity",
+    "product_affinity",
+    "travel_distance",
+    "warehouse_capacity",
+    "dock_capacity",
+    "congestion",
+    "zoning",
+    "conceptual_layout",
+    "layout_comparison",
+    "expansion_triggers",
+)
+REQUIRED_WAREHOUSE_PLANNER_INVARIANTS = (
+    "unit-aware capacity calculations",
+    "blocked-position source conflict",
+    "forward versus reserve allocation",
+    "slotting rationale",
+    "product-affinity checks",
+    "travel-distance considerations",
+    "dock-capacity check",
+    "congestion risks",
+    "zoning concept",
+    "conceptual layout not structural approval",
+    "qualified-review boundary",
+)
 REQUIRED_README_HEADINGS = (
     "## Purpose",
     "## Included Skills",
@@ -103,6 +165,12 @@ SKILLSET_REQUIREMENTS = {
         "skills": REQUIRED_INVENTORY_SKILLS,
         "prompt_token": "$inventory-control-specialist",
         "fixture_validator": "inventory_discrepancy",
+    },
+    "warehouse-planner": {
+        "completion_token": WAREHOUSE_PLANNER_COMPLETION_TOKEN,
+        "skills": REQUIRED_WAREHOUSE_PLANNER_SKILLS,
+        "prompt_token": "$warehouse-planner",
+        "fixture_validator": "warehouse_planner",
     },
 }
 
@@ -294,6 +362,51 @@ def validate_inventory_discrepancy_fixture(
     return errors
 
 
+def validate_warehouse_planner_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    relative = path.relative_to(repo_root)
+    if not path.is_file():
+        return [f"Missing warehouse planner fixture: {relative}"]
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("skillset") != "warehouse-planner":
+        errors.append(f"{relative}: skillset must be warehouse-planner")
+    if data.get("completion_token") != WAREHOUSE_PLANNER_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-08 completion token")
+
+    components = set(data.get("required_planning_components", []))
+    for component in REQUIRED_WAREHOUSE_PLANNER_COMPONENTS:
+        if component not in components:
+            errors.append(f"{relative}: missing planning component {component}")
+
+    source_conflicts = data.get("expected_source_conflicts", [])
+    if not isinstance(source_conflicts, list) or not source_conflicts:
+        errors.append(f"{relative}: expected_source_conflicts must contain at least one conflict")
+
+    for skill in data.get("expected_skills", []):
+        if skill not in manifest_skills:
+            errors.append(f"{relative}: expected skill {skill} is not in skillset manifest")
+
+    invariants = set(data.get("required_output_invariants", []))
+    for required in REQUIRED_WAREHOUSE_PLANNER_INVARIANTS:
+        if required not in invariants:
+            errors.append(f"{relative}: missing output invariant {required}")
+
+    scenario_file = data.get("scenario_file")
+    if not scenario_file or not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario_file is missing or invalid")
+
+    return errors
+
+
 def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     manifest_path = skillset_dir / "skillset.yaml"
@@ -360,6 +473,14 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
                     repo_root,
                     set(skills),
                     known_skills,
+                )
+            )
+        elif requirements and requirements["fixture_validator"] == "warehouse_planner":
+            errors.extend(
+                validate_warehouse_planner_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
                 )
             )
         else:

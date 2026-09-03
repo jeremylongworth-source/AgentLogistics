@@ -1,0 +1,4 @@
+interface:
+  display_name: "Warehouse Planner"
+  short_description: "Plan storage, slotting, capacity, and layout."
+  default_prompt: "Use $warehouse-planner to produce a storage, slotting, capacity, flow, zoning, or conceptual-layout planning output with review boundaries."
