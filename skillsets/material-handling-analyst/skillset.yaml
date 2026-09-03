@@ -1,0 +1,19 @@
+name: material-handling-analyst
+description: Material handling systems skillset for handling requirements, equipment selection, equipment sizing, utilization, material flow, conveyor, AGV/AMR, and AS/RS application analysis.
+completion_token: AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_READY
+skills:
+  - analyze-product-flow
+  - identify-logistics-constraints
+  - select-storage-system
+  - plan-warehouse-zones
+  - classify-material-handling-requirements
+  - select-material-handling-equipment
+  - calculate-equipment-requirements
+  - analyze-equipment-utilization
+  - plan-material-flow
+  - evaluate-conveyor-application
+  - evaluate-agv-amr-application
+  - evaluate-asrs-application
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/material-handling-selection-analysis.md
+fixture_file: tests/fixtures/material-handling-selection-analysis.json

@@ -12,6 +12,7 @@ WAREHOUSE_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY"
 INVENTORY_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY"
 WAREHOUSE_PLANNER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY"
 FULFILLMENT_OPTIMIZER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY"
+MATERIAL_HANDLING_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_READY"
 REQUIRED_WAREHOUSE_SKILLS = {
     "analyze-logistics-operation",
     "map-logistics-flow",
@@ -110,6 +111,20 @@ REQUIRED_FULFILLMENT_OPTIMIZER_SKILLS = {
     "verify-outbound-shipment",
     "investigate-shipping-error",
 }
+REQUIRED_MATERIAL_HANDLING_ANALYST_SKILLS = {
+    "analyze-product-flow",
+    "identify-logistics-constraints",
+    "select-storage-system",
+    "plan-warehouse-zones",
+    "classify-material-handling-requirements",
+    "select-material-handling-equipment",
+    "calculate-equipment-requirements",
+    "analyze-equipment-utilization",
+    "plan-material-flow",
+    "evaluate-conveyor-application",
+    "evaluate-agv-amr-application",
+    "evaluate-asrs-application",
+}
 REQUIRED_FLOW_STEPS = [
     "receive",
     "inspect",
@@ -198,6 +213,54 @@ REQUIRED_FULFILLMENT_CONSTRAINTS = (
     "staging_lane_conflict",
     "limited_loader_after_1400",
 )
+REQUIRED_MATERIAL_HANDLING_CONSIDERATIONS = (
+    "load",
+    "dimensions",
+    "volume",
+    "travel_distance",
+    "throughput",
+    "storage_height",
+    "aisle_requirements",
+    "operating_environment",
+    "automation_level",
+    "safety",
+    "capital_intensity",
+)
+REQUIRED_MATERIAL_HANDLING_INVARIANTS = (
+    "requirement classification",
+    "equipment class comparison",
+    "equipment requirement estimate",
+    "equipment utilization analysis",
+    "material-flow plan",
+    "conveyor applicability review",
+    "AGV/AMR applicability review",
+    "AS/RS applicability review",
+    "selection analysis not equipment certification",
+    "qualified-review boundary",
+)
+REQUIRED_MATERIAL_HANDLING_CONSTRAINTS = (
+    "load_weight",
+    "pallet_dimensions",
+    "daily_volume",
+    "travel_distance",
+    "peak_throughput",
+    "storage_height",
+    "aisle_width",
+    "operating_environment",
+    "automation_readiness",
+    "safety_near_miss",
+    "capital_intensity",
+)
+REQUIRED_MATERIAL_HANDLING_BLOCKED_APPROVALS = (
+    "equipment_certification",
+    "operator_certification",
+    "load_rating_certification",
+    "traffic_safety_approval",
+    "guarding_approval",
+    "building_fire_electrical_structural_approval",
+    "procurement_approval",
+    "live_system_configuration",
+)
 REQUIRED_README_HEADINGS = (
     "## Purpose",
     "## Included Skills",
@@ -232,6 +295,12 @@ SKILLSET_REQUIREMENTS = {
         "skills": REQUIRED_FULFILLMENT_OPTIMIZER_SKILLS,
         "prompt_token": "$fulfillment-optimizer",
         "fixture_validator": "fulfillment_optimizer",
+    },
+    "material-handling-analyst": {
+        "completion_token": MATERIAL_HANDLING_COMPLETION_TOKEN,
+        "skills": REQUIRED_MATERIAL_HANDLING_ANALYST_SKILLS,
+        "prompt_token": "$material-handling-analyst",
+        "fixture_validator": "material_handling",
     },
 }
 
@@ -519,6 +588,62 @@ def validate_fulfillment_optimizer_fixture(
     return errors
 
 
+def validate_material_handling_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    relative = path.relative_to(repo_root)
+    if not path.is_file():
+        return [f"Missing material handling fixture: {relative}"]
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("skillset") != "material-handling-analyst":
+        errors.append(f"{relative}: skillset must be material-handling-analyst")
+    if data.get("completion_token") != MATERIAL_HANDLING_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-10 completion token")
+
+    considerations = set(data.get("required_considerations", []))
+    for consideration in REQUIRED_MATERIAL_HANDLING_CONSIDERATIONS:
+        if consideration not in considerations:
+            errors.append(f"{relative}: missing required consideration {consideration}")
+
+    for skill in data.get("expected_skills", []):
+        if skill not in manifest_skills:
+            errors.append(f"{relative}: expected skill {skill} is not in skillset manifest")
+    missing_expected_skills = sorted(
+        REQUIRED_MATERIAL_HANDLING_ANALYST_SKILLS - set(data.get("expected_skills", []))
+    )
+    for skill in missing_expected_skills:
+        errors.append(f"{relative}: missing expected skill {skill}")
+
+    invariants = set(data.get("required_output_invariants", []))
+    for required in REQUIRED_MATERIAL_HANDLING_INVARIANTS:
+        if required not in invariants:
+            errors.append(f"{relative}: missing output invariant {required}")
+
+    constraints = set(data.get("required_constraints", []))
+    for required in REQUIRED_MATERIAL_HANDLING_CONSTRAINTS:
+        if required not in constraints:
+            errors.append(f"{relative}: missing constraint {required}")
+
+    blocked_approvals = set(data.get("blocked_approvals", []))
+    for required in REQUIRED_MATERIAL_HANDLING_BLOCKED_APPROVALS:
+        if required not in blocked_approvals:
+            errors.append(f"{relative}: missing blocked approval {required}")
+
+    scenario_file = data.get("scenario_file")
+    if not scenario_file or not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario_file is missing or invalid")
+
+    return errors
+
+
 def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     manifest_path = skillset_dir / "skillset.yaml"
@@ -598,6 +723,14 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
         elif requirements and requirements["fixture_validator"] == "fulfillment_optimizer":
             errors.extend(
                 validate_fulfillment_optimizer_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
+                )
+            )
+        elif requirements and requirements["fixture_validator"] == "material_handling":
+            errors.extend(
+                validate_material_handling_fixture(
                     fixture_path,
                     repo_root,
                     set(skills),

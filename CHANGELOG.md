@@ -56,3 +56,9 @@ does not have public releases yet.
 - Added the fulfillment-optimizer order-profile scenario, fixture, evaluation
   report, and AL-09 handoff.
 - Extended validation for the fulfillment-optimizer skillset gate.
+- Completed Wave AL-10 material handling systems.
+- Added 8 material-handling skill packages and composed them with existing
+  warehouse context skills into `skillsets/material-handling-analyst/`.
+- Added the material-handling selection-analysis scenario, fixture, evaluation
+  report, and AL-10 handoff.
+- Extended validation for the material-handling-analyst skillset gate.

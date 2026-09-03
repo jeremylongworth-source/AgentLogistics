@@ -1,0 +1,67 @@
+{
+  "skillset": "material-handling-analyst",
+  "completion_token": "AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_READY",
+  "scenario_file": "tests/scenarios/material-handling-selection-analysis.md",
+  "required_considerations": [
+    "load",
+    "dimensions",
+    "volume",
+    "travel_distance",
+    "throughput",
+    "storage_height",
+    "aisle_requirements",
+    "operating_environment",
+    "automation_level",
+    "safety",
+    "capital_intensity"
+  ],
+  "expected_skills": [
+    "analyze-product-flow",
+    "identify-logistics-constraints",
+    "select-storage-system",
+    "plan-warehouse-zones",
+    "classify-material-handling-requirements",
+    "select-material-handling-equipment",
+    "calculate-equipment-requirements",
+    "analyze-equipment-utilization",
+    "plan-material-flow",
+    "evaluate-conveyor-application",
+    "evaluate-agv-amr-application",
+    "evaluate-asrs-application"
+  ],
+  "required_output_invariants": [
+    "requirement classification",
+    "equipment class comparison",
+    "equipment requirement estimate",
+    "equipment utilization analysis",
+    "material-flow plan",
+    "conveyor applicability review",
+    "AGV/AMR applicability review",
+    "AS/RS applicability review",
+    "selection analysis not equipment certification",
+    "qualified-review boundary"
+  ],
+  "required_constraints": [
+    "load_weight",
+    "pallet_dimensions",
+    "daily_volume",
+    "travel_distance",
+    "peak_throughput",
+    "storage_height",
+    "aisle_width",
+    "operating_environment",
+    "automation_readiness",
+    "safety_near_miss",
+    "capital_intensity"
+  ],
+  "blocked_approvals": [
+    "equipment_certification",
+    "operator_certification",
+    "load_rating_certification",
+    "traffic_safety_approval",
+    "guarding_approval",
+    "building_fire_electrical_structural_approval",
+    "procurement_approval",
+    "live_system_configuration"
+  ]
+}

@@ -148,3 +148,19 @@ scenarios:
       - plan-trailer-loading
       - verify-outbound-shipment
       - investigate-shipping-error
+  material-handling-selection-analysis:
+    prompt_file: tests/scenarios/material-handling-selection-analysis.md
+    category: material_handling_selection_analysis
+    expected_routes:
+      - analyze-product-flow
+      - identify-logistics-constraints
+      - select-storage-system
+      - plan-warehouse-zones
+      - classify-material-handling-requirements
+      - select-material-handling-equipment
+      - calculate-equipment-requirements
+      - analyze-equipment-utilization
+      - plan-material-flow
+      - evaluate-conveyor-application
+      - evaluate-agv-amr-application
+      - evaluate-asrs-application

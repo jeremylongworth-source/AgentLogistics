@@ -38,6 +38,10 @@ The fulfillment-optimization skillset target is:
 
 - `skillsets/fulfillment-optimizer/`
 
+The material-handling skillset target is:
+
+- `skillsets/material-handling-analyst/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -49,6 +53,7 @@ Coverage includes:
 - the AL-07 inventory discrepancy investigation scenario and fixture.
 - the AL-08 warehouse-planner layout concept scenario and fixture.
 - the AL-09 fulfillment-optimizer order-profile scenario and fixture.
+- the AL-10 material-handling selection-analysis scenario and fixture.
 
 Run:
 

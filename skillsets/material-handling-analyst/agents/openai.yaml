@@ -1,0 +1,4 @@
+interface:
+  display_name: "Material Handling Analyst"
+  short_description: "Analyze material handling systems and equipment fit."
+  default_prompt: "Use $material-handling-analyst to produce a material-handling selection analysis with calculations, tradeoffs, and certification boundaries."
