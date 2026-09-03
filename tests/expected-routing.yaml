@@ -79,3 +79,16 @@ scenarios:
       - plan-packing-operation
       - plan-shipping-stage
       - verify-outbound-shipment
+  inventory-discrepancy-investigation:
+    prompt_file: tests/scenarios/inventory-discrepancy-investigation.md
+    category: inventory_discrepancy_investigation
+    expected_routes:
+      - classify-inventory
+      - calculate-inventory-accuracy
+      - reconcile-inventory
+      - investigate-inventory-discrepancy
+      - verify-inbound-shipment
+      - process-receiving-discrepancy
+      - analyze-stockout
+      - manage-lot-controlled-inventory
+      - analyze-inventory-shrinkage

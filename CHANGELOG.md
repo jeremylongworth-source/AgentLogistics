@@ -36,3 +36,10 @@ does not have public releases yet.
   `skillsets/warehouse-operator/`.
 - Added warehouse-operator scenario, flow fixture, evaluation report, and
   skillset validation.
+- Completed Wave AL-07 inventory control system.
+- Added 19 inventory-control skill packages and composed them with
+  `calculate-reorder-point` into `skillsets/inventory-control-specialist/`.
+- Added the inventory discrepancy investigation scenario, fixture, evaluation
+  report, and AL-07 handoff.
+- Extended validation for separate warehouse-operator and
+  inventory-control-specialist skillset gates.

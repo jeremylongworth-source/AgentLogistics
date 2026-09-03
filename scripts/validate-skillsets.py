@@ -8,7 +8,8 @@ from pathlib import Path
 from typing import Any
 
 
-COMPLETION_TOKEN = "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY"
+WAREHOUSE_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY"
+INVENTORY_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY"
 REQUIRED_WAREHOUSE_SKILLS = {
     "analyze-logistics-operation",
     "map-logistics-flow",
@@ -33,6 +34,28 @@ REQUIRED_WAREHOUSE_SKILLS = {
     "plan-shipping-stage",
     "verify-outbound-shipment",
 }
+REQUIRED_INVENTORY_SKILLS = {
+    "classify-inventory",
+    "calculate-inventory-accuracy",
+    "calculate-inventory-turns",
+    "calculate-days-on-hand",
+    "calculate-reorder-point",
+    "calculate-safety-stock",
+    "calculate-eoq",
+    "design-min-max-policy",
+    "design-cycle-count-program",
+    "plan-physical-inventory",
+    "reconcile-inventory",
+    "investigate-inventory-discrepancy",
+    "analyze-inventory-aging",
+    "identify-dead-stock",
+    "analyze-stockout",
+    "manage-lot-controlled-inventory",
+    "manage-serialized-inventory",
+    "manage-expiration-controlled-inventory",
+    "select-inventory-rotation-policy",
+    "analyze-inventory-shrinkage",
+}
 REQUIRED_FLOW_STEPS = [
     "receive",
     "inspect",
@@ -44,6 +67,20 @@ REQUIRED_FLOW_STEPS = [
     "stage",
     "ship",
 ]
+REQUIRED_DISCREPANCY_CONFLICTS = (
+    "receiving_quantity",
+    "wms_balance",
+    "physical_count",
+    "picking_transactions",
+    "adjustment_history",
+)
+REQUIRED_DISCREPANCY_INVARIANTS = (
+    "source-by-source evidence table",
+    "chronology",
+    "quantity reconciliation",
+    "no guessed root cause",
+    "review or adjustment approval boundary",
+)
 REQUIRED_README_HEADINGS = (
     "## Purpose",
     "## Included Skills",
@@ -54,6 +91,20 @@ REQUIRED_README_HEADINGS = (
     "## Acceptance Criteria",
     "## Validation",
 )
+SKILLSET_REQUIREMENTS = {
+    "warehouse-operator": {
+        "completion_token": WAREHOUSE_COMPLETION_TOKEN,
+        "skills": REQUIRED_WAREHOUSE_SKILLS,
+        "prompt_token": "$warehouse-operator",
+        "fixture_validator": "warehouse_flow",
+    },
+    "inventory-control-specialist": {
+        "completion_token": INVENTORY_COMPLETION_TOKEN,
+        "skills": REQUIRED_INVENTORY_SKILLS,
+        "prompt_token": "$inventory-control-specialist",
+        "fixture_validator": "inventory_discrepancy",
+    },
+}
 
 
 def clean_scalar(value: str) -> str:
@@ -118,35 +169,40 @@ def duplicate_items(items: list[str]) -> list[str]:
     return duplicates
 
 
-def validate_readme(path: Path, repo_root: Path) -> list[str]:
+def validate_readme(path: Path, repo_root: Path, completion_token: str) -> list[str]:
     errors: list[str] = []
     relative = path.relative_to(repo_root)
     if not path.is_file():
         return [f"Missing skillset README: {relative}"]
 
     text = path.read_text(encoding="utf-8")
-    if COMPLETION_TOKEN not in text:
-        errors.append(f"{relative}: missing AL-06 completion token")
+    if completion_token not in text:
+        errors.append(f"{relative}: missing completion token {completion_token}")
     for heading in REQUIRED_README_HEADINGS:
         if heading not in text:
             errors.append(f"{relative}: missing heading {heading}")
     return errors
 
 
-def validate_agents_file(path: Path, repo_root: Path) -> list[str]:
+def validate_agents_file(path: Path, repo_root: Path, prompt_token: str) -> list[str]:
     errors: list[str] = []
     relative = path.relative_to(repo_root)
     if not path.is_file():
         return [f"Missing skillset agents file: {relative}"]
 
     text = path.read_text(encoding="utf-8")
-    for phrase in ("interface:", "display_name:", "short_description:", "default_prompt:", "$warehouse-operator"):
+    for phrase in ("interface:", "display_name:", "short_description:", "default_prompt:", prompt_token):
         if phrase not in text:
             errors.append(f"{relative}: missing {phrase}")
     return errors
 
 
-def validate_flow_fixture(path: Path, repo_root: Path, manifest_skills: set[str]) -> list[str]:
+def validate_flow_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+    completion_token: str,
+) -> list[str]:
     errors: list[str] = []
     relative = path.relative_to(repo_root)
     if not path.is_file():
@@ -159,7 +215,7 @@ def validate_flow_fixture(path: Path, repo_root: Path, manifest_skills: set[str]
 
     if data.get("skillset") != "warehouse-operator":
         errors.append(f"{relative}: skillset must be warehouse-operator")
-    if data.get("completion_token") != COMPLETION_TOKEN:
+    if data.get("completion_token") != completion_token:
         errors.append(f"{relative}: missing AL-06 completion token")
 
     flow = data.get("required_flow", [])
@@ -188,6 +244,56 @@ def validate_flow_fixture(path: Path, repo_root: Path, manifest_skills: set[str]
     return errors
 
 
+def validate_inventory_discrepancy_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+    known_skills: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    relative = path.relative_to(repo_root)
+    if not path.is_file():
+        return [f"Missing inventory discrepancy fixture: {relative}"]
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("skillset") != "inventory-control-specialist":
+        errors.append(f"{relative}: skillset must be inventory-control-specialist")
+    if data.get("completion_token") != INVENTORY_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-07 completion token")
+
+    conflicts = set(data.get("required_conflicts", []))
+    for conflict in REQUIRED_DISCREPANCY_CONFLICTS:
+        if conflict not in conflicts:
+            errors.append(f"{relative}: missing required conflict {conflict}")
+
+    evidence_sources = data.get("expected_evidence_sources", [])
+    if not isinstance(evidence_sources, list) or len(evidence_sources) < 5:
+        errors.append(f"{relative}: expected_evidence_sources must contain source records")
+
+    for skill in data.get("expected_skills", []):
+        if skill not in manifest_skills:
+            errors.append(f"{relative}: expected skill {skill} is not in skillset manifest")
+
+    for skill in data.get("supporting_skills", []):
+        if skill not in known_skills:
+            errors.append(f"{relative}: supporting skill {skill} has no skill package")
+
+    invariants = set(data.get("required_output_invariants", []))
+    for required in REQUIRED_DISCREPANCY_INVARIANTS:
+        if required not in invariants:
+            errors.append(f"{relative}: missing output invariant {required}")
+
+    scenario_file = data.get("scenario_file")
+    if not scenario_file or not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario_file is missing or invalid")
+
+    return errors
+
+
 def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     manifest_path = skillset_dir / "skillset.yaml"
@@ -196,13 +302,16 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
         return [f"Missing skillset manifest: {manifest_relative}"]
 
     manifest = parse_manifest(manifest_path)
-    name = manifest["name"]
+    name = str(manifest["name"] or "")
     skills: list[str] = manifest["skills"]
+    requirements = SKILLSET_REQUIREMENTS.get(name)
 
     if name != skillset_dir.name:
         errors.append(f"{manifest_relative}: name must match directory {skillset_dir.name}")
-    if manifest["completion_token"] != COMPLETION_TOKEN:
-        errors.append(f"{manifest_relative}: missing AL-06 completion token")
+    if requirements is None:
+        errors.append(f"{manifest_relative}: no validator requirements for skillset {name}")
+    elif manifest["completion_token"] != requirements["completion_token"]:
+        errors.append(f"{manifest_relative}: missing completion token {requirements['completion_token']}")
     if not manifest["description"] or len(str(manifest["description"])) < 60:
         errors.append(f"{manifest_relative}: description is missing or too weak")
 
@@ -212,17 +321,19 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
         if skill not in known_skills:
             errors.append(f"{manifest_relative}: unknown skill {skill}")
 
-    if name == "warehouse-operator":
-        missing = sorted(REQUIRED_WAREHOUSE_SKILLS - set(skills))
-        extra = sorted(set(skills) - REQUIRED_WAREHOUSE_SKILLS)
+    if requirements is not None:
+        expected_skills = requirements["skills"]
+        missing = sorted(expected_skills - set(skills))
+        extra = sorted(set(skills) - expected_skills)
         for skill in missing:
-            errors.append(f"{manifest_relative}: missing required warehouse skill {skill}")
+            errors.append(f"{manifest_relative}: missing required skill {skill}")
         for skill in extra:
-            errors.append(f"{manifest_relative}: unexpected warehouse skill {skill}")
+            errors.append(f"{manifest_relative}: unexpected skill {skill}")
 
     agents_file = manifest.get("agents_file")
     if agents_file:
-        errors.extend(validate_agents_file(skillset_dir / str(agents_file), repo_root))
+        prompt_token = str(requirements["prompt_token"]) if requirements else f"${name}"
+        errors.extend(validate_agents_file(skillset_dir / str(agents_file), repo_root, prompt_token))
     else:
         errors.append(f"{manifest_relative}: missing agents_file")
 
@@ -232,11 +343,32 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
 
     fixture_file = manifest.get("fixture_file")
     if fixture_file:
-        errors.extend(validate_flow_fixture(repo_root / str(fixture_file), repo_root, set(skills)))
+        fixture_path = repo_root / str(fixture_file)
+        if requirements and requirements["fixture_validator"] == "warehouse_flow":
+            errors.extend(
+                validate_flow_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
+                    str(requirements["completion_token"]),
+                )
+            )
+        elif requirements and requirements["fixture_validator"] == "inventory_discrepancy":
+            errors.extend(
+                validate_inventory_discrepancy_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
+                    known_skills,
+                )
+            )
+        else:
+            errors.append(f"{manifest_relative}: fixture validator is not configured")
     else:
         errors.append(f"{manifest_relative}: missing fixture_file")
 
-    errors.extend(validate_readme(skillset_dir / "README.md", repo_root))
+    readme_token = str(requirements["completion_token"]) if requirements else str(manifest["completion_token"] or "")
+    errors.extend(validate_readme(skillset_dir / "README.md", repo_root, readme_token))
     return errors
 
 

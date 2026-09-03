@@ -1,0 +1,50 @@
+{
+  "skillset": "inventory-control-specialist",
+  "completion_token": "AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY",
+  "scenario_file": "tests/scenarios/inventory-discrepancy-investigation.md",
+  "required_conflicts": [
+    "receiving_quantity",
+    "wms_balance",
+    "physical_count",
+    "picking_transactions",
+    "adjustment_history"
+  ],
+  "expected_evidence_sources": [
+    "purchase_order",
+    "asn",
+    "bol",
+    "receiving_worksheet",
+    "receiving_clerk_note",
+    "wms_balance_snapshot",
+    "item_ledger_export",
+    "physical_cycle_count",
+    "recount",
+    "count_sheet_note",
+    "picking_log",
+    "picker_note",
+    "adjustment_history"
+  ],
+  "expected_skills": [
+    "classify-inventory",
+    "calculate-inventory-accuracy",
+    "reconcile-inventory",
+    "investigate-inventory-discrepancy",
+    "analyze-stockout",
+    "manage-lot-controlled-inventory",
+    "analyze-inventory-shrinkage"
+  ],
+  "supporting_skills": [
+    "verify-inbound-shipment",
+    "process-receiving-discrepancy"
+  ],
+  "required_output_invariants": [
+    "source-by-source evidence table",
+    "chronology",
+    "quantity reconciliation",
+    "conflict list",
+    "candidate causes ranked by evidence",
+    "missing evidence",
+    "no guessed root cause",
+    "review or adjustment approval boundary"
+  ]
+}

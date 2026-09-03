@@ -1,0 +1,4 @@
+interface:
+  display_name: "Inventory Control Specialist"
+  short_description: "Route inventory control calculations and evidence work."
+  default_prompt: "Use $inventory-control-specialist to classify inventory, calculate supported metrics, trace discrepancies, and return review-ready inventory-control outputs."

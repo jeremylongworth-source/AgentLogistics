@@ -36,6 +36,7 @@ REQUIRED_FILES = (
     "shared/templates/calculation-output.md",
     "docs/development/handoffs/AL-05-final-handoff.md",
     "docs/development/handoffs/AL-06-final-handoff.md",
+    "docs/development/handoffs/AL-07-final-handoff.md",
 )
 
 REQUIRED_TOKENS = {
@@ -115,6 +116,9 @@ REQUIRED_TOKENS = {
     ),
     "docs/development/handoffs/AL-06-final-handoff.md": (
         "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY",
+    ),
+    "docs/development/handoffs/AL-07-final-handoff.md": (
+        "AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY",
     ),
 }
 

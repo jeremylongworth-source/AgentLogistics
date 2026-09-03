@@ -26,6 +26,10 @@ The first end-to-end skillset target is:
 
 - `skillsets/warehouse-operator/`
 
+The inventory-control skillset target is:
+
+- `skillsets/inventory-control-specialist/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -34,6 +38,7 @@ Coverage includes:
   unsupported-assumption checks;
 - a reference evaluation report;
 - the AL-06 warehouse-operator receive-to-ship scenario and flow fixture.
+- the AL-07 inventory discrepancy investigation scenario and fixture.
 
 Run:
 
