@@ -272,6 +272,10 @@ def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     if fixture.get("completion_token") != COMPLETION_TOKEN:
         errors.append(f"{fixture_path.relative_to(repo_root)}: missing AL-04 completion token")
 
+    schema_path = fixture.get("schema")
+    if schema_path != "shared/schemas/reorder-point-calculation.schema.json":
+        errors.append(f"{fixture_path.relative_to(repo_root)}: missing shared schema reference")
+
     skill = fixture.get("skill")
     if skill not in known_skills:
         errors.append(f"{fixture_path.relative_to(repo_root)}: skill {skill} has no package")

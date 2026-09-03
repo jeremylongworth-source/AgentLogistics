@@ -29,6 +29,12 @@ REQUIRED_FILES = (
     "docs/standards/evaluation-standard.md",
     "docs/evaluation/before-after-report-template.md",
     "docs/development/handoffs/AL-04-final-handoff.md",
+    "shared/README.md",
+    "shared/glossaries/common-units.md",
+    "shared/glossaries/inventory-state-terms.md",
+    "shared/formulas/reorder-point.md",
+    "shared/templates/calculation-output.md",
+    "docs/development/handoffs/AL-05-final-handoff.md",
 )
 
 REQUIRED_TOKENS = {
@@ -87,6 +93,24 @@ REQUIRED_TOKENS = {
     ),
     "docs/development/handoffs/AL-04-final-handoff.md": (
         "AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY",
+    ),
+    "shared/README.md": (
+        "AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY",
+    ),
+    "shared/glossaries/common-units.md": (
+        "AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY",
+    ),
+    "shared/glossaries/inventory-state-terms.md": (
+        "AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY",
+    ),
+    "shared/formulas/reorder-point.md": (
+        "AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY",
+    ),
+    "shared/templates/calculation-output.md": (
+        "AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY",
+    ),
+    "docs/development/handoffs/AL-05-final-handoff.md": (
+        "AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY",
     ),
 }
 

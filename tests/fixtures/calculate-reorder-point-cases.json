@@ -1,4 +1,5 @@
 {
+  "schema": "shared/schemas/reorder-point-calculation.schema.json",
   "skill": "calculate-reorder-point",
   "completion_token": "AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY",
   "cases": [

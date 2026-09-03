@@ -1,4 +1,8 @@
-# Reorder Point Formula Reference
+# Reorder Point Formula Adapter
+
+Use `shared/formulas/reorder-point.md` as the canonical formula. This local
+reference defines how the shared formula applies inside the
+`calculate-reorder-point` skill.
 
 ## Formula
 
@@ -15,7 +19,8 @@ Where:
 
 ## Unit Normalization
 
-Demand and lead time must use compatible time bases before calculation.
+Use `shared/glossaries/common-units.md` for unit-family boundaries. Demand and
+lead time must use compatible time bases before calculation.
 
 Examples:
 
@@ -26,6 +31,7 @@ Examples:
   unless the user states the convention. Ask whether to use calendar days,
   working days, or a fixed planning month.
 
+Use `shared/glossaries/inventory-state-terms.md` for inventory-state terms.
 Demand quantity and safety stock must use the same inventory unit. If demand is
 in eaches and safety stock is in cases, ask for case pack quantity before
 calculating a final reorder point.

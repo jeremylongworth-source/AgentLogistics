@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jeremylongworth-source/AgentLogistics/shared/schemas/reorder-point-calculation.schema.json",
+  "title": "AgentLogistics Reorder Point Calculation Fixture",
+  "description": "Schema for deterministic reorder-point calculation fixture cases.",
+  "type": "object",
+  "x-agentlogistics-completion-token": "AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY",
+  "required": [
+    "schema",
+    "skill",
+    "completion_token",
+    "cases"
+  ],
+  "properties": {
+    "schema": {
+      "const": "shared/schemas/reorder-point-calculation.schema.json"
+    },
+    "skill": {
+      "const": "calculate-reorder-point"
+    },
+    "completion_token": {
+      "type": "string"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "inputs",
+          "expected"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^crp-[a-z0-9-]+$"
+          },
+          "category": {
+            "type": "string"
+          },
+          "inputs": {
+            "type": "object"
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "lead_time_in_demand_units": {
+                "type": "number"
+              },
+              "demand_during_lead_time": {
+                "type": "number"
+              },
+              "raw_reorder_point": {
+                "type": "number"
+              },
+              "rounded_reorder_point": {
+                "type": "number"
+              },
+              "inventory_position": {
+                "type": "number"
+              },
+              "reorder_signal": {
+                "type": "boolean"
+              },
+              "must_not_return_final_reorder_point": {
+                "type": "boolean"
+              },
+              "must_not_guarantee_no_stockouts": {
+                "type": "boolean"
+              },
+              "must_not_claim_compliance": {
+                "type": "boolean"
+              },
+              "review_required": {
+                "type": "boolean"
+              },
+              "error_field": {
+                "type": "string"
+              },
+              "missing_inputs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "clarify": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "output_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

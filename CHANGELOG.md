@@ -26,3 +26,8 @@ does not have public releases yet.
 - Added testing and evaluation standards, reference scenarios, deterministic
   reorder-point fixtures, and a before/after evaluation report.
 - Added test framework validation and wired it into repository validation.
+- Completed Wave AL-05 shared logistics foundations.
+- Added shared units, inventory-state terms, reorder-point formula,
+  calculation-output template, and reorder-point fixture schema.
+- Added shared-foundation validation and wired the reference skill to consume
+  shared materials.

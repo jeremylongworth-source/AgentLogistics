@@ -22,4 +22,9 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
+python "$PSScriptRoot\validate-shared.py" --repo-root "$RepoRoot"
+if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+}
+
 Write-Host "All AgentLogistics validation checks passed."

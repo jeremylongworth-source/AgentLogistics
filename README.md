@@ -21,8 +21,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_02_MASTER_TAXONOMY_READY`
 - `AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY`
 - `AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY`
+- `AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY`
 
-The next planned wave is AL-05: Shared Logistics Foundations.
+The next planned wave is AL-06: Warehouse Core Skillset.
 
 ## Scope
 
@@ -59,6 +60,7 @@ AgentLogistics/
 |   |-- development/
 |   `-- standards/
 |-- scripts/
+|-- shared/
 |-- skills/
 |-- tests/
 |-- AGENTS.md
@@ -69,9 +71,8 @@ AgentLogistics/
 `-- ROADMAP.md
 ```
 
-Planned content will add `skills/`, `skillsets/`, `specializations/`, `shared/`,
-`tests/`, and additional validation tooling when those directories have real
-content.
+Future waves may add `skillsets/`, `specializations/`, and additional validation
+tooling when those directories have real content.
 
 Core architecture artifacts:
 
@@ -99,6 +100,15 @@ Current test target:
 
 - `tests/fixtures/calculate-reorder-point-cases.json`
 - `tests/expected-routing.yaml`
+
+Shared foundations:
+
+- `shared/README.md`
+- `shared/glossaries/common-units.md`
+- `shared/glossaries/inventory-state-terms.md`
+- `shared/formulas/reorder-point.md`
+- `shared/schemas/reorder-point-calculation.schema.json`
+- `shared/templates/calculation-output.md`
 
 ## Development Model
 
