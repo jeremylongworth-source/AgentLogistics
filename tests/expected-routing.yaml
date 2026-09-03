@@ -242,3 +242,19 @@ scenarios:
       - analyze-overtime-requirements
       - plan-shift-handoff
       - build-daily-warehouse-plan
+  reverse-logistics-return-lifecycle:
+    prompt_file: tests/scenarios/reverse-logistics-return-lifecycle.md
+    category: reverse_logistics_return_lifecycle
+    expected_routes:
+      - process-customer-return
+      - classify-return-disposition
+      - inspect-returned-goods
+      - reconcile-returned-inventory
+      - analyze-return-reason
+      - analyze-return-rate
+      - plan-return-to-stock
+      - plan-return-to-vendor
+      - manage-damaged-inventory
+      - manage-nonconforming-inventory
+      - analyze-reverse-logistics-cost
+      - design-reverse-logistics-flow

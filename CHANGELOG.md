@@ -89,3 +89,9 @@ does not have public releases yet.
   fixtures, evaluation report, and AL-14 handoff.
 - Extended validation for both AL-14 skillset gates, including labor-time,
   planning-component, and labor-approval boundary checks.
+- Completed Wave AL-15 returns and reverse logistics.
+- Added 12 reverse-logistics skill packages under `skills/reverse-logistics/`.
+- Added the reverse-logistics return lifecycle scenario, fixture, evaluation
+  report, and AL-15 handoff.
+- Extended validation for the AL-15 reverse-logistics test gate, including
+  lifecycle, quantity-state, and approval-boundary checks.

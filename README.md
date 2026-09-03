@@ -31,8 +31,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY`
 - `AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY`
 - `AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY`
+- `AGENTLOGISTICS_AL_15_REVERSE_LOGISTICS_READY`
 
-The next planned wave is AL-15: Returns and Reverse Logistics.
+The next planned wave is AL-16: Canadian Logistics Safety and Compliance.
 
 ## Scope
 
@@ -146,6 +147,10 @@ Warehouse manager skillset:
 
 - `skillsets/warehouse-manager/`
 
+Reverse logistics skill family:
+
+- `skills/reverse-logistics/`
+
 Current test target:
 
 - `tests/fixtures/calculate-reorder-point-cases.json`
@@ -158,6 +163,7 @@ Current test target:
 - `tests/fixtures/continuous-improvement-specialist-performance-review.json`
 - `tests/fixtures/warehouse-supervisor-daily-operating-plan.json`
 - `tests/fixtures/warehouse-manager-labor-operating-plan.json`
+- `tests/fixtures/reverse-logistics-return-lifecycle.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

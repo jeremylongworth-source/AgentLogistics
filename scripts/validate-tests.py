@@ -19,6 +19,7 @@ AL_11_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY"
 AL_12_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY"
 AL_13_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY"
 AL_14_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY"
+AL_15_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_15_REVERSE_LOGISTICS_READY"
 REQUIRED_CATEGORIES = {
     "correct_invocation",
     "incorrect_invocation",
@@ -56,6 +57,90 @@ TIME_UNIT_TO_DAYS = {
     "week": 7,
 }
 NUMERIC_TOLERANCE = 0.0001
+REQUIRED_REVERSE_LOGISTICS_SKILLS = {
+    "process-customer-return",
+    "classify-return-disposition",
+    "inspect-returned-goods",
+    "reconcile-returned-inventory",
+    "analyze-return-reason",
+    "analyze-return-rate",
+    "plan-return-to-stock",
+    "plan-return-to-vendor",
+    "manage-damaged-inventory",
+    "manage-nonconforming-inventory",
+    "analyze-reverse-logistics-cost",
+    "design-reverse-logistics-flow",
+}
+REQUIRED_REVERSE_LOGISTICS_COMPONENTS = (
+    "return workflow",
+    "inspection result",
+    "disposition classification",
+    "inventory reconciliation",
+    "reason analysis",
+    "return-rate calculation",
+    "return-to-stock plan",
+    "RTV plan",
+    "damaged-inventory workflow",
+    "nonconforming inventory workflow",
+    "reverse cost analysis",
+    "reverse-flow design",
+)
+REQUIRED_REVERSE_LOGISTICS_QUANTITY_STATES = (
+    "authorized",
+    "delivered",
+    "received",
+    "inspected",
+    "held",
+    "missing",
+    "return_to_stock_proposed",
+    "rtv_proposed",
+    "damaged",
+    "erp_not_posted",
+    "refund_pending_review",
+)
+REQUIRED_REVERSE_LOGISTICS_INVARIANTS = (
+    "customer return workflow",
+    "returned-goods inspection",
+    "disposition classification without approval",
+    "returned inventory reconciliation",
+    "return reason analysis",
+    "return-rate calculation",
+    "return-to-stock release boundary",
+    "RTV authorization boundary",
+    "damaged inventory workflow",
+    "nonconforming inventory workflow",
+    "reverse logistics cost analysis",
+    "reverse-flow design",
+    "qualified-review boundary",
+)
+REQUIRED_REVERSE_LOGISTICS_CONSTRAINTS = (
+    "reason_code_conflict",
+    "received_quantity_shortage",
+    "photos_missing",
+    "lot_expiry_control",
+    "quality_release_required",
+    "vendor_authorization_missing",
+    "duplicate_rma_risk",
+    "erp_receipt_not_posted",
+    "oms_refund_pending",
+    "regulated_goods_boundary",
+    "no_live_system_change",
+)
+REQUIRED_REVERSE_LOGISTICS_BLOCKED_ACTIONS = (
+    "refund_approval",
+    "credit_approval",
+    "warranty_approval",
+    "inventory_adjustment_approval",
+    "quality_release_approval",
+    "return_to_stock_release",
+    "rtv_claim_approval",
+    "vendor_debit_approval",
+    "disposal_or_destruction_approval",
+    "recall_action_approval",
+    "financial_posting_approval",
+    "regulated_product_determination",
+    "live_system_configuration",
+)
 
 
 def skill_names(repo_root: Path) -> set[str]:
@@ -267,6 +352,49 @@ def validate_numeric_case(case: dict[str, Any], errors: list[str]) -> None:
             errors.append(f"{case_id}: reorder_signal mismatch")
 
 
+def validate_reverse_logistics_fixture(repo_root: Path, known_skills: set[str]) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "reverse-logistics-return-lifecycle.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing fixture file: tests/fixtures/reverse-logistics-return-lifecycle.json"]
+
+    try:
+        fixture = read_fixture(fixture_path)
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if fixture.get("completion_token") != AL_15_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-15 completion token")
+
+    scenario_file = fixture.get("scenario_file")
+    if scenario_file != "tests/scenarios/reverse-logistics-return-lifecycle.md":
+        errors.append(f"{relative}: missing reverse-logistics scenario reference")
+    elif not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    expected_skills = set(fixture.get("expected_skills", []))
+    for skill in sorted(REQUIRED_REVERSE_LOGISTICS_SKILLS - expected_skills):
+        errors.append(f"{relative}: expected_skills missing {skill}")
+    for skill in sorted(expected_skills - known_skills):
+        errors.append(f"{relative}: expected skill {skill} has no package")
+
+    checks = (
+        ("required_lifecycle_components", REQUIRED_REVERSE_LOGISTICS_COMPONENTS),
+        ("required_quantity_states", REQUIRED_REVERSE_LOGISTICS_QUANTITY_STATES),
+        ("required_output_invariants", REQUIRED_REVERSE_LOGISTICS_INVARIANTS),
+        ("required_constraints", REQUIRED_REVERSE_LOGISTICS_CONSTRAINTS),
+        ("blocked_actions", REQUIRED_REVERSE_LOGISTICS_BLOCKED_ACTIONS),
+    )
+    for field, required_values in checks:
+        values = set(fixture.get(field, []))
+        for value in required_values:
+            if value not in values:
+                errors.append(f"{relative}: {field} missing {value}")
+
+    return errors
+
+
 def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     fixture_path = repo_root / "tests" / "fixtures" / "calculate-reorder-point-cases.json"
@@ -323,6 +451,7 @@ def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
 
         validate_numeric_case(case, errors)
 
+    errors.extend(validate_reverse_logistics_fixture(repo_root, known_skills))
     return errors
 
 
@@ -368,6 +497,10 @@ def validate_evaluation_reports(repo_root: Path) -> list[str]:
         (
             repo_root / "tests" / "evaluations" / "warehouse-labor-planning-al-14-report.md",
             AL_14_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "reverse-logistics-al-15-report.md",
+            AL_15_COMPLETION_TOKEN,
         ),
     )
 
