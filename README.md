@@ -18,8 +18,9 @@ Current completed gates:
 
 - `AGENTLOGISTICS_AL_00_BASELINE_READY`
 - `AGENTLOGISTICS_AL_01_DOMAIN_CONTRACT_READY`
+- `AGENTLOGISTICS_AL_02_MASTER_TAXONOMY_READY`
 
-The next planned wave is AL-02: Master Taxonomy Audit.
+The next planned wave is AL-03: Skill Specification Standard.
 
 ## Scope
 
@@ -66,6 +67,14 @@ AgentLogistics/
 Planned content will add `skills/`, `skillsets/`, `specializations/`, `shared/`,
 `tests/`, and additional validation tooling when those directories have real
 content.
+
+Core architecture artifacts:
+
+- `docs/architecture/domain-contract.md`
+- `docs/architecture/scope-boundaries.md`
+- `docs/architecture/master-taxonomy-v1.md`
+- `docs/architecture/taxonomy-audit.md`
+- `docs/architecture/dependency-map.md`
 
 ## Development Model
 

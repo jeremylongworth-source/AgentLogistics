@@ -15,6 +15,10 @@ REQUIRED_FILES = (
     "docs/development/AL-00-baseline-audit.md",
     "docs/architecture/domain-contract.md",
     "docs/architecture/scope-boundaries.md",
+    "docs/architecture/master-taxonomy-v1.md",
+    "docs/architecture/taxonomy-audit.md",
+    "docs/architecture/dependency-map.md",
+    "docs/development/handoffs/AL-02-final-handoff.md",
 )
 
 REQUIRED_TOKENS = {
@@ -31,6 +35,18 @@ REQUIRED_TOKENS = {
     ),
     "docs/architecture/scope-boundaries.md": (
         "AGENTLOGISTICS_AL_01_DOMAIN_CONTRACT_READY",
+    ),
+    "docs/architecture/master-taxonomy-v1.md": (
+        "AGENTLOGISTICS_AL_02_MASTER_TAXONOMY_READY",
+    ),
+    "docs/architecture/taxonomy-audit.md": (
+        "AGENTLOGISTICS_AL_02_MASTER_TAXONOMY_READY",
+    ),
+    "docs/architecture/dependency-map.md": (
+        "AGENTLOGISTICS_AL_02_MASTER_TAXONOMY_READY",
+    ),
+    "docs/development/handoffs/AL-02-final-handoff.md": (
+        "AGENTLOGISTICS_AL_02_MASTER_TAXONOMY_READY",
     ),
 }
 
@@ -83,7 +99,7 @@ def main() -> int:
             print(error, file=sys.stderr)
         return 1
 
-    print("Validated AgentLogistics baseline documentation.")
+    print("Validated AgentLogistics documentation.")
     return 0
 
 

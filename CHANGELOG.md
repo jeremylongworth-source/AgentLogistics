@@ -14,3 +14,6 @@ does not have public releases yet.
 - Completed Wave AL-00 baseline audit.
 - Added Wave AL-01 domain contract and scope boundary documentation.
 - Added lightweight repository validation scripts.
+- Completed Wave AL-02 master taxonomy audit.
+- Added the v1 taxonomy, taxonomy audit, dependency map, and AL-02 handoff.
+- Added taxonomy validation for duplicate skill slugs and naming format.
