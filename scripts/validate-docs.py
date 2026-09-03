@@ -25,6 +25,10 @@ REQUIRED_FILES = (
     "docs/standards/calculation-standard.md",
     "docs/standards/regulatory-content-standard.md",
     "docs/development/handoffs/AL-03-final-handoff.md",
+    "docs/standards/testing-standard.md",
+    "docs/standards/evaluation-standard.md",
+    "docs/evaluation/before-after-report-template.md",
+    "docs/development/handoffs/AL-04-final-handoff.md",
 )
 
 REQUIRED_TOKENS = {
@@ -71,6 +75,18 @@ REQUIRED_TOKENS = {
     ),
     "docs/development/handoffs/AL-03-final-handoff.md": (
         "AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY",
+    ),
+    "docs/standards/testing-standard.md": (
+        "AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY",
+    ),
+    "docs/standards/evaluation-standard.md": (
+        "AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY",
+    ),
+    "docs/evaluation/before-after-report-template.md": (
+        "AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY",
+    ),
+    "docs/development/handoffs/AL-04-final-handoff.md": (
+        "AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY",
     ),
 }
 

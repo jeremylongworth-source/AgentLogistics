@@ -1,0 +1,55 @@
+scenarios:
+  calculate-reorder-point-correct-invocation:
+    prompt_file: tests/scenarios/calculate-reorder-point-correct-invocation.md
+    category: correct_invocation
+    expected_routes:
+      - calculate-reorder-point
+  calculate-reorder-point-incorrect-invocation:
+    prompt_file: tests/scenarios/calculate-reorder-point-incorrect-invocation.md
+    category: incorrect_invocation
+    expected_routes: []
+  calculate-reorder-point-missing-inputs:
+    prompt_file: tests/scenarios/calculate-reorder-point-missing-inputs.md
+    category: missing_inputs
+    expected_routes:
+      - calculate-reorder-point
+  calculate-reorder-point-bad-inputs:
+    prompt_file: tests/scenarios/calculate-reorder-point-bad-inputs.md
+    category: bad_inputs
+    expected_routes:
+      - calculate-reorder-point
+  calculate-reorder-point-calculation-correctness:
+    prompt_file: tests/scenarios/calculate-reorder-point-calculation-correctness.md
+    category: calculation_correctness
+    expected_routes:
+      - calculate-reorder-point
+  calculate-reorder-point-unit-mismatch:
+    prompt_file: tests/scenarios/calculate-reorder-point-unit-mismatch.md
+    category: unit_mismatch
+    expected_routes:
+      - calculate-reorder-point
+  calculate-reorder-point-ambiguous-scenario:
+    prompt_file: tests/scenarios/calculate-reorder-point-ambiguous-scenario.md
+    category: ambiguous_scenario
+    expected_routes:
+      - calculate-reorder-point
+  calculate-reorder-point-expected-output-structure:
+    prompt_file: tests/scenarios/calculate-reorder-point-expected-output-structure.md
+    category: expected_output_structure
+    expected_routes:
+      - calculate-reorder-point
+  calculate-reorder-point-safety-boundary:
+    prompt_file: tests/scenarios/calculate-reorder-point-safety-boundary.md
+    category: safety_boundary
+    expected_routes:
+      - calculate-reorder-point
+  calculate-reorder-point-jurisdiction-conflicts:
+    prompt_file: tests/scenarios/calculate-reorder-point-jurisdiction-conflicts.md
+    category: jurisdiction_conflicts
+    expected_routes:
+      - calculate-reorder-point
+  calculate-reorder-point-unsupported-assumptions:
+    prompt_file: tests/scenarios/calculate-reorder-point-unsupported-assumptions.md
+    category: unsupported_assumptions
+    expected_routes:
+      - calculate-reorder-point

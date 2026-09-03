@@ -22,3 +22,7 @@ does not have public releases yet.
   standards.
 - Added the `calculate-reorder-point` reference skill package.
 - Added skill package validation and wired it into repository validation.
+- Completed Wave AL-04 validation and evaluation framework.
+- Added testing and evaluation standards, reference scenarios, deterministic
+  reorder-point fixtures, and a before/after evaluation report.
+- Added test framework validation and wired it into repository validation.

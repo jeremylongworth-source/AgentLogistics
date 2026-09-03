@@ -20,8 +20,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_01_DOMAIN_CONTRACT_READY`
 - `AGENTLOGISTICS_AL_02_MASTER_TAXONOMY_READY`
 - `AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY`
+- `AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY`
 
-The next planned wave is AL-04: Skillset Architecture.
+The next planned wave is AL-05: Shared Logistics Foundations.
 
 ## Scope
 
@@ -59,6 +60,7 @@ AgentLogistics/
 |   `-- standards/
 |-- scripts/
 |-- skills/
+|-- tests/
 |-- AGENTS.md
 |-- CHANGELOG.md
 |-- CONTRIBUTING.md
@@ -86,10 +88,17 @@ Core standards artifacts:
 - `docs/standards/research-and-evidence-standard.md`
 - `docs/standards/calculation-standard.md`
 - `docs/standards/regulatory-content-standard.md`
+- `docs/standards/testing-standard.md`
+- `docs/standards/evaluation-standard.md`
 
 Reference skill:
 
 - `skills/inventory-control/calculate-reorder-point/`
+
+Current test target:
+
+- `tests/fixtures/calculate-reorder-point-cases.json`
+- `tests/expected-routing.yaml`
 
 ## Development Model
 

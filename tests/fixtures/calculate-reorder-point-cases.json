@@ -1,0 +1,241 @@
+{
+  "skill": "calculate-reorder-point",
+  "completion_token": "AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY",
+  "cases": [
+    {
+      "id": "crp-correct-invocation",
+      "category": "correct_invocation",
+      "inputs": {
+        "average_demand": 25,
+        "demand_unit": "cases",
+        "demand_time_unit": "day",
+        "lead_time": 8,
+        "lead_time_unit": "day",
+        "safety_stock": 60,
+        "safety_stock_unit": "cases",
+        "rounding": "ceil_whole_unit"
+      },
+      "expected": {
+        "status": "final",
+        "lead_time_in_demand_units": 8,
+        "demand_during_lead_time": 200,
+        "raw_reorder_point": 260,
+        "rounded_reorder_point": 260
+      }
+    },
+    {
+      "id": "crp-incorrect-invocation",
+      "category": "incorrect_invocation",
+      "inputs": {
+        "request_scope": "min-max policy with EOQ and service-level safety stock"
+      },
+      "expected": {
+        "status": "wrong_skill_for_full_scope",
+        "must_not_return_final_reorder_point": true
+      }
+    },
+    {
+      "id": "crp-missing-inputs",
+      "category": "missing_inputs",
+      "inputs": {
+        "average_demand": 12,
+        "demand_unit": "units",
+        "demand_time_unit": "day",
+        "lead_time": 5,
+        "lead_time_unit": "day"
+      },
+      "expected": {
+        "status": "partial",
+        "demand_during_lead_time": 60,
+        "missing_inputs": [
+          "safety_stock"
+        ],
+        "must_not_return_final_reorder_point": true
+      }
+    },
+    {
+      "id": "crp-bad-inputs",
+      "category": "bad_inputs",
+      "inputs": {
+        "average_demand": -5,
+        "demand_unit": "units",
+        "demand_time_unit": "day",
+        "lead_time": 4,
+        "lead_time_unit": "day",
+        "safety_stock": 20,
+        "safety_stock_unit": "units"
+      },
+      "expected": {
+        "status": "invalid",
+        "error_field": "average_demand",
+        "must_not_return_final_reorder_point": true
+      }
+    },
+    {
+      "id": "crp-calculation-correctness",
+      "category": "calculation_correctness",
+      "inputs": {
+        "average_demand": 140,
+        "demand_unit": "units",
+        "demand_time_unit": "week",
+        "lead_time": 10,
+        "lead_time_unit": "day",
+        "safety_stock": 90,
+        "safety_stock_unit": "units",
+        "rounding": "ceil_whole_unit"
+      },
+      "expected": {
+        "status": "final",
+        "lead_time_in_demand_units": 1.4285714286,
+        "demand_during_lead_time": 200,
+        "raw_reorder_point": 290,
+        "rounded_reorder_point": 290
+      }
+    },
+    {
+      "id": "crp-unit-mismatch",
+      "category": "unit_mismatch",
+      "inputs": {
+        "average_demand": 40,
+        "demand_unit": "eaches",
+        "demand_time_unit": "day",
+        "lead_time": 6,
+        "lead_time_unit": "day",
+        "safety_stock": 12,
+        "safety_stock_unit": "cases"
+      },
+      "expected": {
+        "status": "unit_mismatch",
+        "demand_during_lead_time": 240,
+        "missing_inputs": [
+          "case_pack"
+        ],
+        "must_not_return_final_reorder_point": true
+      }
+    },
+    {
+      "id": "crp-ambiguous-scenario",
+      "category": "ambiguous_scenario",
+      "inputs": {
+        "average_demand_text": "about 100 units per week",
+        "lead_time_text": "one or two weeks",
+        "known_seasonality": true
+      },
+      "expected": {
+        "status": "needs_clarification",
+        "must_not_return_final_reorder_point": true,
+        "clarify": [
+          "planning_lead_time",
+          "safety_stock_or_policy",
+          "representative_demand_period"
+        ]
+      }
+    },
+    {
+      "id": "crp-expected-output-structure",
+      "category": "expected_output_structure",
+      "inputs": {
+        "average_demand": 18,
+        "demand_unit": "rolls",
+        "demand_time_unit": "day",
+        "lead_time": 6,
+        "lead_time_unit": "day",
+        "safety_stock": 40,
+        "safety_stock_unit": "rolls",
+        "on_hand": 120,
+        "on_order": 20,
+        "allocated_backordered": 10,
+        "rounding": "ceil_whole_unit"
+      },
+      "expected": {
+        "status": "final",
+        "demand_during_lead_time": 108,
+        "raw_reorder_point": 148,
+        "rounded_reorder_point": 148,
+        "inventory_position": 130,
+        "reorder_signal": true,
+        "output_fields": [
+          "item_scope",
+          "input_values",
+          "normalized_lead_time",
+          "demand_during_lead_time",
+          "safety_stock",
+          "raw_reorder_point",
+          "rounded_reorder_point",
+          "assumptions",
+          "validation_notes"
+        ]
+      }
+    },
+    {
+      "id": "crp-safety-boundary",
+      "category": "safety_boundary",
+      "inputs": {
+        "average_demand": 2,
+        "demand_unit": "units",
+        "demand_time_unit": "day",
+        "lead_time": 14,
+        "lead_time_unit": "day",
+        "safety_stock": 10,
+        "safety_stock_unit": "units",
+        "safety_critical": true
+      },
+      "expected": {
+        "status": "final_with_review_required",
+        "demand_during_lead_time": 28,
+        "raw_reorder_point": 38,
+        "rounded_reorder_point": 38,
+        "must_not_guarantee_no_stockouts": true,
+        "review_required": true
+      }
+    },
+    {
+      "id": "crp-jurisdiction-conflicts",
+      "category": "jurisdiction_conflicts",
+      "inputs": {
+        "average_demand": 5,
+        "demand_unit": "kits",
+        "demand_time_unit": "day",
+        "lead_time": 9,
+        "lead_time_unit": "day",
+        "safety_stock": 20,
+        "safety_stock_unit": "kits",
+        "jurisdictions": [
+          "Canada",
+          "United States"
+        ],
+        "regulated_product": true
+      },
+      "expected": {
+        "status": "final_with_regulatory_review_required",
+        "demand_during_lead_time": 45,
+        "raw_reorder_point": 65,
+        "rounded_reorder_point": 65,
+        "must_not_claim_compliance": true,
+        "review_required": true
+      }
+    },
+    {
+      "id": "crp-unsupported-assumptions",
+      "category": "unsupported_assumptions",
+      "inputs": {
+        "average_demand": 30,
+        "demand_unit": "units",
+        "demand_time_unit": "day",
+        "lead_time": 7,
+        "lead_time_unit": "day",
+        "service_level": 0.98
+      },
+      "expected": {
+        "status": "partial_requires_safety_stock_method",
+        "demand_during_lead_time": 210,
+        "must_not_return_final_reorder_point": true,
+        "missing_inputs": [
+          "safety_stock",
+          "demand_variability",
+          "lead_time_variability"
+        ]
+      }
+    }
+  ]
+}
