@@ -109,3 +109,10 @@ does not have public releases yet.
   shared authority map, and AL-17 handoff.
 - Extended specialization and test validation for US jurisdiction,
   official-source, OSHA state-plan, hazmat, and compliance-boundary checks.
+- Completed Wave AL-18 professional skillset composition.
+- Added receiving-specialist, logistics-coordinator, distribution-manager, and
+  logistics-operations-manager skillsets that compose existing atomic skills.
+- Added the professional skillset composition index, scenario, fixture,
+  evaluation report, and AL-18 handoff.
+- Extended skillset and test validation for AL-18 role-component,
+  composition-gate, routing, escalation, dependency, and boundary checks.

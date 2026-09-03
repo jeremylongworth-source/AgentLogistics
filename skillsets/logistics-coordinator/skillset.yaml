@@ -1,0 +1,29 @@
+name: logistics-coordinator
+description: Logistics coordinator skillset for daily inbound, outbound, freight, carrier, shipment, document, systems-data, and cross-functional logistics coordination.
+completion_token: AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY
+skills:
+  - analyze-logistics-operation
+  - map-logistics-flow
+  - identify-logistics-constraints
+  - analyze-product-flow
+  - analyze-order-profile
+  - plan-inbound-receiving
+  - verify-inbound-shipment
+  - process-receiving-discrepancy
+  - plan-shipping-stage
+  - verify-outbound-shipment
+  - select-transportation-mode
+  - plan-freight-shipment
+  - select-carrier
+  - compare-freight-rates
+  - calculate-freight-cost
+  - plan-freight-consolidation
+  - plan-multi-stop-shipment
+  - analyze-carrier-performance
+  - interpret-bill-of-lading
+  - analyze-transportation-kpis
+  - analyze-logistics-data-quality
+  - map-wms-tms-integration
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/logistics-coordinator-professional-role.md
+fixture_file: tests/fixtures/logistics-coordinator-professional-role.json

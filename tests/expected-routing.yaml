@@ -288,3 +288,19 @@ scenarios:
       - research-us-logistics-documents
       - research-us-import-export-controls
       - research-us-storage-requirements
+  professional-skillset-composition:
+    prompt_file: tests/scenarios/professional-skillset-composition.md
+    category: professional_skillset_composition
+    expected_routes:
+      - warehouse-operator
+      - receiving-specialist
+      - inventory-control-specialist
+      - warehouse-supervisor
+      - warehouse-manager
+      - logistics-coordinator
+      - transportation-coordinator
+      - warehouse-planner
+      - distribution-manager
+      - logistics-systems-analyst
+      - continuous-improvement-specialist
+      - logistics-operations-manager

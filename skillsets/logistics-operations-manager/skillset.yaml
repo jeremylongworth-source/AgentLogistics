@@ -1,0 +1,37 @@
+name: logistics-operations-manager
+description: Logistics operations manager skillset for cross-domain warehouse, transportation, labor, systems, reverse logistics, KPI, root-cause, and improvement coordination.
+completion_token: AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY
+skills:
+  - analyze-logistics-operation
+  - map-logistics-flow
+  - identify-logistics-constraints
+  - analyze-product-flow
+  - analyze-order-profile
+  - select-logistics-kpis
+  - build-logistics-scorecard
+  - analyze-warehouse-kpis
+  - analyze-transportation-kpis
+  - analyze-throughput
+  - identify-logistics-bottleneck
+  - perform-logistics-root-cause-analysis
+  - compare-logistics-scenarios
+  - build-logistics-improvement-plan
+  - measure-improvement-result
+  - forecast-warehouse-workload
+  - calculate-labor-requirements
+  - plan-warehouse-staffing
+  - balance-warehouse-workload
+  - build-daily-warehouse-plan
+  - select-transportation-mode
+  - plan-freight-shipment
+  - select-carrier
+  - calculate-freight-cost
+  - analyze-carrier-performance
+  - analyze-logistics-data-quality
+  - map-erp-wms-integration
+  - map-wms-tms-integration
+  - design-reverse-logistics-flow
+  - analyze-reverse-logistics-cost
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/logistics-operations-manager-professional-role.md
+fixture_file: tests/fixtures/logistics-operations-manager-professional-role.json

@@ -1,0 +1,33 @@
+name: distribution-manager
+description: Distribution manager skillset for facility throughput, service, labor, space, dock, reverse-flow, scorecard, bottleneck, and improvement planning across distribution operations.
+completion_token: AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY
+skills:
+  - analyze-logistics-operation
+  - map-logistics-flow
+  - identify-logistics-constraints
+  - analyze-product-flow
+  - analyze-order-profile
+  - select-logistics-kpis
+  - build-logistics-scorecard
+  - analyze-warehouse-kpis
+  - analyze-throughput
+  - identify-logistics-bottleneck
+  - compare-logistics-scenarios
+  - build-logistics-improvement-plan
+  - measure-improvement-result
+  - forecast-warehouse-workload
+  - calculate-labor-requirements
+  - plan-warehouse-staffing
+  - balance-warehouse-workload
+  - analyze-labor-productivity
+  - analyze-overtime-requirements
+  - build-daily-warehouse-plan
+  - analyze-storage-utilization
+  - analyze-space-utilization
+  - plan-dock-capacity
+  - analyze-warehouse-flow
+  - design-reverse-logistics-flow
+  - analyze-reverse-logistics-cost
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/distribution-manager-professional-role.md
+fixture_file: tests/fixtures/distribution-manager-professional-role.json

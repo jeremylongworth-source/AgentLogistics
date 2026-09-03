@@ -1,0 +1,4 @@
+interface: openai
+display_name: Logistics Operations Manager
+short_description: Coordinate cross-domain logistics operations across warehouse, freight, labor, systems, KPIs, and improvement.
+default_prompt: Use $logistics-operations-manager to compose existing AgentLogistics atomic skills for this professional role, preserve evidence and approval boundaries, and return practical logistics planning support with qualified-review requirements.

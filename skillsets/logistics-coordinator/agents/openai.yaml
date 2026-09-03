@@ -1,0 +1,4 @@
+interface: openai
+display_name: Logistics Coordinator
+short_description: Coordinate daily inbound, outbound, freight, carrier, document, and data-quality logistics work.
+default_prompt: Use $logistics-coordinator to compose existing AgentLogistics atomic skills for this professional role, preserve evidence and approval boundaries, and return practical logistics planning support with qualified-review requirements.

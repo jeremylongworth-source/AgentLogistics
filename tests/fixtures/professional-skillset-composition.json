@@ -1,0 +1,83 @@
+{
+  "completion_token": "AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY",
+  "scenario_file": "tests/scenarios/professional-skillset-composition.md",
+  "required_skillsets": [
+    "warehouse-operator",
+    "receiving-specialist",
+    "inventory-control-specialist",
+    "warehouse-supervisor",
+    "warehouse-manager",
+    "logistics-coordinator",
+    "transportation-coordinator",
+    "warehouse-planner",
+    "distribution-manager",
+    "logistics-systems-analyst",
+    "continuous-improvement-specialist",
+    "logistics-operations-manager"
+  ],
+  "new_skillsets": [
+    "distribution-manager",
+    "logistics-coordinator",
+    "logistics-operations-manager",
+    "receiving-specialist"
+  ],
+  "existing_skillsets_evaluated": [
+    "warehouse-operator",
+    "inventory-control-specialist",
+    "warehouse-supervisor",
+    "warehouse-manager",
+    "transportation-coordinator",
+    "warehouse-planner",
+    "logistics-systems-analyst",
+    "continuous-improvement-specialist"
+  ],
+  "required_role_components": [
+    "purpose",
+    "included_skills",
+    "routing_criteria",
+    "dependencies",
+    "excluded_responsibilities",
+    "escalation_conditions",
+    "expected_outputs"
+  ],
+  "required_dependencies": [
+    "upstream_records",
+    "source_systems",
+    "role_inputs",
+    "downstream_handoffs",
+    "qualified_review"
+  ],
+  "required_excluded_responsibilities": [
+    "legal_or_regulatory_approval",
+    "safety_certification",
+    "equipment_certification",
+    "HR_or_labor_law_decision",
+    "financial_approval",
+    "live_system_change"
+  ],
+  "required_escalation_conditions": [
+    "missing_source_records",
+    "conflicting_systems",
+    "safety_or_regulatory_risk",
+    "inventory_or_financial_adjustment",
+    "customer_or_carrier_dispute",
+    "capacity_or_labor_commitment"
+  ],
+  "required_expected_outputs": [
+    "role_brief",
+    "prioritized_actions",
+    "evidence_gaps",
+    "owner_handoffs",
+    "metrics_or_calculations",
+    "approval_boundaries"
+  ],
+  "composition_gate": "compose_existing_skills_not_duplicate",
+  "blocked_actions": [
+    "legal_or_regulatory_approval",
+    "safety_certification",
+    "equipment_certification",
+    "HR_or_labor_law_decision",
+    "financial_approval",
+    "live_system_change"
+  ]
+}

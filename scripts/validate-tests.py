@@ -22,6 +22,7 @@ AL_14_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY"
 AL_15_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_15_REVERSE_LOGISTICS_READY"
 AL_16_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY"
 AL_17_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY"
+AL_18_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY"
 REQUIRED_CATEGORIES = {
     "correct_invocation",
     "incorrect_invocation",
@@ -299,6 +300,37 @@ REQUIRED_US_SOURCE_URLS = (
     "https://www.epa.gov/hw/hazardous-waste-transportation",
     "https://www.ecfr.gov/current/title-49",
 )
+REQUIRED_PROFESSIONAL_SKILLSETS = {
+    "warehouse-operator",
+    "receiving-specialist",
+    "inventory-control-specialist",
+    "warehouse-supervisor",
+    "warehouse-manager",
+    "logistics-coordinator",
+    "transportation-coordinator",
+    "warehouse-planner",
+    "distribution-manager",
+    "logistics-systems-analyst",
+    "continuous-improvement-specialist",
+    "logistics-operations-manager",
+}
+REQUIRED_PROFESSIONAL_ROLE_COMPONENTS = (
+    "purpose",
+    "included_skills",
+    "routing_criteria",
+    "dependencies",
+    "excluded_responsibilities",
+    "escalation_conditions",
+    "expected_outputs",
+)
+REQUIRED_PROFESSIONAL_BOUNDARIES = (
+    "legal_or_regulatory_approval",
+    "safety_certification",
+    "equipment_certification",
+    "HR_or_labor_law_decision",
+    "financial_approval",
+    "live_system_change",
+)
 
 
 def skill_names(repo_root: Path) -> set[str]:
@@ -310,6 +342,10 @@ def skill_names(repo_root: Path) -> set[str]:
     specializations_root = repo_root / "specializations"
     if specializations_root.is_dir():
         names.update(path.parent.name for path in specializations_root.glob("*/*/SKILL.md"))
+
+    skillsets_root = repo_root / "skillsets"
+    if skillsets_root.is_dir():
+        names.update(path.parent.name for path in skillsets_root.glob("*/skillset.yaml"))
 
     return names
 
@@ -645,6 +681,49 @@ def validate_us_compliance_fixture(repo_root: Path, known_skills: set[str]) -> l
     return errors
 
 
+def validate_professional_composition_fixture(repo_root: Path, known_skills: set[str]) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "professional-skillset-composition.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing fixture file: tests/fixtures/professional-skillset-composition.json"]
+
+    try:
+        fixture = read_fixture(fixture_path)
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if fixture.get("completion_token") != AL_18_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-18 completion token")
+
+    scenario_file = fixture.get("scenario_file")
+    if scenario_file != "tests/scenarios/professional-skillset-composition.md":
+        errors.append(f"{relative}: missing professional skillset composition scenario reference")
+    elif not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    expected_skillsets = set(fixture.get("required_skillsets", []))
+    for skillset in sorted(REQUIRED_PROFESSIONAL_SKILLSETS - expected_skillsets):
+        errors.append(f"{relative}: required_skillsets missing {skillset}")
+    for skillset in sorted(expected_skillsets - known_skills):
+        errors.append(f"{relative}: required skillset {skillset} has no package")
+
+    role_components = set(fixture.get("required_role_components", []))
+    for component in REQUIRED_PROFESSIONAL_ROLE_COMPONENTS:
+        if component not in role_components:
+            errors.append(f"{relative}: required_role_components missing {component}")
+
+    blocked_actions = set(fixture.get("blocked_actions", []))
+    for action in REQUIRED_PROFESSIONAL_BOUNDARIES:
+        if action not in blocked_actions:
+            errors.append(f"{relative}: blocked_actions missing {action}")
+
+    if fixture.get("composition_gate") != "compose_existing_skills_not_duplicate":
+        errors.append(f"{relative}: composition_gate must be compose_existing_skills_not_duplicate")
+
+    return errors
+
+
 def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     fixture_path = repo_root / "tests" / "fixtures" / "calculate-reorder-point-cases.json"
@@ -704,6 +783,7 @@ def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     errors.extend(validate_reverse_logistics_fixture(repo_root, known_skills))
     errors.extend(validate_canada_compliance_fixture(repo_root, known_skills))
     errors.extend(validate_us_compliance_fixture(repo_root, known_skills))
+    errors.extend(validate_professional_composition_fixture(repo_root, known_skills))
     return errors
 
 
@@ -761,6 +841,10 @@ def validate_evaluation_reports(repo_root: Path) -> list[str]:
         (
             repo_root / "tests" / "evaluations" / "us-compliance-al-17-report.md",
             AL_17_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "professional-skillsets-al-18-report.md",
+            AL_18_COMPLETION_TOKEN,
         ),
     )
 

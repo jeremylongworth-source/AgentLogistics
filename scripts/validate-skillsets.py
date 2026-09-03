@@ -17,6 +17,7 @@ TRANSPORTATION_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READ
 SYSTEMS_DATA_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY"
 CONTINUOUS_IMPROVEMENT_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY"
 LABOR_PLANNING_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY"
+PROFESSIONAL_SKILLSETS_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY"
 REQUIRED_WAREHOUSE_SKILLS = {
     "analyze-logistics-operation",
     "map-logistics-flow",
@@ -187,6 +188,160 @@ REQUIRED_LABOR_PLANNING_SKILLS = {
     "plan-shift-handoff",
     "build-daily-warehouse-plan",
 }
+REQUIRED_RECEIVING_SPECIALIST_SKILLS = {
+    "analyze-logistics-operation",
+    "map-logistics-flow",
+    "identify-logistics-constraints",
+    "analyze-product-flow",
+    "analyze-order-profile",
+    "plan-inbound-receiving",
+    "verify-inbound-shipment",
+    "inspect-received-goods",
+    "reconcile-asn",
+    "process-receiving-discrepancy",
+    "plan-putaway",
+    "diagnose-receiving-bottleneck",
+    "validate-item-master-data",
+    "validate-location-master-data",
+}
+REQUIRED_LOGISTICS_COORDINATOR_SKILLS = {
+    "analyze-logistics-operation",
+    "map-logistics-flow",
+    "identify-logistics-constraints",
+    "analyze-product-flow",
+    "analyze-order-profile",
+    "plan-inbound-receiving",
+    "verify-inbound-shipment",
+    "process-receiving-discrepancy",
+    "plan-shipping-stage",
+    "verify-outbound-shipment",
+    "select-transportation-mode",
+    "plan-freight-shipment",
+    "select-carrier",
+    "compare-freight-rates",
+    "calculate-freight-cost",
+    "plan-freight-consolidation",
+    "plan-multi-stop-shipment",
+    "analyze-carrier-performance",
+    "interpret-bill-of-lading",
+    "analyze-transportation-kpis",
+    "analyze-logistics-data-quality",
+    "map-wms-tms-integration",
+}
+REQUIRED_DISTRIBUTION_MANAGER_SKILLS = {
+    "analyze-logistics-operation",
+    "map-logistics-flow",
+    "identify-logistics-constraints",
+    "analyze-product-flow",
+    "analyze-order-profile",
+    "select-logistics-kpis",
+    "build-logistics-scorecard",
+    "analyze-warehouse-kpis",
+    "analyze-throughput",
+    "identify-logistics-bottleneck",
+    "compare-logistics-scenarios",
+    "build-logistics-improvement-plan",
+    "measure-improvement-result",
+    "forecast-warehouse-workload",
+    "calculate-labor-requirements",
+    "plan-warehouse-staffing",
+    "balance-warehouse-workload",
+    "analyze-labor-productivity",
+    "analyze-overtime-requirements",
+    "build-daily-warehouse-plan",
+    "analyze-storage-utilization",
+    "analyze-space-utilization",
+    "plan-dock-capacity",
+    "analyze-warehouse-flow",
+    "design-reverse-logistics-flow",
+    "analyze-reverse-logistics-cost",
+}
+REQUIRED_LOGISTICS_OPERATIONS_MANAGER_SKILLS = {
+    "analyze-logistics-operation",
+    "map-logistics-flow",
+    "identify-logistics-constraints",
+    "analyze-product-flow",
+    "analyze-order-profile",
+    "select-logistics-kpis",
+    "build-logistics-scorecard",
+    "analyze-warehouse-kpis",
+    "analyze-transportation-kpis",
+    "analyze-throughput",
+    "identify-logistics-bottleneck",
+    "perform-logistics-root-cause-analysis",
+    "compare-logistics-scenarios",
+    "build-logistics-improvement-plan",
+    "measure-improvement-result",
+    "forecast-warehouse-workload",
+    "calculate-labor-requirements",
+    "plan-warehouse-staffing",
+    "balance-warehouse-workload",
+    "build-daily-warehouse-plan",
+    "select-transportation-mode",
+    "plan-freight-shipment",
+    "select-carrier",
+    "calculate-freight-cost",
+    "analyze-carrier-performance",
+    "analyze-logistics-data-quality",
+    "map-erp-wms-integration",
+    "map-wms-tms-integration",
+    "design-reverse-logistics-flow",
+    "analyze-reverse-logistics-cost",
+}
+REQUIRED_PROFESSIONAL_SKILLSETS = {
+    "warehouse-operator",
+    "receiving-specialist",
+    "inventory-control-specialist",
+    "warehouse-supervisor",
+    "warehouse-manager",
+    "logistics-coordinator",
+    "transportation-coordinator",
+    "warehouse-planner",
+    "distribution-manager",
+    "logistics-systems-analyst",
+    "continuous-improvement-specialist",
+    "logistics-operations-manager",
+}
+REQUIRED_PROFESSIONAL_ROLE_COMPONENTS = (
+    "purpose",
+    "included_skills",
+    "routing_criteria",
+    "dependencies",
+    "excluded_responsibilities",
+    "escalation_conditions",
+    "expected_outputs",
+)
+REQUIRED_PROFESSIONAL_DEPENDENCIES = (
+    "upstream_records",
+    "source_systems",
+    "role_inputs",
+    "downstream_handoffs",
+    "qualified_review",
+)
+REQUIRED_PROFESSIONAL_EXCLUDED_RESPONSIBILITIES = (
+    "legal_or_regulatory_approval",
+    "safety_certification",
+    "equipment_certification",
+    "HR_or_labor_law_decision",
+    "financial_approval",
+    "live_system_change",
+)
+REQUIRED_PROFESSIONAL_ESCALATION_CONDITIONS = (
+    "missing_source_records",
+    "conflicting_systems",
+    "safety_or_regulatory_risk",
+    "inventory_or_financial_adjustment",
+    "customer_or_carrier_dispute",
+    "capacity_or_labor_commitment",
+)
+REQUIRED_PROFESSIONAL_OUTPUTS = (
+    "role_brief",
+    "prioritized_actions",
+    "evidence_gaps",
+    "owner_handoffs",
+    "metrics_or_calculations",
+    "approval_boundaries",
+)
 REQUIRED_FLOW_STEPS = [
     "receive",
     "inspect",
@@ -571,6 +726,12 @@ SKILLSET_REQUIREMENTS = {
         "prompt_token": "$inventory-control-specialist",
         "fixture_validator": "inventory_discrepancy",
     },
+    "receiving-specialist": {
+        "completion_token": PROFESSIONAL_SKILLSETS_COMPLETION_TOKEN,
+        "skills": REQUIRED_RECEIVING_SPECIALIST_SKILLS,
+        "prompt_token": "$receiving-specialist",
+        "fixture_validator": "professional_role",
+    },
     "warehouse-planner": {
         "completion_token": WAREHOUSE_PLANNER_COMPLETION_TOKEN,
         "skills": REQUIRED_WAREHOUSE_PLANNER_SKILLS,
@@ -595,6 +756,12 @@ SKILLSET_REQUIREMENTS = {
         "prompt_token": "$transportation-coordinator",
         "fixture_validator": "transportation",
     },
+    "logistics-coordinator": {
+        "completion_token": PROFESSIONAL_SKILLSETS_COMPLETION_TOKEN,
+        "skills": REQUIRED_LOGISTICS_COORDINATOR_SKILLS,
+        "prompt_token": "$logistics-coordinator",
+        "fixture_validator": "professional_role",
+    },
     "logistics-systems-analyst": {
         "completion_token": SYSTEMS_DATA_COMPLETION_TOKEN,
         "skills": REQUIRED_LOGISTICS_SYSTEMS_ANALYST_SKILLS,
@@ -618,6 +785,18 @@ SKILLSET_REQUIREMENTS = {
         "skills": REQUIRED_LABOR_PLANNING_SKILLS,
         "prompt_token": "$warehouse-manager",
         "fixture_validator": "labor_planning",
+    },
+    "distribution-manager": {
+        "completion_token": PROFESSIONAL_SKILLSETS_COMPLETION_TOKEN,
+        "skills": REQUIRED_DISTRIBUTION_MANAGER_SKILLS,
+        "prompt_token": "$distribution-manager",
+        "fixture_validator": "professional_role",
+    },
+    "logistics-operations-manager": {
+        "completion_token": PROFESSIONAL_SKILLSETS_COMPLETION_TOKEN,
+        "skills": REQUIRED_LOGISTICS_OPERATIONS_MANAGER_SKILLS,
+        "prompt_token": "$logistics-operations-manager",
+        "fixture_validator": "professional_role",
     },
 }
 
@@ -1201,6 +1380,118 @@ def validate_labor_planning_fixture(
     return errors
 
 
+def validate_professional_role_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+    expected_skillset: str,
+) -> list[str]:
+    errors: list[str] = []
+    relative = path.relative_to(repo_root)
+    if not path.is_file():
+        return [f"Missing professional role fixture: {relative}"]
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("skillset") != expected_skillset:
+        errors.append(f"{relative}: skillset must be {expected_skillset}")
+    if data.get("completion_token") != PROFESSIONAL_SKILLSETS_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-18 completion token")
+
+    for skill in data.get("expected_skills", []):
+        if skill not in manifest_skills:
+            errors.append(f"{relative}: expected skill {skill} is not in skillset manifest")
+    for skill in sorted(manifest_skills - set(data.get("expected_skills", []))):
+        errors.append(f"{relative}: expected_skills missing manifest skill {skill}")
+
+    checks = (
+        ("required_role_components", REQUIRED_PROFESSIONAL_ROLE_COMPONENTS),
+        ("required_dependencies", REQUIRED_PROFESSIONAL_DEPENDENCIES),
+        (
+            "required_excluded_responsibilities",
+            REQUIRED_PROFESSIONAL_EXCLUDED_RESPONSIBILITIES,
+        ),
+        ("required_escalation_conditions", REQUIRED_PROFESSIONAL_ESCALATION_CONDITIONS),
+        ("required_expected_outputs", REQUIRED_PROFESSIONAL_OUTPUTS),
+    )
+    for field, required_values in checks:
+        values = set(data.get(field, []))
+        for required in required_values:
+            if required not in values:
+                errors.append(f"{relative}: {field} missing {required}")
+
+    if data.get("composition_gate") != "compose_existing_skills_not_duplicate":
+        errors.append(f"{relative}: composition_gate must block duplicate atomic instructions")
+
+    blocked_actions = set(data.get("blocked_actions", []))
+    for required in REQUIRED_PROFESSIONAL_EXCLUDED_RESPONSIBILITIES:
+        if required not in blocked_actions:
+            errors.append(f"{relative}: blocked_actions missing {required}")
+
+    scenario_file = data.get("scenario_file")
+    if not scenario_file or not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario_file is missing or invalid")
+
+    return errors
+
+
+def validate_professional_composition_fixture(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "professional-skillset-composition.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing professional composition fixture: tests/fixtures/professional-skillset-composition.json"]
+
+    try:
+        data = json.loads(fixture_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("completion_token") != PROFESSIONAL_SKILLSETS_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-18 completion token")
+
+    required_skillsets = set(data.get("required_skillsets", []))
+    for skillset in sorted(REQUIRED_PROFESSIONAL_SKILLSETS - required_skillsets):
+        errors.append(f"{relative}: required_skillsets missing {skillset}")
+    for skillset in sorted(required_skillsets - REQUIRED_PROFESSIONAL_SKILLSETS):
+        errors.append(f"{relative}: unexpected required skillset {skillset}")
+
+    actual_skillsets = {path.name for path in (repo_root / "skillsets").iterdir() if path.is_dir()}
+    for skillset in sorted(REQUIRED_PROFESSIONAL_SKILLSETS - actual_skillsets):
+        errors.append(f"{relative}: professional skillset directory missing {skillset}")
+
+    checks = (
+        ("required_role_components", REQUIRED_PROFESSIONAL_ROLE_COMPONENTS),
+        ("required_dependencies", REQUIRED_PROFESSIONAL_DEPENDENCIES),
+        (
+            "required_excluded_responsibilities",
+            REQUIRED_PROFESSIONAL_EXCLUDED_RESPONSIBILITIES,
+        ),
+        ("required_escalation_conditions", REQUIRED_PROFESSIONAL_ESCALATION_CONDITIONS),
+        ("required_expected_outputs", REQUIRED_PROFESSIONAL_OUTPUTS),
+        ("blocked_actions", REQUIRED_PROFESSIONAL_EXCLUDED_RESPONSIBILITIES),
+    )
+    for field, required_values in checks:
+        values = set(data.get(field, []))
+        for required in required_values:
+            if required not in values:
+                errors.append(f"{relative}: {field} missing {required}")
+
+    if data.get("composition_gate") != "compose_existing_skills_not_duplicate":
+        errors.append(f"{relative}: composition_gate must be compose_existing_skills_not_duplicate")
+
+    scenario_file = data.get("scenario_file")
+    if scenario_file != "tests/scenarios/professional-skillset-composition.md":
+        errors.append(f"{relative}: missing AL-18 composition scenario reference")
+    elif not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    return errors
+
+
 def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     manifest_path = skillset_dir / "skillset.yaml"
@@ -1326,6 +1617,15 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
                     name,
                 )
             )
+        elif requirements and requirements["fixture_validator"] == "professional_role":
+            errors.extend(
+                validate_professional_role_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
+                    name,
+                )
+            )
         else:
             errors.append(f"{manifest_relative}: fixture validator is not configured")
     else:
@@ -1349,6 +1649,7 @@ def validate(repo_root: Path) -> list[str]:
     known_skills = skill_names(repo_root)
     for skillset_dir in skillset_dirs:
         errors.extend(validate_skillset(repo_root, skillset_dir, known_skills))
+    errors.extend(validate_professional_composition_fixture(repo_root))
 
     return errors
 

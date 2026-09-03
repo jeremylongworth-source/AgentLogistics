@@ -1,0 +1,4 @@
+interface: openai
+display_name: Distribution Manager
+short_description: Manage distribution facility throughput, labor, space, dock capacity, reverse flow, and improvement plans.
+default_prompt: Use $distribution-manager to compose existing AgentLogistics atomic skills for this professional role, preserve evidence and approval boundaries, and return practical logistics planning support with qualified-review requirements.

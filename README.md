@@ -34,8 +34,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_15_REVERSE_LOGISTICS_READY`
 - `AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY`
 - `AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY`
+- `AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY`
 
-The next planned wave is AL-18: Professional Skillset Composition.
+The next planned wave is AL-19: Specialized Logistics Framework.
 
 ## Scope
 
@@ -114,6 +115,10 @@ Warehouse skillset:
 
 - `skillsets/warehouse-operator/`
 
+Receiving specialist skillset:
+
+- `skillsets/receiving-specialist/`
+
 Inventory skillset:
 
 - `skillsets/inventory-control-specialist/`
@@ -150,6 +155,22 @@ Warehouse manager skillset:
 
 - `skillsets/warehouse-manager/`
 
+Logistics coordinator skillset:
+
+- `skillsets/logistics-coordinator/`
+
+Distribution manager skillset:
+
+- `skillsets/distribution-manager/`
+
+Logistics operations manager skillset:
+
+- `skillsets/logistics-operations-manager/`
+
+Professional skillset index:
+
+- `skillsets/README.md`
+
 Reverse logistics skill family:
 
 - `skills/reverse-logistics/`
@@ -177,6 +198,7 @@ Current test target:
 - `tests/fixtures/reverse-logistics-return-lifecycle.json`
 - `tests/fixtures/canada-compliance-source-triage.json`
 - `tests/fixtures/us-compliance-source-triage.json`
+- `tests/fixtures/professional-skillset-composition.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

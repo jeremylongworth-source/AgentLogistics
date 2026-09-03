@@ -62,6 +62,17 @@ The warehouse-manager skillset target is:
 
 - `skillsets/warehouse-manager/`
 
+The AL-18 professional role skillset targets are:
+
+- `skillsets/receiving-specialist/`
+- `skillsets/logistics-coordinator/`
+- `skillsets/distribution-manager/`
+- `skillsets/logistics-operations-manager/`
+
+The AL-18 professional composition index is:
+
+- `skillsets/README.md`
+
 The reverse-logistics skill family target is:
 
 - `skills/reverse-logistics/`
@@ -96,6 +107,9 @@ Coverage includes:
 - the AL-15 reverse-logistics return lifecycle scenario and fixture.
 - the AL-16 Canada compliance source-triage scenario and fixture.
 - the AL-17 United States compliance source-triage scenario and fixture.
+- the AL-18 professional skillset composition scenario and fixture.
+- AL-18 role fixtures for receiving specialist, logistics coordinator,
+  distribution manager, and logistics operations manager.
 
 Run:
 

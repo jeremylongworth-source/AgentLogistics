@@ -1,0 +1,21 @@
+name: receiving-specialist
+description: Receiving specialist skillset for inbound shipment verification, ASN reconciliation, receiving discrepancy investigation, inspection, putaway planning, and source-backed receiving handoffs.
+completion_token: AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY
+skills:
+  - analyze-logistics-operation
+  - map-logistics-flow
+  - identify-logistics-constraints
+  - analyze-product-flow
+  - analyze-order-profile
+  - plan-inbound-receiving
+  - verify-inbound-shipment
+  - inspect-received-goods
+  - reconcile-asn
+  - process-receiving-discrepancy
+  - plan-putaway
+  - diagnose-receiving-bottleneck
+  - validate-item-master-data
+  - validate-location-master-data
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/receiving-specialist-professional-role.md
+fixture_file: tests/fixtures/receiving-specialist-professional-role.json
