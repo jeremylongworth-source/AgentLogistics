@@ -11,6 +11,7 @@ from typing import Any
 WAREHOUSE_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY"
 INVENTORY_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY"
 WAREHOUSE_PLANNER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY"
+FULFILLMENT_OPTIMIZER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY"
 REQUIRED_WAREHOUSE_SKILLS = {
     "analyze-logistics-operation",
     "map-logistics-flow",
@@ -87,6 +88,28 @@ REQUIRED_WAREHOUSE_PLANNER_SKILLS = {
     "compare-warehouse-layouts",
     "plan-warehouse-expansion",
 }
+REQUIRED_FULFILLMENT_OPTIMIZER_SKILLS = {
+    "analyze-order-profile",
+    "plan-forward-pick-storage",
+    "plan-replenishment",
+    "calculate-replenishment-demand",
+    "prioritize-replenishment",
+    "select-picking-strategy",
+    "plan-picking-wave",
+    "plan-batch-picking",
+    "plan-zone-picking",
+    "optimize-pick-path",
+    "calculate-pick-productivity",
+    "analyze-pick-accuracy",
+    "diagnose-picking-bottleneck",
+    "investigate-picking-error",
+    "plan-packing-operation",
+    "plan-cartonization",
+    "plan-shipping-stage",
+    "plan-trailer-loading",
+    "verify-outbound-shipment",
+    "investigate-shipping-error",
+}
 REQUIRED_FLOW_STEPS = [
     "receive",
     "inspect",
@@ -143,6 +166,38 @@ REQUIRED_WAREHOUSE_PLANNER_INVARIANTS = (
     "conceptual layout not structural approval",
     "qualified-review boundary",
 )
+REQUIRED_FULFILLMENT_ORDER_PROFILES = (
+    "low_volume_high_sku",
+    "high_volume_low_sku",
+    "ecommerce_each_pick",
+    "case_pick",
+    "pallet_movement",
+    "mixed_orders",
+)
+REQUIRED_FULFILLMENT_INVARIANTS = (
+    "order-profile-specific plan",
+    "replenishment demand calculation",
+    "replenishment priority queue",
+    "wave planning",
+    "batch picking",
+    "zone picking",
+    "pick-path considerations",
+    "pick productivity check",
+    "pick accuracy or error handoff",
+    "bottleneck diagnosis",
+    "cartonization constraints",
+    "trailer-loading constraints",
+    "outbound verification handoff",
+    "shipping-error investigation",
+    "qualified-review boundary",
+)
+REQUIRED_FULFILLMENT_CONSTRAINTS = (
+    "wms_hold_status",
+    "missing_item_dimensions",
+    "carrier_cutoff",
+    "staging_lane_conflict",
+    "limited_loader_after_1400",
+)
 REQUIRED_README_HEADINGS = (
     "## Purpose",
     "## Included Skills",
@@ -171,6 +226,12 @@ SKILLSET_REQUIREMENTS = {
         "skills": REQUIRED_WAREHOUSE_PLANNER_SKILLS,
         "prompt_token": "$warehouse-planner",
         "fixture_validator": "warehouse_planner",
+    },
+    "fulfillment-optimizer": {
+        "completion_token": FULFILLMENT_OPTIMIZER_COMPLETION_TOKEN,
+        "skills": REQUIRED_FULFILLMENT_OPTIMIZER_SKILLS,
+        "prompt_token": "$fulfillment-optimizer",
+        "fixture_validator": "fulfillment_optimizer",
     },
 }
 
@@ -407,6 +468,57 @@ def validate_warehouse_planner_fixture(
     return errors
 
 
+def validate_fulfillment_optimizer_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    relative = path.relative_to(repo_root)
+    if not path.is_file():
+        return [f"Missing fulfillment optimizer fixture: {relative}"]
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("skillset") != "fulfillment-optimizer":
+        errors.append(f"{relative}: skillset must be fulfillment-optimizer")
+    if data.get("completion_token") != FULFILLMENT_OPTIMIZER_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-09 completion token")
+
+    order_profiles = set(data.get("required_order_profiles", []))
+    for profile in REQUIRED_FULFILLMENT_ORDER_PROFILES:
+        if profile not in order_profiles:
+            errors.append(f"{relative}: missing order profile {profile}")
+
+    for skill in data.get("expected_skills", []):
+        if skill not in manifest_skills:
+            errors.append(f"{relative}: expected skill {skill} is not in skillset manifest")
+    missing_expected_skills = sorted(
+        REQUIRED_FULFILLMENT_OPTIMIZER_SKILLS - set(data.get("expected_skills", []))
+    )
+    for skill in missing_expected_skills:
+        errors.append(f"{relative}: missing expected skill {skill}")
+
+    invariants = set(data.get("required_output_invariants", []))
+    for required in REQUIRED_FULFILLMENT_INVARIANTS:
+        if required not in invariants:
+            errors.append(f"{relative}: missing output invariant {required}")
+
+    constraints = set(data.get("required_constraints", []))
+    for required in REQUIRED_FULFILLMENT_CONSTRAINTS:
+        if required not in constraints:
+            errors.append(f"{relative}: missing constraint {required}")
+
+    scenario_file = data.get("scenario_file")
+    if not scenario_file or not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario_file is missing or invalid")
+
+    return errors
+
+
 def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     manifest_path = skillset_dir / "skillset.yaml"
@@ -478,6 +590,14 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
         elif requirements and requirements["fixture_validator"] == "warehouse_planner":
             errors.extend(
                 validate_warehouse_planner_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
+                )
+            )
+        elif requirements and requirements["fixture_validator"] == "fulfillment_optimizer":
+            errors.extend(
+                validate_fulfillment_optimizer_fixture(
                     fixture_path,
                     repo_root,
                     set(skills),

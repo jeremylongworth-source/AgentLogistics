@@ -1,0 +1,27 @@
+name: fulfillment-optimizer
+description: Replenishment and fulfillment optimization skillset for replenishment demand, prioritization, wave, batch, zone, path, accuracy, bottleneck, picking-error, cartonization, trailer-loading, and shipping-error workflows across order profiles.
+completion_token: AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY
+skills:
+  - analyze-order-profile
+  - plan-forward-pick-storage
+  - plan-replenishment
+  - calculate-replenishment-demand
+  - prioritize-replenishment
+  - select-picking-strategy
+  - plan-picking-wave
+  - plan-batch-picking
+  - plan-zone-picking
+  - optimize-pick-path
+  - calculate-pick-productivity
+  - analyze-pick-accuracy
+  - diagnose-picking-bottleneck
+  - investigate-picking-error
+  - plan-packing-operation
+  - plan-cartonization
+  - plan-shipping-stage
+  - plan-trailer-loading
+  - verify-outbound-shipment
+  - investigate-shipping-error
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/fulfillment-optimizer-order-profiles.md
+fixture_file: tests/fixtures/fulfillment-optimizer-order-profiles.json

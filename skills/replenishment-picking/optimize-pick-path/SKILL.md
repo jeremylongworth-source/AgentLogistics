@@ -10,7 +10,10 @@ license: MIT
 
 Use this skill to recommend a pick sequence or path improvement using location and constraint evidence. The expected output is a pick-path recommendation with travel assumptions, sequence constraints, and safety review boundaries.
 
-This skill can participate in `skillsets/warehouse-planner/` when its evidence is relevant to the AL-08 storage, slotting, and facility-planning foundation.
+This skill can participate in `skillsets/warehouse-planner/` when its evidence
+is relevant to the AL-08 storage, slotting, and facility-planning foundation.
+It can also participate in `skillsets/fulfillment-optimizer/` for AL-09 wave,
+batch, zone, and route-level fulfillment optimization.
 
 ## Triggers
 
@@ -94,7 +97,10 @@ Check that:
 
 Use local user-provided records, SOPs, drawings, layout sketches, WMS or ERP exports, location masters, transaction histories, and warehouse observations as evidence only.
 
-Read `references/warehouse-planning-checklist.md` when using this skill in AL-08 warehouse-planner work.
+Read `references/warehouse-planning-checklist.md` when using this skill in
+AL-08 warehouse-planner work. Read
+`references/fulfillment-optimization-checklist.md` when using this skill in
+AL-09 fulfillment-optimizer work.
 
 Use current authoritative sources before making regulatory, safety, fire-code, building-code, rack, equipment, carrier, customs, dangerous-goods, food, cold-chain, jurisdiction-specific, or vendor-platform claims.
 
@@ -119,6 +125,7 @@ Return:
 ## References
 
 - `references/warehouse-planning-checklist.md`
+- `references/fulfillment-optimization-checklist.md`
 - `shared/glossaries/common-units.md`
 - `shared/glossaries/inventory-state-terms.md`
 - `shared/templates/calculation-output.md`
@@ -128,7 +135,10 @@ Return:
 
 ## Examples
 
-Use `tests/scenarios/warehouse-planner-layout-concept.md` for the representative AL-08 storage, slotting, capacity, flow, zoning, and conceptual-layout scenario.
+Use `tests/scenarios/warehouse-planner-layout-concept.md` for the representative
+AL-08 storage, slotting, capacity, flow, zoning, and conceptual-layout scenario.
+Use `tests/scenarios/fulfillment-optimizer-order-profiles.md` for the
+representative AL-09 route, wave, batch, zone, and order-profile scenario.
 
 Use the local checklist for skill-specific acceptance checks and compact examples.
 
@@ -141,4 +151,6 @@ Before accepting changes to this skill, test:
 - unmapped location exception
 - safety constraint overriding shortest path
 
-Run `scripts/validate-skills.py`, `scripts/validate-tests.py`, and `scripts/validate-skillsets.py` after changing this skill or AL-08 routing.
+Run `scripts/validate-skills.py`, `scripts/validate-tests.py`, and
+`scripts/validate-skillsets.py` after changing this skill or AL-08 or AL-09
+routing.

@@ -25,8 +25,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY`
 - `AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY`
 - `AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY`
+- `AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY`
 
-The next planned wave is AL-09: Replenishment and Fulfillment Optimization.
+The next planned wave is AL-10: Material Handling Systems.
 
 ## Scope
 
@@ -112,11 +113,16 @@ Warehouse planning skillset:
 
 - `skillsets/warehouse-planner/`
 
+Fulfillment optimization skillset:
+
+- `skillsets/fulfillment-optimizer/`
+
 Current test target:
 
 - `tests/fixtures/calculate-reorder-point-cases.json`
 - `tests/fixtures/inventory-discrepancy-investigation.json`
 - `tests/fixtures/warehouse-planner-layout-concept.json`
+- `tests/fixtures/fulfillment-optimizer-order-profiles.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

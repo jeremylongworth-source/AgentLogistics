@@ -1,0 +1,59 @@
+{
+  "skillset": "fulfillment-optimizer",
+  "completion_token": "AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY",
+  "scenario_file": "tests/scenarios/fulfillment-optimizer-order-profiles.md",
+  "required_order_profiles": [
+    "low_volume_high_sku",
+    "high_volume_low_sku",
+    "ecommerce_each_pick",
+    "case_pick",
+    "pallet_movement",
+    "mixed_orders"
+  ],
+  "expected_skills": [
+    "analyze-order-profile",
+    "plan-forward-pick-storage",
+    "plan-replenishment",
+    "calculate-replenishment-demand",
+    "prioritize-replenishment",
+    "select-picking-strategy",
+    "plan-picking-wave",
+    "plan-batch-picking",
+    "plan-zone-picking",
+    "optimize-pick-path",
+    "calculate-pick-productivity",
+    "analyze-pick-accuracy",
+    "diagnose-picking-bottleneck",
+    "investigate-picking-error",
+    "plan-packing-operation",
+    "plan-cartonization",
+    "plan-shipping-stage",
+    "plan-trailer-loading",
+    "verify-outbound-shipment",
+    "investigate-shipping-error"
+  ],
+  "required_output_invariants": [
+    "order-profile-specific plan",
+    "replenishment demand calculation",
+    "replenishment priority queue",
+    "wave planning",
+    "batch picking",
+    "zone picking",
+    "pick-path considerations",
+    "pick productivity check",
+    "pick accuracy or error handoff",
+    "bottleneck diagnosis",
+    "cartonization constraints",
+    "trailer-loading constraints",
+    "outbound verification handoff",
+    "shipping-error investigation",
+    "qualified-review boundary"
+  ],
+  "required_constraints": [
+    "wms_hold_status",
+    "missing_item_dimensions",
+    "carrier_cutoff",
+    "staging_lane_conflict",
+    "limited_loader_after_1400"
+  ]
+}

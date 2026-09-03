@@ -124,3 +124,27 @@ scenarios:
       - design-conceptual-warehouse-layout
       - compare-warehouse-layouts
       - plan-warehouse-expansion
+  fulfillment-optimizer-order-profiles:
+    prompt_file: tests/scenarios/fulfillment-optimizer-order-profiles.md
+    category: fulfillment_optimization_order_profiles
+    expected_routes:
+      - analyze-order-profile
+      - plan-forward-pick-storage
+      - plan-replenishment
+      - calculate-replenishment-demand
+      - prioritize-replenishment
+      - select-picking-strategy
+      - plan-picking-wave
+      - plan-batch-picking
+      - plan-zone-picking
+      - optimize-pick-path
+      - calculate-pick-productivity
+      - analyze-pick-accuracy
+      - diagnose-picking-bottleneck
+      - investigate-picking-error
+      - plan-packing-operation
+      - plan-cartonization
+      - plan-shipping-stage
+      - plan-trailer-loading
+      - verify-outbound-shipment
+      - investigate-shipping-error

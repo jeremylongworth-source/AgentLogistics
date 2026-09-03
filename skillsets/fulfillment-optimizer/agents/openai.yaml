@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fulfillment Optimizer"
+  short_description: "Optimize replenishment, picking, packing, and shipping."
+  default_prompt: "Use $fulfillment-optimizer to produce a replenishment, picking, packing, staging, loading, or shipping optimization output across order profiles."

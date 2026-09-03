@@ -34,6 +34,10 @@ The warehouse-planning skillset target is:
 
 - `skillsets/warehouse-planner/`
 
+The fulfillment-optimization skillset target is:
+
+- `skillsets/fulfillment-optimizer/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -44,6 +48,7 @@ Coverage includes:
 - the AL-06 warehouse-operator receive-to-ship scenario and flow fixture.
 - the AL-07 inventory discrepancy investigation scenario and fixture.
 - the AL-08 warehouse-planner layout concept scenario and fixture.
+- the AL-09 fulfillment-optimizer order-profile scenario and fixture.
 
 Run:
 

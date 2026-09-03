@@ -49,3 +49,10 @@ does not have public releases yet.
 - Added the warehouse-planner layout concept scenario, fixture, evaluation
   report, and AL-08 handoff.
 - Extended validation for the warehouse-planner skillset gate.
+- Completed Wave AL-09 replenishment and fulfillment optimization.
+- Added 11 replenishment, picking, packing, loading, and shipping optimization
+  skill packages and composed them with existing warehouse skills into
+  `skillsets/fulfillment-optimizer/`.
+- Added the fulfillment-optimizer order-profile scenario, fixture, evaluation
+  report, and AL-09 handoff.
+- Extended validation for the fulfillment-optimizer skillset gate.

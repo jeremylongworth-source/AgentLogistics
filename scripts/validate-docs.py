@@ -38,6 +38,7 @@ REQUIRED_FILES = (
     "docs/development/handoffs/AL-06-final-handoff.md",
     "docs/development/handoffs/AL-07-final-handoff.md",
     "docs/development/handoffs/AL-08-final-handoff.md",
+    "docs/development/handoffs/AL-09-final-handoff.md",
 )
 
 REQUIRED_TOKENS = {
@@ -123,6 +124,9 @@ REQUIRED_TOKENS = {
     ),
     "docs/development/handoffs/AL-08-final-handoff.md": (
         "AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY",
+    ),
+    "docs/development/handoffs/AL-09-final-handoff.md": (
+        "AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY",
     ),
 }
 
