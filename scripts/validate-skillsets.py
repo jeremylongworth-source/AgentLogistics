@@ -16,6 +16,7 @@ MATERIAL_HANDLING_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_REA
 TRANSPORTATION_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY"
 SYSTEMS_DATA_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY"
 CONTINUOUS_IMPROVEMENT_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY"
+LABOR_PLANNING_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY"
 REQUIRED_WAREHOUSE_SKILLS = {
     "analyze-logistics-operation",
     "map-logistics-flow",
@@ -175,6 +176,16 @@ REQUIRED_CONTINUOUS_IMPROVEMENT_SPECIALIST_SKILLS = {
     "compare-logistics-scenarios",
     "build-logistics-improvement-plan",
     "measure-improvement-result",
+}
+REQUIRED_LABOR_PLANNING_SKILLS = {
+    "forecast-warehouse-workload",
+    "calculate-labor-requirements",
+    "plan-warehouse-staffing",
+    "balance-warehouse-workload",
+    "analyze-labor-productivity",
+    "analyze-overtime-requirements",
+    "plan-shift-handoff",
+    "build-daily-warehouse-plan",
 }
 REQUIRED_FLOW_STEPS = [
     "receive",
@@ -482,6 +493,61 @@ REQUIRED_CONTINUOUS_IMPROVEMENT_BLOCKED_ACTIONS = (
     "safety_or_regulatory_approval",
     "guaranteed_improvement_claim",
 )
+REQUIRED_LABOR_PLANNING_COMPONENTS = (
+    "workload forecast",
+    "labor requirement",
+    "staffing plan",
+    "workload balancing",
+    "labor productivity analysis",
+    "overtime analysis",
+    "shift handoff",
+    "daily operating plan",
+)
+REQUIRED_LABOR_PLANNING_TIME_BASES = (
+    "planning_date",
+    "shift_window",
+    "productive_hours",
+    "scheduled_hours",
+    "break_time",
+    "service_window",
+)
+REQUIRED_LABOR_PLANNING_INVARIANTS = (
+    "workload forecast by area",
+    "productive labor-hour calculation",
+    "staffing coverage by skill",
+    "workload balancing by priority",
+    "labor productivity analysis",
+    "overtime exposure calculation",
+    "shift handoff with owners",
+    "daily warehouse operating plan",
+    "paid versus productive time boundary",
+    "qualified-review boundary",
+)
+REQUIRED_LABOR_PLANNING_CONSTRAINTS = (
+    "inbound_volume",
+    "outbound_volume",
+    "inventory_work",
+    "backlog",
+    "productivity_standard",
+    "break_schedule",
+    "service_window",
+    "skill_coverage",
+    "equipment_constraint",
+    "overtime_limit",
+    "shift_handoff_open_work",
+    "no_labor_law_approval",
+    "no_staffing_approval",
+)
+REQUIRED_LABOR_PLANNING_BLOCKED_ACTIONS = (
+    "live_schedule_publish",
+    "payroll_approval",
+    "hiring_approval",
+    "labor_discipline_approval",
+    "wage_hour_compliance_approval",
+    "union_contract_interpretation",
+    "safety_or_regulatory_approval",
+    "live_system_configuration",
+)
 REQUIRED_README_HEADINGS = (
     "## Purpose",
     "## Included Skills",
@@ -540,6 +606,18 @@ SKILLSET_REQUIREMENTS = {
         "skills": REQUIRED_CONTINUOUS_IMPROVEMENT_SPECIALIST_SKILLS,
         "prompt_token": "$continuous-improvement-specialist",
         "fixture_validator": "continuous_improvement",
+    },
+    "warehouse-supervisor": {
+        "completion_token": LABOR_PLANNING_COMPLETION_TOKEN,
+        "skills": REQUIRED_LABOR_PLANNING_SKILLS,
+        "prompt_token": "$warehouse-supervisor",
+        "fixture_validator": "labor_planning",
+    },
+    "warehouse-manager": {
+        "completion_token": LABOR_PLANNING_COMPLETION_TOKEN,
+        "skills": REQUIRED_LABOR_PLANNING_SKILLS,
+        "prompt_token": "$warehouse-manager",
+        "fixture_validator": "labor_planning",
     },
 }
 
@@ -1061,6 +1139,68 @@ def validate_continuous_improvement_fixture(
     return errors
 
 
+def validate_labor_planning_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+    expected_skillset: str,
+) -> list[str]:
+    errors: list[str] = []
+    relative = path.relative_to(repo_root)
+    if not path.is_file():
+        return [f"Missing labor planning fixture: {relative}"]
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("skillset") != expected_skillset:
+        errors.append(f"{relative}: skillset must be {expected_skillset}")
+    if data.get("completion_token") != LABOR_PLANNING_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-14 completion token")
+
+    for skill in data.get("expected_skills", []):
+        if skill not in manifest_skills:
+            errors.append(f"{relative}: expected skill {skill} is not in skillset manifest")
+    missing_expected_skills = sorted(
+        REQUIRED_LABOR_PLANNING_SKILLS - set(data.get("expected_skills", []))
+    )
+    for skill in missing_expected_skills:
+        errors.append(f"{relative}: missing expected skill {skill}")
+
+    components = set(data.get("required_planning_components", []))
+    for required in REQUIRED_LABOR_PLANNING_COMPONENTS:
+        if required not in components:
+            errors.append(f"{relative}: missing planning component {required}")
+
+    time_bases = set(data.get("required_time_bases", []))
+    for required in REQUIRED_LABOR_PLANNING_TIME_BASES:
+        if required not in time_bases:
+            errors.append(f"{relative}: missing time basis {required}")
+
+    invariants = set(data.get("required_output_invariants", []))
+    for required in REQUIRED_LABOR_PLANNING_INVARIANTS:
+        if required not in invariants:
+            errors.append(f"{relative}: missing output invariant {required}")
+
+    constraints = set(data.get("required_constraints", []))
+    for required in REQUIRED_LABOR_PLANNING_CONSTRAINTS:
+        if required not in constraints:
+            errors.append(f"{relative}: missing constraint {required}")
+
+    blocked_actions = set(data.get("blocked_actions", []))
+    for required in REQUIRED_LABOR_PLANNING_BLOCKED_ACTIONS:
+        if required not in blocked_actions:
+            errors.append(f"{relative}: missing blocked action {required}")
+
+    scenario_file = data.get("scenario_file")
+    if not scenario_file or not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario_file is missing or invalid")
+
+    return errors
+
+
 def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     manifest_path = skillset_dir / "skillset.yaml"
@@ -1175,6 +1315,15 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
                     fixture_path,
                     repo_root,
                     set(skills),
+                )
+            )
+        elif requirements and requirements["fixture_validator"] == "labor_planning":
+            errors.extend(
+                validate_labor_planning_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
+                    name,
                 )
             )
         else:

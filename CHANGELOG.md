@@ -82,3 +82,10 @@ does not have public releases yet.
   fixture, evaluation report, and AL-13 handoff.
 - Extended validation for the continuous-improvement-specialist skillset gate,
   including recommendation-gate checks.
+- Completed Wave AL-14 labor and operating planning.
+- Added 8 labor-operating-planning skill packages and composed them into
+  `skillsets/warehouse-supervisor/` and `skillsets/warehouse-manager/`.
+- Added warehouse-supervisor and warehouse-manager labor-planning scenarios,
+  fixtures, evaluation report, and AL-14 handoff.
+- Extended validation for both AL-14 skillset gates, including labor-time,
+  planning-component, and labor-approval boundary checks.

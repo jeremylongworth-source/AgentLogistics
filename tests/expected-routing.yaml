@@ -218,3 +218,27 @@ scenarios:
       - compare-logistics-scenarios
       - build-logistics-improvement-plan
       - measure-improvement-result
+  warehouse-supervisor-daily-operating-plan:
+    prompt_file: tests/scenarios/warehouse-supervisor-daily-operating-plan.md
+    category: labor_operating_planning
+    expected_routes:
+      - forecast-warehouse-workload
+      - calculate-labor-requirements
+      - plan-warehouse-staffing
+      - balance-warehouse-workload
+      - analyze-labor-productivity
+      - analyze-overtime-requirements
+      - plan-shift-handoff
+      - build-daily-warehouse-plan
+  warehouse-manager-labor-operating-plan:
+    prompt_file: tests/scenarios/warehouse-manager-labor-operating-plan.md
+    category: labor_operating_planning
+    expected_routes:
+      - forecast-warehouse-workload
+      - calculate-labor-requirements
+      - plan-warehouse-staffing
+      - balance-warehouse-workload
+      - analyze-labor-productivity
+      - analyze-overtime-requirements
+      - plan-shift-handoff
+      - build-daily-warehouse-plan

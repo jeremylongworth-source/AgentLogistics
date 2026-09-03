@@ -1,0 +1,15 @@
+name: warehouse-supervisor
+description: Warehouse supervisor skillset for day-to-day labor planning, workload balancing, productivity checks, overtime exposure, shift handoffs, and daily warehouse operating plans.
+completion_token: AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY
+skills:
+  - forecast-warehouse-workload
+  - calculate-labor-requirements
+  - plan-warehouse-staffing
+  - balance-warehouse-workload
+  - analyze-labor-productivity
+  - analyze-overtime-requirements
+  - plan-shift-handoff
+  - build-daily-warehouse-plan
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/warehouse-supervisor-daily-operating-plan.md
+fixture_file: tests/fixtures/warehouse-supervisor-daily-operating-plan.json

@@ -30,8 +30,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY`
 - `AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY`
 - `AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY`
+- `AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY`
 
-The next planned wave is AL-14: Labor and Operating Planning.
+The next planned wave is AL-15: Returns and Reverse Logistics.
 
 ## Scope
 
@@ -137,6 +138,14 @@ Continuous improvement skillset:
 
 - `skillsets/continuous-improvement-specialist/`
 
+Warehouse supervisor skillset:
+
+- `skillsets/warehouse-supervisor/`
+
+Warehouse manager skillset:
+
+- `skillsets/warehouse-manager/`
+
 Current test target:
 
 - `tests/fixtures/calculate-reorder-point-cases.json`
@@ -147,6 +156,8 @@ Current test target:
 - `tests/fixtures/transportation-coordinator-multimode-core.json`
 - `tests/fixtures/logistics-systems-analyst-integration-data-quality.json`
 - `tests/fixtures/continuous-improvement-specialist-performance-review.json`
+- `tests/fixtures/warehouse-supervisor-daily-operating-plan.json`
+- `tests/fixtures/warehouse-manager-labor-operating-plan.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

@@ -54,6 +54,14 @@ The continuous-improvement skillset target is:
 
 - `skillsets/continuous-improvement-specialist/`
 
+The warehouse-supervisor skillset target is:
+
+- `skillsets/warehouse-supervisor/`
+
+The warehouse-manager skillset target is:
+
+- `skillsets/warehouse-manager/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -71,6 +79,8 @@ Coverage includes:
   fixture.
 - the AL-13 continuous-improvement-specialist performance review scenario and
   fixture.
+- the AL-14 warehouse-supervisor daily operating plan scenario and fixture.
+- the AL-14 warehouse-manager labor operating plan scenario and fixture.
 
 Run:
 

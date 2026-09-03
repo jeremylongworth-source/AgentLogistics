@@ -1,0 +1,4 @@
+interface: openai
+display_name: Warehouse Manager
+short_description: Build manager-level warehouse labor and operating plans with review boundaries and source-backed assumptions.
+default_prompt: Use $warehouse-manager to coordinate AL-14 warehouse labor and operating-planning skills, preserve labor-time and source boundaries, and return planning support with qualified-review requirements.

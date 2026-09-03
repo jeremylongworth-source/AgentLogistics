@@ -1,0 +1,4 @@
+interface: openai
+display_name: Warehouse Supervisor
+short_description: Plan daily warehouse labor, workload, overtime exposure, handoffs, and execution priorities for supervisors.
+default_prompt: Use $warehouse-supervisor to coordinate AL-14 warehouse labor and operating-planning skills, preserve labor-time and source boundaries, and return planning support with qualified-review requirements.

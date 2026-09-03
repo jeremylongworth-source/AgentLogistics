@@ -1,0 +1,70 @@
+{
+  "skillset": "warehouse-supervisor",
+  "completion_token": "AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY",
+  "scenario_file": "tests/scenarios/warehouse-supervisor-daily-operating-plan.md",
+  "expected_skills": [
+    "forecast-warehouse-workload",
+    "calculate-labor-requirements",
+    "plan-warehouse-staffing",
+    "balance-warehouse-workload",
+    "analyze-labor-productivity",
+    "analyze-overtime-requirements",
+    "plan-shift-handoff",
+    "build-daily-warehouse-plan"
+  ],
+  "required_planning_components": [
+    "workload forecast",
+    "labor requirement",
+    "staffing plan",
+    "workload balancing",
+    "labor productivity analysis",
+    "overtime analysis",
+    "shift handoff",
+    "daily operating plan"
+  ],
+  "required_time_bases": [
+    "planning_date",
+    "shift_window",
+    "productive_hours",
+    "scheduled_hours",
+    "break_time",
+    "service_window"
+  ],
+  "required_output_invariants": [
+    "workload forecast by area",
+    "productive labor-hour calculation",
+    "staffing coverage by skill",
+    "workload balancing by priority",
+    "labor productivity analysis",
+    "overtime exposure calculation",
+    "shift handoff with owners",
+    "daily warehouse operating plan",
+    "paid versus productive time boundary",
+    "qualified-review boundary"
+  ],
+  "required_constraints": [
+    "inbound_volume",
+    "outbound_volume",
+    "inventory_work",
+    "backlog",
+    "productivity_standard",
+    "break_schedule",
+    "service_window",
+    "skill_coverage",
+    "equipment_constraint",
+    "overtime_limit",
+    "shift_handoff_open_work",
+    "no_labor_law_approval",
+    "no_staffing_approval"
+  ],
+  "blocked_actions": [
+    "live_schedule_publish",
+    "payroll_approval",
+    "hiring_approval",
+    "labor_discipline_approval",
+    "wage_hour_compliance_approval",
+    "union_contract_interpretation",
+    "safety_or_regulatory_approval",
+    "live_system_configuration"
+  ]
+}

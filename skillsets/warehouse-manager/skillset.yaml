@@ -1,0 +1,15 @@
+name: warehouse-manager
+description: Warehouse manager skillset for labor planning, staffing coverage, workload balancing, productivity review, overtime exposure, handoffs, and daily operating plans.
+completion_token: AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY
+skills:
+  - forecast-warehouse-workload
+  - calculate-labor-requirements
+  - plan-warehouse-staffing
+  - balance-warehouse-workload
+  - analyze-labor-productivity
+  - analyze-overtime-requirements
+  - plan-shift-handoff
+  - build-daily-warehouse-plan
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/warehouse-manager-labor-operating-plan.md
+fixture_file: tests/fixtures/warehouse-manager-labor-operating-plan.json
