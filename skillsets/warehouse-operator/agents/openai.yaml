@@ -1,0 +1,4 @@
+interface:
+  display_name: "Warehouse Operator"
+  short_description: "Coordinate receive-to-ship warehouse operations."
+  default_prompt: "Use $warehouse-operator to reason through receiving, inspection, putaway, storage, replenishment, picking, packing, staging, and shipping with evidence checks."

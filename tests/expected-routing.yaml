@@ -53,3 +53,29 @@ scenarios:
     category: unsupported_assumptions
     expected_routes:
       - calculate-reorder-point
+  warehouse-operator-end-to-end:
+    prompt_file: tests/scenarios/warehouse-operator-end-to-end.md
+    category: skillset_end_to_end
+    expected_routes:
+      - analyze-logistics-operation
+      - map-logistics-flow
+      - identify-logistics-constraints
+      - analyze-product-flow
+      - analyze-order-profile
+      - plan-inbound-receiving
+      - verify-inbound-shipment
+      - inspect-received-goods
+      - reconcile-asn
+      - process-receiving-discrepancy
+      - plan-putaway
+      - diagnose-receiving-bottleneck
+      - classify-storage-requirements
+      - calculate-storage-capacity
+      - calculate-pallet-positions
+      - analyze-storage-utilization
+      - plan-replenishment
+      - select-picking-strategy
+      - calculate-pick-productivity
+      - plan-packing-operation
+      - plan-shipping-stage
+      - verify-outbound-shipment

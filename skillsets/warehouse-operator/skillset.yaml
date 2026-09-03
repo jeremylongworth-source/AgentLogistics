@@ -1,0 +1,29 @@
+name: warehouse-operator
+description: End-to-end warehouse operator skillset for receive, inspect, putaway, store, replenish, pick, pack, stage, and ship workflows.
+completion_token: AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY
+skills:
+  - analyze-logistics-operation
+  - map-logistics-flow
+  - identify-logistics-constraints
+  - analyze-product-flow
+  - analyze-order-profile
+  - plan-inbound-receiving
+  - verify-inbound-shipment
+  - inspect-received-goods
+  - reconcile-asn
+  - process-receiving-discrepancy
+  - plan-putaway
+  - diagnose-receiving-bottleneck
+  - classify-storage-requirements
+  - calculate-storage-capacity
+  - calculate-pallet-positions
+  - analyze-storage-utilization
+  - plan-replenishment
+  - select-picking-strategy
+  - calculate-pick-productivity
+  - plan-packing-operation
+  - plan-shipping-stage
+  - verify-outbound-shipment
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/warehouse-operator-end-to-end.md
+fixture_file: tests/fixtures/warehouse-operator-flow.json

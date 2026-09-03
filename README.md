@@ -22,8 +22,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY`
 - `AGENTLOGISTICS_AL_04_VALIDATION_FRAMEWORK_READY`
 - `AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY`
+- `AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY`
 
-The next planned wave is AL-06: Warehouse Core Skillset.
+The next planned wave is AL-07: Inventory Control System.
 
 ## Scope
 
@@ -62,6 +63,7 @@ AgentLogistics/
 |-- scripts/
 |-- shared/
 |-- skills/
+|-- skillsets/
 |-- tests/
 |-- AGENTS.md
 |-- CHANGELOG.md
@@ -71,8 +73,8 @@ AgentLogistics/
 `-- ROADMAP.md
 ```
 
-Future waves may add `skillsets/`, `specializations/`, and additional validation
-tooling when those directories have real content.
+Future waves may add `specializations/` and additional validation tooling when
+those directories have real content.
 
 Core architecture artifacts:
 
@@ -95,6 +97,10 @@ Core standards artifacts:
 Reference skill:
 
 - `skills/inventory-control/calculate-reorder-point/`
+
+Warehouse skillset:
+
+- `skillsets/warehouse-operator/`
 
 Current test target:
 

@@ -31,3 +31,8 @@ does not have public releases yet.
   calculation-output template, and reorder-point fixture schema.
 - Added shared-foundation validation and wired the reference skill to consume
   shared materials.
+- Completed Wave AL-06 warehouse core skillset.
+- Added 22 warehouse-operation skill packages and composed them into
+  `skillsets/warehouse-operator/`.
+- Added warehouse-operator scenario, flow fixture, evaluation report, and
+  skillset validation.

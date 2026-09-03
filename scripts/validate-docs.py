@@ -35,6 +35,7 @@ REQUIRED_FILES = (
     "shared/formulas/reorder-point.md",
     "shared/templates/calculation-output.md",
     "docs/development/handoffs/AL-05-final-handoff.md",
+    "docs/development/handoffs/AL-06-final-handoff.md",
 )
 
 REQUIRED_TOKENS = {
@@ -111,6 +112,9 @@ REQUIRED_TOKENS = {
     ),
     "docs/development/handoffs/AL-05-final-handoff.md": (
         "AGENTLOGISTICS_AL_05_SHARED_FOUNDATIONS_READY",
+    ),
+    "docs/development/handoffs/AL-06-final-handoff.md": (
+        "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY",
     ),
 }
 

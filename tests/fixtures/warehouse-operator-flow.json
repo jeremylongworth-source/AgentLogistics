@@ -1,0 +1,92 @@
+{
+  "skillset": "warehouse-operator",
+  "completion_token": "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY",
+  "scenario_file": "tests/scenarios/warehouse-operator-end-to-end.md",
+  "required_flow": [
+    {
+      "step": "receive",
+      "expected_skills": [
+        "plan-inbound-receiving",
+        "verify-inbound-shipment",
+        "reconcile-asn"
+      ]
+    },
+    {
+      "step": "inspect",
+      "expected_skills": [
+        "inspect-received-goods",
+        "process-receiving-discrepancy"
+      ]
+    },
+    {
+      "step": "putaway",
+      "expected_skills": [
+        "plan-putaway",
+        "classify-storage-requirements"
+      ]
+    },
+    {
+      "step": "store",
+      "expected_skills": [
+        "calculate-storage-capacity",
+        "calculate-pallet-positions",
+        "analyze-storage-utilization"
+      ]
+    },
+    {
+      "step": "replenish",
+      "expected_skills": [
+        "plan-replenishment"
+      ]
+    },
+    {
+      "step": "pick",
+      "expected_skills": [
+        "analyze-order-profile",
+        "select-picking-strategy",
+        "calculate-pick-productivity"
+      ]
+    },
+    {
+      "step": "pack",
+      "expected_skills": [
+        "plan-packing-operation"
+      ]
+    },
+    {
+      "step": "stage",
+      "expected_skills": [
+        "plan-shipping-stage"
+      ]
+    },
+    {
+      "step": "ship",
+      "expected_skills": [
+        "verify-outbound-shipment"
+      ]
+    }
+  ],
+  "supporting_context_skills": [
+    "analyze-logistics-operation",
+    "map-logistics-flow",
+    "identify-logistics-constraints",
+    "analyze-product-flow"
+  ],
+  "required_output_invariants": [
+    "operation boundary",
+    "flow map",
+    "inbound evidence checks",
+    "inspection result",
+    "discrepancy path",
+    "putaway plan",
+    "storage capacity or missing inputs",
+    "replenishment plan",
+    "picking strategy",
+    "packing plan",
+    "shipping staging plan",
+    "outbound verification result",
+    "assumptions",
+    "exceptions",
+    "qualified-review boundaries"
+  ]
+}

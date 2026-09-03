@@ -319,22 +319,34 @@ def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
 
 def validate_evaluation_reports(repo_root: Path) -> list[str]:
     errors: list[str] = []
-    report_path = repo_root / "tests" / "evaluations" / "calculate-reorder-point-al-04-report.md"
-    if not report_path.is_file():
-        return ["Missing evaluation report: tests/evaluations/calculate-reorder-point-al-04-report.md"]
-
-    text = report_path.read_text(encoding="utf-8")
-    required_phrases = (
-        COMPLETION_TOKEN,
-        "Baseline Result Summary",
-        "Skill-Enabled Result Summary",
-        "Rubric Scores",
-        "Decision",
-        "keep",
+    required_reports = (
+        (
+            repo_root / "tests" / "evaluations" / "calculate-reorder-point-al-04-report.md",
+            COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "warehouse-operator-al-06-report.md",
+            "AGENTLOGISTICS_AL_06_WAREHOUSE_CORE_READY",
+        ),
     )
-    for phrase in required_phrases:
-        if phrase not in text:
-            errors.append(f"{report_path.relative_to(repo_root)}: missing {phrase}")
+
+    for report_path, token in required_reports:
+        if not report_path.is_file():
+            errors.append(f"Missing evaluation report: {report_path.relative_to(repo_root)}")
+            continue
+
+        text = report_path.read_text(encoding="utf-8")
+        required_phrases = (
+            token,
+            "Baseline Result Summary",
+            "Skill-Enabled Result Summary",
+            "Rubric Scores",
+            "Decision",
+            "keep",
+        )
+        for phrase in required_phrases:
+            if phrase not in text:
+                errors.append(f"{report_path.relative_to(repo_root)}: missing {phrase}")
 
     return errors
 
