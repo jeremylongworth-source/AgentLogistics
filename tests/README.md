@@ -50,6 +50,10 @@ The logistics-systems skillset target is:
 
 - `skillsets/logistics-systems-analyst/`
 
+The continuous-improvement skillset target is:
+
+- `skillsets/continuous-improvement-specialist/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -64,6 +68,8 @@ Coverage includes:
 - the AL-10 material-handling selection-analysis scenario and fixture.
 - the AL-11 transportation-coordinator multimode scenario and fixture.
 - the AL-12 logistics-systems-analyst integration data-quality scenario and
+  fixture.
+- the AL-13 continuous-improvement-specialist performance review scenario and
   fixture.
 
 Run:

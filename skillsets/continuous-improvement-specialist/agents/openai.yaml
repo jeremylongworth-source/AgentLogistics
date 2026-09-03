@@ -1,0 +1,4 @@
+interface: openai
+display_name: Continuous Improvement Specialist
+short_description: Analyze logistics performance, KPIs, throughput, bottlenecks, RCA, waste, scenarios, plans, and measured results.
+default_prompt: Use $continuous-improvement-specialist to coordinate AL-13 logistics performance and continuous-improvement skills, separate observation, evidence, inference, root cause, recommendation, expected effect, and measurement plan, and return planning support with qualified-review boundaries.

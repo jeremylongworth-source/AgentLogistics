@@ -15,6 +15,7 @@ FULFILLMENT_OPTIMIZER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIM
 MATERIAL_HANDLING_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_READY"
 TRANSPORTATION_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY"
 SYSTEMS_DATA_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY"
+CONTINUOUS_IMPROVEMENT_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY"
 REQUIRED_WAREHOUSE_SKILLS = {
     "analyze-logistics-operation",
     "map-logistics-flow",
@@ -159,6 +160,21 @@ REQUIRED_LOGISTICS_SYSTEMS_ANALYST_SKILLS = {
     "map-erp-wms-integration",
     "map-wms-tms-integration",
     "analyze-logistics-data-quality",
+}
+REQUIRED_CONTINUOUS_IMPROVEMENT_SPECIALIST_SKILLS = {
+    "select-logistics-kpis",
+    "build-logistics-scorecard",
+    "analyze-warehouse-kpis",
+    "analyze-throughput",
+    "diagnose-throughput-loss",
+    "identify-logistics-bottleneck",
+    "perform-logistics-root-cause-analysis",
+    "perform-logistics-pareto-analysis",
+    "map-warehouse-process",
+    "analyze-logistics-waste",
+    "compare-logistics-scenarios",
+    "build-logistics-improvement-plan",
+    "measure-improvement-result",
 }
 REQUIRED_FLOW_STEPS = [
     "receive",
@@ -403,6 +419,69 @@ REQUIRED_SYSTEMS_DATA_BLOCKED_ACTIONS = (
     "api_credential_use",
     "regulatory_compliance_approval",
 )
+REQUIRED_CONTINUOUS_IMPROVEMENT_GATE_ELEMENTS = (
+    "observation",
+    "evidence",
+    "inference",
+    "root cause",
+    "recommendation",
+    "expected effect",
+    "measurement plan",
+)
+REQUIRED_CONTINUOUS_IMPROVEMENT_KPI_DOMAINS = (
+    "service",
+    "quality",
+    "cost",
+    "productivity",
+    "throughput",
+    "inventory",
+    "space",
+    "labor",
+    "safety",
+)
+REQUIRED_CONTINUOUS_IMPROVEMENT_INVARIANTS = (
+    "KPI set",
+    "scorecard design",
+    "warehouse KPI analysis",
+    "throughput analysis",
+    "throughput loss diagnosis",
+    "bottleneck finding",
+    "root-cause analysis",
+    "Pareto analysis",
+    "warehouse process map",
+    "waste analysis",
+    "scenario comparison",
+    "improvement plan",
+    "improvement result measurement",
+    "recommendation gate distinction",
+    "no unsupported causal proof",
+    "qualified-review boundary",
+)
+REQUIRED_CONTINUOUS_IMPROVEMENT_CONSTRAINTS = (
+    "baseline_measurement",
+    "target_definition",
+    "cadence_owner",
+    "throughput_unit",
+    "capacity_constraint",
+    "downtime_or_queue_evidence",
+    "bottleneck_not_symptom",
+    "root_cause_not_guess",
+    "pareto_category_counts",
+    "process_waste_categories",
+    "scenario_assumption_boundary",
+    "measurement_plan",
+    "no_production_change_approval",
+)
+REQUIRED_CONTINUOUS_IMPROVEMENT_BLOCKED_ACTIONS = (
+    "live_system_configuration",
+    "staffing_change_approval",
+    "labor_discipline_approval",
+    "financial_commitment_approval",
+    "capital_project_approval",
+    "layout_change_approval",
+    "safety_or_regulatory_approval",
+    "guaranteed_improvement_claim",
+)
 REQUIRED_README_HEADINGS = (
     "## Purpose",
     "## Included Skills",
@@ -455,6 +534,12 @@ SKILLSET_REQUIREMENTS = {
         "skills": REQUIRED_LOGISTICS_SYSTEMS_ANALYST_SKILLS,
         "prompt_token": "$logistics-systems-analyst",
         "fixture_validator": "systems_data",
+    },
+    "continuous-improvement-specialist": {
+        "completion_token": CONTINUOUS_IMPROVEMENT_COMPLETION_TOKEN,
+        "skills": REQUIRED_CONTINUOUS_IMPROVEMENT_SPECIALIST_SKILLS,
+        "prompt_token": "$continuous-improvement-specialist",
+        "fixture_validator": "continuous_improvement",
     },
 }
 
@@ -915,6 +1000,67 @@ def validate_systems_data_fixture(
     return errors
 
 
+def validate_continuous_improvement_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    relative = path.relative_to(repo_root)
+    if not path.is_file():
+        return [f"Missing continuous improvement fixture: {relative}"]
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("skillset") != "continuous-improvement-specialist":
+        errors.append(f"{relative}: skillset must be continuous-improvement-specialist")
+    if data.get("completion_token") != CONTINUOUS_IMPROVEMENT_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-13 completion token")
+
+    for skill in data.get("expected_skills", []):
+        if skill not in manifest_skills:
+            errors.append(f"{relative}: expected skill {skill} is not in skillset manifest")
+    missing_expected_skills = sorted(
+        REQUIRED_CONTINUOUS_IMPROVEMENT_SPECIALIST_SKILLS - set(data.get("expected_skills", []))
+    )
+    for skill in missing_expected_skills:
+        errors.append(f"{relative}: missing expected skill {skill}")
+
+    gate_elements = set(data.get("required_gate_elements", []))
+    for required in REQUIRED_CONTINUOUS_IMPROVEMENT_GATE_ELEMENTS:
+        if required not in gate_elements:
+            errors.append(f"{relative}: missing recommendation gate element {required}")
+
+    kpi_domains = set(data.get("required_kpi_domains", []))
+    for required in REQUIRED_CONTINUOUS_IMPROVEMENT_KPI_DOMAINS:
+        if required not in kpi_domains:
+            errors.append(f"{relative}: missing KPI domain {required}")
+
+    invariants = set(data.get("required_output_invariants", []))
+    for required in REQUIRED_CONTINUOUS_IMPROVEMENT_INVARIANTS:
+        if required not in invariants:
+            errors.append(f"{relative}: missing output invariant {required}")
+
+    constraints = set(data.get("required_constraints", []))
+    for required in REQUIRED_CONTINUOUS_IMPROVEMENT_CONSTRAINTS:
+        if required not in constraints:
+            errors.append(f"{relative}: missing constraint {required}")
+
+    blocked_actions = set(data.get("blocked_actions", []))
+    for required in REQUIRED_CONTINUOUS_IMPROVEMENT_BLOCKED_ACTIONS:
+        if required not in blocked_actions:
+            errors.append(f"{relative}: missing blocked action {required}")
+
+    scenario_file = data.get("scenario_file")
+    if not scenario_file or not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario_file is missing or invalid")
+
+    return errors
+
+
 def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     manifest_path = skillset_dir / "skillset.yaml"
@@ -1018,6 +1164,14 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
         elif requirements and requirements["fixture_validator"] == "systems_data":
             errors.extend(
                 validate_systems_data_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
+                )
+            )
+        elif requirements and requirements["fixture_validator"] == "continuous_improvement":
+            errors.extend(
+                validate_continuous_improvement_fixture(
                     fixture_path,
                     repo_root,
                     set(skills),

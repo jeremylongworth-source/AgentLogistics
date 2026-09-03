@@ -1,0 +1,20 @@
+name: continuous-improvement-specialist
+description: Performance and continuous-improvement skillset for logistics KPIs, scorecards, warehouse performance, throughput, bottlenecks, RCA, Pareto, waste, scenarios, plans, and result measurement.
+completion_token: AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY
+skills:
+  - select-logistics-kpis
+  - build-logistics-scorecard
+  - analyze-warehouse-kpis
+  - analyze-throughput
+  - diagnose-throughput-loss
+  - identify-logistics-bottleneck
+  - perform-logistics-root-cause-analysis
+  - perform-logistics-pareto-analysis
+  - map-warehouse-process
+  - analyze-logistics-waste
+  - compare-logistics-scenarios
+  - build-logistics-improvement-plan
+  - measure-improvement-result
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/continuous-improvement-specialist-performance-review.md
+fixture_file: tests/fixtures/continuous-improvement-specialist-performance-review.json

@@ -201,3 +201,20 @@ scenarios:
       - map-erp-wms-integration
       - map-wms-tms-integration
       - analyze-logistics-data-quality
+  continuous-improvement-specialist-performance-review:
+    prompt_file: tests/scenarios/continuous-improvement-specialist-performance-review.md
+    category: continuous_improvement_analysis
+    expected_routes:
+      - select-logistics-kpis
+      - build-logistics-scorecard
+      - analyze-warehouse-kpis
+      - analyze-throughput
+      - diagnose-throughput-loss
+      - identify-logistics-bottleneck
+      - perform-logistics-root-cause-analysis
+      - perform-logistics-pareto-analysis
+      - map-warehouse-process
+      - analyze-logistics-waste
+      - compare-logistics-scenarios
+      - build-logistics-improvement-plan
+      - measure-improvement-result

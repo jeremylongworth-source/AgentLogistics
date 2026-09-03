@@ -1,0 +1,83 @@
+{
+  "skillset": "continuous-improvement-specialist",
+  "completion_token": "AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY",
+  "scenario_file": "tests/scenarios/continuous-improvement-specialist-performance-review.md",
+  "expected_skills": [
+    "select-logistics-kpis",
+    "build-logistics-scorecard",
+    "analyze-warehouse-kpis",
+    "analyze-throughput",
+    "diagnose-throughput-loss",
+    "identify-logistics-bottleneck",
+    "perform-logistics-root-cause-analysis",
+    "perform-logistics-pareto-analysis",
+    "map-warehouse-process",
+    "analyze-logistics-waste",
+    "compare-logistics-scenarios",
+    "build-logistics-improvement-plan",
+    "measure-improvement-result"
+  ],
+  "required_gate_elements": [
+    "observation",
+    "evidence",
+    "inference",
+    "root cause",
+    "recommendation",
+    "expected effect",
+    "measurement plan"
+  ],
+  "required_kpi_domains": [
+    "service",
+    "quality",
+    "cost",
+    "productivity",
+    "throughput",
+    "inventory",
+    "space",
+    "labor",
+    "safety"
+  ],
+  "required_output_invariants": [
+    "KPI set",
+    "scorecard design",
+    "warehouse KPI analysis",
+    "throughput analysis",
+    "throughput loss diagnosis",
+    "bottleneck finding",
+    "root-cause analysis",
+    "Pareto analysis",
+    "warehouse process map",
+    "waste analysis",
+    "scenario comparison",
+    "improvement plan",
+    "improvement result measurement",
+    "recommendation gate distinction",
+    "no unsupported causal proof",
+    "qualified-review boundary"
+  ],
+  "required_constraints": [
+    "baseline_measurement",
+    "target_definition",
+    "cadence_owner",
+    "throughput_unit",
+    "capacity_constraint",
+    "downtime_or_queue_evidence",
+    "bottleneck_not_symptom",
+    "root_cause_not_guess",
+    "pareto_category_counts",
+    "process_waste_categories",
+    "scenario_assumption_boundary",
+    "measurement_plan",
+    "no_production_change_approval"
+  ],
+  "blocked_actions": [
+    "live_system_configuration",
+    "staffing_change_approval",
+    "labor_discipline_approval",
+    "financial_commitment_approval",
+    "capital_project_approval",
+    "layout_change_approval",
+    "safety_or_regulatory_approval",
+    "guaranteed_improvement_claim"
+  ]
+}

@@ -17,6 +17,7 @@ AL_09_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY"
 AL_10_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_READY"
 AL_11_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY"
 AL_12_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY"
+AL_13_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY"
 REQUIRED_CATEGORIES = {
     "correct_invocation",
     "incorrect_invocation",
@@ -358,6 +359,10 @@ def validate_evaluation_reports(repo_root: Path) -> list[str]:
         (
             repo_root / "tests" / "evaluations" / "logistics-systems-analyst-al-12-report.md",
             AL_12_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "continuous-improvement-specialist-al-13-report.md",
+            AL_13_COMPLETION_TOKEN,
         ),
     )
 

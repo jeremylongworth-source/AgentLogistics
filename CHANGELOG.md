@@ -75,3 +75,10 @@ does not have public releases yet.
   fixture, evaluation report, and AL-12 handoff.
 - Extended validation for the logistics-systems-analyst skillset gate, including
   GS1 source-boundary checks.
+- Completed Wave AL-13 performance and continuous improvement.
+- Added 13 performance-continuous-improvement skill packages and composed them
+  into `skillsets/continuous-improvement-specialist/`.
+- Added the continuous-improvement-specialist performance review scenario,
+  fixture, evaluation report, and AL-13 handoff.
+- Extended validation for the continuous-improvement-specialist skillset gate,
+  including recommendation-gate checks.
