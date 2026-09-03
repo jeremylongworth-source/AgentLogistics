@@ -19,6 +19,12 @@ REQUIRED_FILES = (
     "docs/architecture/taxonomy-audit.md",
     "docs/architecture/dependency-map.md",
     "docs/development/handoffs/AL-02-final-handoff.md",
+    "docs/standards/skill-authoring-standard.md",
+    "docs/standards/skill-naming-standard.md",
+    "docs/standards/research-and-evidence-standard.md",
+    "docs/standards/calculation-standard.md",
+    "docs/standards/regulatory-content-standard.md",
+    "docs/development/handoffs/AL-03-final-handoff.md",
 )
 
 REQUIRED_TOKENS = {
@@ -47,6 +53,24 @@ REQUIRED_TOKENS = {
     ),
     "docs/development/handoffs/AL-02-final-handoff.md": (
         "AGENTLOGISTICS_AL_02_MASTER_TAXONOMY_READY",
+    ),
+    "docs/standards/skill-authoring-standard.md": (
+        "AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY",
+    ),
+    "docs/standards/skill-naming-standard.md": (
+        "AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY",
+    ),
+    "docs/standards/research-and-evidence-standard.md": (
+        "AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY",
+    ),
+    "docs/standards/calculation-standard.md": (
+        "AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY",
+    ),
+    "docs/standards/regulatory-content-standard.md": (
+        "AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY",
+    ),
+    "docs/development/handoffs/AL-03-final-handoff.md": (
+        "AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY",
     ),
 }
 

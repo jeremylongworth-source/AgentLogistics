@@ -17,3 +17,8 @@ does not have public releases yet.
 - Completed Wave AL-02 master taxonomy audit.
 - Added the v1 taxonomy, taxonomy audit, dependency map, and AL-02 handoff.
 - Added taxonomy validation for duplicate skill slugs and naming format.
+- Completed Wave AL-03 skill specification standard.
+- Added skill authoring, naming, evidence, calculation, and regulatory content
+  standards.
+- Added the `calculate-reorder-point` reference skill package.
+- Added skill package validation and wired it into repository validation.

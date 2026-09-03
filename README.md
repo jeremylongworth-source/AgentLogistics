@@ -19,8 +19,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_00_BASELINE_READY`
 - `AGENTLOGISTICS_AL_01_DOMAIN_CONTRACT_READY`
 - `AGENTLOGISTICS_AL_02_MASTER_TAXONOMY_READY`
+- `AGENTLOGISTICS_AL_03_SKILL_STANDARD_READY`
 
-The next planned wave is AL-03: Skill Specification Standard.
+The next planned wave is AL-04: Skillset Architecture.
 
 ## Scope
 
@@ -54,8 +55,10 @@ Current real content:
 AgentLogistics/
 |-- docs/
 |   |-- architecture/
-|   `-- development/
+|   |-- development/
+|   `-- standards/
 |-- scripts/
+|-- skills/
 |-- AGENTS.md
 |-- CHANGELOG.md
 |-- CONTRIBUTING.md
@@ -75,6 +78,18 @@ Core architecture artifacts:
 - `docs/architecture/master-taxonomy-v1.md`
 - `docs/architecture/taxonomy-audit.md`
 - `docs/architecture/dependency-map.md`
+
+Core standards artifacts:
+
+- `docs/standards/skill-authoring-standard.md`
+- `docs/standards/skill-naming-standard.md`
+- `docs/standards/research-and-evidence-standard.md`
+- `docs/standards/calculation-standard.md`
+- `docs/standards/regulatory-content-standard.md`
+
+Reference skill:
+
+- `skills/inventory-control/calculate-reorder-point/`
 
 ## Development Model
 
