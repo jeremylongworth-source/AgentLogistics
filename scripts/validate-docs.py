@@ -18,6 +18,11 @@ REQUIRED_FILES = (
 )
 
 REQUIRED_TOKENS = {
+    "ROADMAP.md": (
+        "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY",
+        "AGENTLOGISTICS_AL_25_V1_RC_AUDIT_COMPLETE",
+        "Roadmap version: 0.1",
+    ),
     "docs/development/AL-00-baseline-audit.md": (
         "AGENTLOGISTICS_AL_00_BASELINE_READY",
     ),

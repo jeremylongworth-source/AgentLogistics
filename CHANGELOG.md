@@ -10,7 +10,7 @@ does not have public releases yet.
 ### Added
 
 - Initialized the AgentLogistics repository structure.
-- Added the recovered development roadmap as the local execution authority.
+- Added the full development roadmap as the local execution authority.
 - Completed Wave AL-00 baseline audit.
 - Added Wave AL-01 domain contract and scope boundary documentation.
 - Added lightweight repository validation scripts.

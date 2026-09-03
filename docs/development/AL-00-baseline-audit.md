@@ -26,8 +26,10 @@ Recovered source facts:
 - The project purpose is to build an open-source AI skill repository for
   commercial logistics, warehousing, storage, inventory, transportation,
   distribution, and related operational knowledge.
-- The accessible task transcript preserves the roadmap through AL-15 and starts
+- The original task transcript preserved the roadmap through AL-15 and started
   AL-16 before truncating.
+- The user later supplied the full roadmap text from
+  `C:\Users\jerem\Desktop\AgentLogistics Development Roadmap.txt`.
 - The recovered plan instructs Codex to complete AL-00 before architecture or
   content work begins.
 
@@ -35,11 +37,9 @@ Open source recovery note:
 
 - The local task API capped the relevant ChatGPT roadmap message at 20,000
   characters.
-- The recovered text includes complete AL-00 through AL-15 content.
-- AL-16 begins as `Canadian Logistics Safety and Compliance`, but its full
-  source text was not available through the task API.
-- `ROADMAP.md` preserves recovered content and marks AL-16+ as continuation
-  candidates pending recovery or replanning.
+- That truncation has been resolved by the user-supplied desktop source file.
+- `ROADMAP.md` now contains the full roadmap text through AL-25 and the Codex
+  execution protocol.
 
 ## Local Repository State Observed Before Initialization
 
