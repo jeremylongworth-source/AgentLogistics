@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research Canadian Transportation Rules
+short_description: Prepare Canadian transportation rule research briefs for logistics movements while separating mode, province, territory, federal, carrier, and shipper scope.
+default_prompt: Use $research-canadian-transportation-rules to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

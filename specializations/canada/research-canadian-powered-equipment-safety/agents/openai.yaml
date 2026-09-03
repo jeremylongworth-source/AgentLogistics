@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research Canadian Powered Equipment Safety
+short_description: Prepare Canadian powered industrial equipment safety research briefs for forklifts, lift trucks, conveyors, AGVs, AMRs, and ASRS interfaces.
+default_prompt: Use $research-canadian-powered-equipment-safety to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

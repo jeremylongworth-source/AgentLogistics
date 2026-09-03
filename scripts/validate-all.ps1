@@ -17,6 +17,11 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
+python "$PSScriptRoot\validate-specializations.py" --repo-root "$RepoRoot"
+if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+}
+
 python "$PSScriptRoot\validate-tests.py" --repo-root "$RepoRoot"
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE

@@ -20,6 +20,7 @@ AL_12_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY"
 AL_13_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY"
 AL_14_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY"
 AL_15_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_15_REVERSE_LOGISTICS_READY"
+AL_16_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY"
 REQUIRED_CATEGORIES = {
     "correct_invocation",
     "incorrect_invocation",
@@ -141,13 +142,94 @@ REQUIRED_REVERSE_LOGISTICS_BLOCKED_ACTIONS = (
     "regulated_product_determination",
     "live_system_configuration",
 )
+REQUIRED_CANADA_SPECIALIZATIONS = {
+    "identify-canadian-logistics-jurisdiction",
+    "research-canadian-workplace-safety",
+    "research-canadian-material-handling-safety",
+    "research-canadian-powered-equipment-safety",
+    "research-canadian-transportation-rules",
+    "research-canadian-dangerous-goods-rules",
+    "research-canadian-commercial-vehicle-safety",
+    "research-canadian-loading-security",
+    "research-canadian-logistics-documents",
+    "research-canadian-import-export-controls",
+    "research-canadian-storage-requirements",
+}
+REQUIRED_CANADA_AUTHORITY_CLASSES = (
+    "federal workplace safety",
+    "provincial and territorial workplace safety",
+    "WHMIS hazardous product communication",
+    "TDG dangerous goods transportation",
+    "commercial vehicle and motor carrier safety",
+    "cargo loading and securement",
+    "import and export border controls",
+    "carrier, terminal, port, airport, and facility rules",
+    "employer safety program and site procedure",
+    "manufacturer and equipment instructions",
+)
+REQUIRED_CANADA_JURISDICTION_DIMENSIONS = (
+    "country",
+    "province_or_territory",
+    "federal_or_extra_provincial_context",
+    "workplace_type",
+    "industry",
+    "activity",
+    "transportation_mode",
+    "route",
+    "product_or_hazard",
+    "employer_program_scope",
+)
+REQUIRED_CANADA_INVARIANTS = (
+    "no single unified Canadian warehouse law",
+    "current official sources required",
+    "source access dates visible",
+    "federal provincial territorial separation",
+    "mode and activity separation",
+    "product and hazard separation",
+    "user evidence treated as evidence only",
+    "operational preparation not approval",
+    "qualified-review boundary",
+    "source conflict handling",
+)
+REQUIRED_CANADA_BLOCKED_CLAIMS = (
+    "legal_advice",
+    "compliance_declaration",
+    "safety_approval",
+    "equipment_certification",
+    "operator_certification",
+    "tdg_classification_approval",
+    "customs_declaration_approval",
+    "import_export_release_approval",
+    "vehicle_roadworthiness_certification",
+    "driver_qualification_approval",
+    "fire_building_structural_environmental_approval",
+    "live_system_change",
+)
+REQUIRED_CANADA_SOURCE_URLS = (
+    "https://www.ccohs.ca/oshanswers/legisl/legislation/intro.html",
+    "https://www.canada.ca/en/employment-social-development/services/health-safety/workplace-safety.html",
+    "https://laws-lois.justice.gc.ca/eng/regulations/Sor-86-304/index.html",
+    "https://www.canada.ca/en/health-canada/services/environmental-workplace-health/occupational-health-safety/workplace-hazardous-materials-information-system/roles-responsibilities-whmis.html",
+    "https://tc.canada.ca/en/dangerous-goods/transportation-dangerous-goods-canada",
+    "https://tc.canada.ca/en/dangerous-goods/safety-awareness-materials-faq",
+    "https://tc.canada.ca/en/road-transportation/motor-carriers-commercial-vehicles-drivers",
+    "https://tc.canada.ca/en/road-transportation/motor-vehicle-safety/commercial-vehicle-safety",
+    "https://www.cbsa-asfc.gc.ca/import/guide-eng.html",
+    "https://www.cbsa-asfc.gc.ca/services/export/menu-eng.html",
+)
 
 
 def skill_names(repo_root: Path) -> set[str]:
+    names: set[str] = set()
     skills_root = repo_root / "skills"
-    if not skills_root.is_dir():
-        return set()
-    return {path.parent.name for path in skills_root.glob("*/*/SKILL.md")}
+    if skills_root.is_dir():
+        names.update(path.parent.name for path in skills_root.glob("*/*/SKILL.md"))
+
+    specializations_root = repo_root / "specializations"
+    if specializations_root.is_dir():
+        names.update(path.parent.name for path in specializations_root.glob("*/*/SKILL.md"))
+
+    return names
 
 
 def parse_expected_routing(path: Path) -> dict[str, dict[str, Any]]:
@@ -395,6 +477,49 @@ def validate_reverse_logistics_fixture(repo_root: Path, known_skills: set[str]) 
     return errors
 
 
+def validate_canada_compliance_fixture(repo_root: Path, known_skills: set[str]) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "canada-compliance-source-triage.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing fixture file: tests/fixtures/canada-compliance-source-triage.json"]
+
+    try:
+        fixture = read_fixture(fixture_path)
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if fixture.get("completion_token") != AL_16_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-16 completion token")
+
+    scenario_file = fixture.get("scenario_file")
+    if scenario_file != "tests/scenarios/canada-compliance-source-triage.md":
+        errors.append(f"{relative}: missing Canada compliance scenario reference")
+    elif not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    expected_specializations = set(fixture.get("expected_specializations", []))
+    for package_name in sorted(REQUIRED_CANADA_SPECIALIZATIONS - expected_specializations):
+        errors.append(f"{relative}: expected_specializations missing {package_name}")
+    for package_name in sorted(expected_specializations - known_skills):
+        errors.append(f"{relative}: expected specialization {package_name} has no package")
+
+    checks = (
+        ("required_authority_classes", REQUIRED_CANADA_AUTHORITY_CLASSES),
+        ("required_jurisdiction_dimensions", REQUIRED_CANADA_JURISDICTION_DIMENSIONS),
+        ("required_output_invariants", REQUIRED_CANADA_INVARIANTS),
+        ("blocked_claims", REQUIRED_CANADA_BLOCKED_CLAIMS),
+        ("official_source_urls", REQUIRED_CANADA_SOURCE_URLS),
+    )
+    for field, required_values in checks:
+        values = set(fixture.get(field, []))
+        for value in required_values:
+            if value not in values:
+                errors.append(f"{relative}: {field} missing {value}")
+
+    return errors
+
+
 def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     fixture_path = repo_root / "tests" / "fixtures" / "calculate-reorder-point-cases.json"
@@ -452,6 +577,7 @@ def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
         validate_numeric_case(case, errors)
 
     errors.extend(validate_reverse_logistics_fixture(repo_root, known_skills))
+    errors.extend(validate_canada_compliance_fixture(repo_root, known_skills))
     return errors
 
 
@@ -501,6 +627,10 @@ def validate_evaluation_reports(repo_root: Path) -> list[str]:
         (
             repo_root / "tests" / "evaluations" / "reverse-logistics-al-15-report.md",
             AL_15_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "canada-compliance-al-16-report.md",
+            AL_16_COMPLETION_TOKEN,
         ),
     )
 

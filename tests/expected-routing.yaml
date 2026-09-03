@@ -258,3 +258,18 @@ scenarios:
       - manage-nonconforming-inventory
       - analyze-reverse-logistics-cost
       - design-reverse-logistics-flow
+  canada-compliance-source-triage:
+    prompt_file: tests/scenarios/canada-compliance-source-triage.md
+    category: canada_compliance_source_triage
+    expected_routes:
+      - identify-canadian-logistics-jurisdiction
+      - research-canadian-workplace-safety
+      - research-canadian-material-handling-safety
+      - research-canadian-powered-equipment-safety
+      - research-canadian-transportation-rules
+      - research-canadian-dangerous-goods-rules
+      - research-canadian-commercial-vehicle-safety
+      - research-canadian-loading-security
+      - research-canadian-logistics-documents
+      - research-canadian-import-export-controls
+      - research-canadian-storage-requirements

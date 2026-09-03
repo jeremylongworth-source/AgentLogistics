@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research Canadian Dangerous Goods Rules
+short_description: Prepare Transport Canada dangerous-goods research briefs for Canadian logistics without classifying or certifying dangerous goods.
+default_prompt: Use $research-canadian-dangerous-goods-rules to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

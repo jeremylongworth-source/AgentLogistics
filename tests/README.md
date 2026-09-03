@@ -66,6 +66,10 @@ The reverse-logistics skill family target is:
 
 - `skills/reverse-logistics/`
 
+The Canada specialization target is:
+
+- `specializations/canada/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -86,6 +90,7 @@ Coverage includes:
 - the AL-14 warehouse-supervisor daily operating plan scenario and fixture.
 - the AL-14 warehouse-manager labor operating plan scenario and fixture.
 - the AL-15 reverse-logistics return lifecycle scenario and fixture.
+- the AL-16 Canada compliance source-triage scenario and fixture.
 
 Run:
 

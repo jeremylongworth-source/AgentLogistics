@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research Canadian Commercial Vehicle Safety
+short_description: Prepare Canadian commercial-vehicle safety research briefs for motor carrier, driver, vehicle, maintenance, and hours-of-service context.
+default_prompt: Use $research-canadian-commercial-vehicle-safety to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

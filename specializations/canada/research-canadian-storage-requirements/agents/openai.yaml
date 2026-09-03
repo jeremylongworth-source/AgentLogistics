@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research Canadian Storage Requirements
+short_description: Prepare Canadian storage requirement research briefs for warehouses, yards, regulated goods, hazardous products, inventory status, and facility controls.
+default_prompt: Use $research-canadian-storage-requirements to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

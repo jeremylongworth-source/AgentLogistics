@@ -1,0 +1,4 @@
+interface: openai
+display_name: Identify Canadian Logistics Jurisdiction
+short_description: Identify federal, provincial, territorial, modal, product, workplace, and activity jurisdiction for Canadian logistics research.
+default_prompt: Use $identify-canadian-logistics-jurisdiction to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

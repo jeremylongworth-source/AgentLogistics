@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research Canadian Logistics Documents
+short_description: Prepare Canadian logistics documentation research briefs for warehouse, transport, TDG, customs, import, export, carrier, and audit records.
+default_prompt: Use $research-canadian-logistics-documents to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

@@ -95,3 +95,10 @@ does not have public releases yet.
   report, and AL-15 handoff.
 - Extended validation for the AL-15 reverse-logistics test gate, including
   lifecycle, quantity-state, and approval-boundary checks.
+- Completed Wave AL-16 Canadian logistics safety and compliance.
+- Added the Canada specialization under `specializations/canada/` with 11
+  source-backed research packages.
+- Added the Canada compliance source-triage scenario, fixture, evaluation
+  report, shared authority map, and AL-16 handoff.
+- Added specialization validation and extended test validation for Canada
+  jurisdiction, official-source, and compliance-boundary checks.

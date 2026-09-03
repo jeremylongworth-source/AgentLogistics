@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research Canadian Workplace Safety
+short_description: Prepare source-backed Canadian workplace safety research briefs for logistics operations without issuing compliance determinations.
+default_prompt: Use $research-canadian-workplace-safety to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

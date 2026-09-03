@@ -32,8 +32,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY`
 - `AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY`
 - `AGENTLOGISTICS_AL_15_REVERSE_LOGISTICS_READY`
+- `AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY`
 
-The next planned wave is AL-16: Canadian Logistics Safety and Compliance.
+The next planned wave is AL-17: United States Logistics Safety and Compliance.
 
 ## Scope
 
@@ -73,6 +74,7 @@ AgentLogistics/
 |-- shared/
 |-- skills/
 |-- skillsets/
+|-- specializations/
 |-- tests/
 |-- AGENTS.md
 |-- CHANGELOG.md
@@ -82,8 +84,8 @@ AgentLogistics/
 `-- ROADMAP.md
 ```
 
-Future waves may add `specializations/` and additional validation tooling when
-those directories have real content.
+Future waves may add additional validation tooling when new repository areas
+have real content.
 
 Core architecture artifacts:
 
@@ -151,6 +153,10 @@ Reverse logistics skill family:
 
 - `skills/reverse-logistics/`
 
+Canada specialization:
+
+- `specializations/canada/`
+
 Current test target:
 
 - `tests/fixtures/calculate-reorder-point-cases.json`
@@ -164,6 +170,7 @@ Current test target:
 - `tests/fixtures/warehouse-supervisor-daily-operating-plan.json`
 - `tests/fixtures/warehouse-manager-labor-operating-plan.json`
 - `tests/fixtures/reverse-logistics-return-lifecycle.json`
+- `tests/fixtures/canada-compliance-source-triage.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

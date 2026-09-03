@@ -1,0 +1,79 @@
+{
+  "completion_token": "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY",
+  "scenario_file": "tests/scenarios/canada-compliance-source-triage.md",
+  "expected_specializations": [
+    "identify-canadian-logistics-jurisdiction",
+    "research-canadian-workplace-safety",
+    "research-canadian-material-handling-safety",
+    "research-canadian-powered-equipment-safety",
+    "research-canadian-transportation-rules",
+    "research-canadian-dangerous-goods-rules",
+    "research-canadian-commercial-vehicle-safety",
+    "research-canadian-loading-security",
+    "research-canadian-logistics-documents",
+    "research-canadian-import-export-controls",
+    "research-canadian-storage-requirements"
+  ],
+  "required_authority_classes": [
+    "federal workplace safety",
+    "provincial and territorial workplace safety",
+    "WHMIS hazardous product communication",
+    "TDG dangerous goods transportation",
+    "commercial vehicle and motor carrier safety",
+    "cargo loading and securement",
+    "import and export border controls",
+    "carrier, terminal, port, airport, and facility rules",
+    "employer safety program and site procedure",
+    "manufacturer and equipment instructions"
+  ],
+  "required_jurisdiction_dimensions": [
+    "country",
+    "province_or_territory",
+    "federal_or_extra_provincial_context",
+    "workplace_type",
+    "industry",
+    "activity",
+    "transportation_mode",
+    "route",
+    "product_or_hazard",
+    "employer_program_scope"
+  ],
+  "required_output_invariants": [
+    "no single unified Canadian warehouse law",
+    "current official sources required",
+    "source access dates visible",
+    "federal provincial territorial separation",
+    "mode and activity separation",
+    "product and hazard separation",
+    "user evidence treated as evidence only",
+    "operational preparation not approval",
+    "qualified-review boundary",
+    "source conflict handling"
+  ],
+  "blocked_claims": [
+    "legal_advice",
+    "compliance_declaration",
+    "safety_approval",
+    "equipment_certification",
+    "operator_certification",
+    "tdg_classification_approval",
+    "customs_declaration_approval",
+    "import_export_release_approval",
+    "vehicle_roadworthiness_certification",
+    "driver_qualification_approval",
+    "fire_building_structural_environmental_approval",
+    "live_system_change"
+  ],
+  "official_source_urls": [
+    "https://www.ccohs.ca/oshanswers/legisl/legislation/intro.html",
+    "https://www.canada.ca/en/employment-social-development/services/health-safety/workplace-safety.html",
+    "https://laws-lois.justice.gc.ca/eng/regulations/Sor-86-304/index.html",
+    "https://www.canada.ca/en/health-canada/services/environmental-workplace-health/occupational-health-safety/workplace-hazardous-materials-information-system/roles-responsibilities-whmis.html",
+    "https://tc.canada.ca/en/dangerous-goods/transportation-dangerous-goods-canada",
+    "https://tc.canada.ca/en/dangerous-goods/safety-awareness-materials-faq",
+    "https://tc.canada.ca/en/road-transportation/motor-carriers-commercial-vehicles-drivers",
+    "https://tc.canada.ca/en/road-transportation/motor-vehicle-safety/commercial-vehicle-safety",
+    "https://www.cbsa-asfc.gc.ca/import/guide-eng.html",
+    "https://www.cbsa-asfc.gc.ca/services/export/menu-eng.html"
+  ]
+}

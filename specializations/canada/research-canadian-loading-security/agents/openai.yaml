@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research Canadian Loading Security
+short_description: Prepare Canadian loading, cargo securement, seal, yard, dock, and shipment security research briefs for logistics operations.
+default_prompt: Use $research-canadian-loading-security to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

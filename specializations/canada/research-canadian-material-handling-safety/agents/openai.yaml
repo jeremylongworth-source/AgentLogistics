@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research Canadian Material Handling Safety
+short_description: Prepare Canadian material-handling safety research briefs for warehouse movement, storage, lifting, traffic, and ergonomic risks.
+default_prompt: Use $research-canadian-material-handling-safety to prepare a source-backed Canada logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.
