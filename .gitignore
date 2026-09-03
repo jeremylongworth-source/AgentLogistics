@@ -1,0 +1,26 @@
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local/editor state
+.idea/
+.vscode/
+*.swp
+*.tmp
+*.log
+
+# Codex/browser artifacts
+.playwright-mcp/
+test-results/
+playwright-report/
