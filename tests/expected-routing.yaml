@@ -164,3 +164,23 @@ scenarios:
       - evaluate-conveyor-application
       - evaluate-agv-amr-application
       - evaluate-asrs-application
+  transportation-coordinator-multimode-core:
+    prompt_file: tests/scenarios/transportation-coordinator-multimode-core.md
+    category: transportation_multimode_core
+    expected_routes:
+      - select-transportation-mode
+      - plan-freight-shipment
+      - select-carrier
+      - compare-freight-rates
+      - calculate-freight-cost
+      - calculate-load-utilization
+      - plan-freight-consolidation
+      - plan-multi-stop-shipment
+      - analyze-carrier-performance
+      - audit-freight-charge
+      - analyze-freight-accessorials
+      - manage-freight-claim
+      - analyze-detention
+      - analyze-demurrage
+      - interpret-bill-of-lading
+      - analyze-transportation-kpis

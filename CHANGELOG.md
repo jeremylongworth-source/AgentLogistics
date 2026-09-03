@@ -62,3 +62,9 @@ does not have public releases yet.
 - Added the material-handling selection-analysis scenario, fixture, evaluation
   report, and AL-10 handoff.
 - Extended validation for the material-handling-analyst skillset gate.
+- Completed Wave AL-11 transportation and freight core.
+- Added 16 transportation-freight skill packages and composed them into
+  `skillsets/transportation-coordinator/`.
+- Added the transportation-coordinator multimode scenario, fixture, evaluation
+  report, and AL-11 handoff.
+- Extended validation for the transportation-coordinator skillset gate.

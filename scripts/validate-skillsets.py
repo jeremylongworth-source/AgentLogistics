@@ -13,6 +13,7 @@ INVENTORY_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_07_INVENTORY_CONTROL_READY"
 WAREHOUSE_PLANNER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY"
 FULFILLMENT_OPTIMIZER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY"
 MATERIAL_HANDLING_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_READY"
+TRANSPORTATION_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY"
 REQUIRED_WAREHOUSE_SKILLS = {
     "analyze-logistics-operation",
     "map-logistics-flow",
@@ -124,6 +125,24 @@ REQUIRED_MATERIAL_HANDLING_ANALYST_SKILLS = {
     "evaluate-conveyor-application",
     "evaluate-agv-amr-application",
     "evaluate-asrs-application",
+}
+REQUIRED_TRANSPORTATION_COORDINATOR_SKILLS = {
+    "select-transportation-mode",
+    "plan-freight-shipment",
+    "select-carrier",
+    "compare-freight-rates",
+    "calculate-freight-cost",
+    "calculate-load-utilization",
+    "plan-freight-consolidation",
+    "plan-multi-stop-shipment",
+    "analyze-carrier-performance",
+    "audit-freight-charge",
+    "analyze-freight-accessorials",
+    "manage-freight-claim",
+    "analyze-detention",
+    "analyze-demurrage",
+    "interpret-bill-of-lading",
+    "analyze-transportation-kpis",
 }
 REQUIRED_FLOW_STEPS = [
     "receive",
@@ -261,6 +280,56 @@ REQUIRED_MATERIAL_HANDLING_BLOCKED_APPROVALS = (
     "procurement_approval",
     "live_system_configuration",
 )
+REQUIRED_TRANSPORTATION_MODES = (
+    "truckload",
+    "ltl",
+    "parcel",
+)
+REQUIRED_TRANSPORTATION_INVARIANTS = (
+    "truckload reasoning",
+    "LTL reasoning",
+    "parcel reasoning",
+    "transportation mode recommendation",
+    "freight shipment plan",
+    "carrier recommendation",
+    "rate comparison",
+    "freight cost calculation",
+    "load utilization calculation",
+    "consolidation plan",
+    "multi-stop plan",
+    "carrier performance scorecard",
+    "freight audit result",
+    "accessorial analysis",
+    "freight claim preparation",
+    "detention analysis",
+    "demurrage source-gap analysis",
+    "BOL interpretation",
+    "transportation KPI analysis",
+    "international rules not universal",
+    "qualified-review boundary",
+)
+REQUIRED_TRANSPORTATION_CONSTRAINTS = (
+    "domestic_truckload",
+    "domestic_ltl",
+    "domestic_parcel",
+    "international_rule_boundary",
+    "missing_freight_class",
+    "missing_dimensional_weight_rules",
+    "missing_reweigh_source",
+    "missing_demurrage_tariff",
+    "missing_claim_deadline",
+    "no_live_booking_or_tender",
+    "no_invoice_payment_approval",
+)
+REQUIRED_TRANSPORTATION_BLOCKED_APPROVALS = (
+    "no_live_tender_or_booking",
+    "no_invoice_payment_approval",
+    "no_claim_filing_approval",
+    "no_customs_approval",
+    "no_dangerous_goods_approval",
+    "no_legal_approval",
+    "no_carrier_contract_approval",
+)
 REQUIRED_README_HEADINGS = (
     "## Purpose",
     "## Included Skills",
@@ -301,6 +370,12 @@ SKILLSET_REQUIREMENTS = {
         "skills": REQUIRED_MATERIAL_HANDLING_ANALYST_SKILLS,
         "prompt_token": "$material-handling-analyst",
         "fixture_validator": "material_handling",
+    },
+    "transportation-coordinator": {
+        "completion_token": TRANSPORTATION_COMPLETION_TOKEN,
+        "skills": REQUIRED_TRANSPORTATION_COORDINATOR_SKILLS,
+        "prompt_token": "$transportation-coordinator",
+        "fixture_validator": "transportation",
     },
 }
 
@@ -644,6 +719,62 @@ def validate_material_handling_fixture(
     return errors
 
 
+def validate_transportation_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    relative = path.relative_to(repo_root)
+    if not path.is_file():
+        return [f"Missing transportation fixture: {relative}"]
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("skillset") != "transportation-coordinator":
+        errors.append(f"{relative}: skillset must be transportation-coordinator")
+    if data.get("completion_token") != TRANSPORTATION_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-11 completion token")
+
+    modes = set(data.get("required_modes", []))
+    for mode in REQUIRED_TRANSPORTATION_MODES:
+        if mode not in modes:
+            errors.append(f"{relative}: missing transportation mode {mode}")
+
+    for skill in data.get("expected_skills", []):
+        if skill not in manifest_skills:
+            errors.append(f"{relative}: expected skill {skill} is not in skillset manifest")
+    missing_expected_skills = sorted(
+        REQUIRED_TRANSPORTATION_COORDINATOR_SKILLS - set(data.get("expected_skills", []))
+    )
+    for skill in missing_expected_skills:
+        errors.append(f"{relative}: missing expected skill {skill}")
+
+    invariants = set(data.get("required_output_invariants", []))
+    for required in REQUIRED_TRANSPORTATION_INVARIANTS:
+        if required not in invariants:
+            errors.append(f"{relative}: missing output invariant {required}")
+
+    constraints = set(data.get("required_constraints", []))
+    for required in REQUIRED_TRANSPORTATION_CONSTRAINTS:
+        if required not in constraints:
+            errors.append(f"{relative}: missing constraint {required}")
+
+    blocked_approvals = set(data.get("blocked_approvals", []))
+    for required in REQUIRED_TRANSPORTATION_BLOCKED_APPROVALS:
+        if required not in blocked_approvals:
+            errors.append(f"{relative}: missing blocked approval {required}")
+
+    scenario_file = data.get("scenario_file")
+    if not scenario_file or not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario_file is missing or invalid")
+
+    return errors
+
+
 def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     manifest_path = skillset_dir / "skillset.yaml"
@@ -731,6 +862,14 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
         elif requirements and requirements["fixture_validator"] == "material_handling":
             errors.extend(
                 validate_material_handling_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
+                )
+            )
+        elif requirements and requirements["fixture_validator"] == "transportation":
+            errors.extend(
+                validate_transportation_fixture(
                     fixture_path,
                     repo_root,
                     set(skills),

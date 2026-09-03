@@ -27,8 +27,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_READY`
 - `AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY`
 - `AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_READY`
+- `AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY`
 
-The next planned wave is AL-11: Transportation and Freight Core.
+The next planned wave is AL-12: Logistics Systems and Data.
 
 ## Scope
 
@@ -122,6 +123,10 @@ Material handling skillset:
 
 - `skillsets/material-handling-analyst/`
 
+Transportation skillset:
+
+- `skillsets/transportation-coordinator/`
+
 Current test target:
 
 - `tests/fixtures/calculate-reorder-point-cases.json`
@@ -129,6 +134,7 @@ Current test target:
 - `tests/fixtures/warehouse-planner-layout-concept.json`
 - `tests/fixtures/fulfillment-optimizer-order-profiles.json`
 - `tests/fixtures/material-handling-selection-analysis.json`
+- `tests/fixtures/transportation-coordinator-multimode-core.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

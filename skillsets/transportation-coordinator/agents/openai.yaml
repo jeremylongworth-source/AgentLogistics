@@ -1,0 +1,4 @@
+interface:
+  display_name: "Transportation Coordinator"
+  short_description: "Coordinate transportation and freight core analysis."
+  default_prompt: "Use $transportation-coordinator to produce a transportation and freight analysis across modes with calculations, evidence, and review boundaries."

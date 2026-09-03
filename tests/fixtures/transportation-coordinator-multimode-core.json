@@ -1,0 +1,73 @@
+{
+  "skillset": "transportation-coordinator",
+  "completion_token": "AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY",
+  "scenario_file": "tests/scenarios/transportation-coordinator-multimode-core.md",
+  "required_modes": [
+    "truckload",
+    "ltl",
+    "parcel"
+  ],
+  "expected_skills": [
+    "select-transportation-mode",
+    "plan-freight-shipment",
+    "select-carrier",
+    "compare-freight-rates",
+    "calculate-freight-cost",
+    "calculate-load-utilization",
+    "plan-freight-consolidation",
+    "plan-multi-stop-shipment",
+    "analyze-carrier-performance",
+    "audit-freight-charge",
+    "analyze-freight-accessorials",
+    "manage-freight-claim",
+    "analyze-detention",
+    "analyze-demurrage",
+    "interpret-bill-of-lading",
+    "analyze-transportation-kpis"
+  ],
+  "required_output_invariants": [
+    "truckload reasoning",
+    "LTL reasoning",
+    "parcel reasoning",
+    "transportation mode recommendation",
+    "freight shipment plan",
+    "carrier recommendation",
+    "rate comparison",
+    "freight cost calculation",
+    "load utilization calculation",
+    "consolidation plan",
+    "multi-stop plan",
+    "carrier performance scorecard",
+    "freight audit result",
+    "accessorial analysis",
+    "freight claim preparation",
+    "detention analysis",
+    "demurrage source-gap analysis",
+    "BOL interpretation",
+    "transportation KPI analysis",
+    "international rules not universal",
+    "qualified-review boundary"
+  ],
+  "required_constraints": [
+    "domestic_truckload",
+    "domestic_ltl",
+    "domestic_parcel",
+    "international_rule_boundary",
+    "missing_freight_class",
+    "missing_dimensional_weight_rules",
+    "missing_reweigh_source",
+    "missing_demurrage_tariff",
+    "missing_claim_deadline",
+    "no_live_booking_or_tender",
+    "no_invoice_payment_approval"
+  ],
+  "blocked_approvals": [
+    "no_live_tender_or_booking",
+    "no_invoice_payment_approval",
+    "no_claim_filing_approval",
+    "no_customs_approval",
+    "no_dangerous_goods_approval",
+    "no_legal_approval",
+    "no_carrier_contract_approval"
+  ]
+}

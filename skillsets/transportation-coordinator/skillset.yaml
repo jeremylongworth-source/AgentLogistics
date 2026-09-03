@@ -1,0 +1,23 @@
+name: transportation-coordinator
+description: Transportation and freight core skillset for mode selection, shipment planning, carrier selection, rate and cost analysis, utilization, consolidation, multi-stop, carrier performance, audit, accessorial, claim, detention, demurrage, BOL, and KPI work.
+completion_token: AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY
+skills:
+  - select-transportation-mode
+  - plan-freight-shipment
+  - select-carrier
+  - compare-freight-rates
+  - calculate-freight-cost
+  - calculate-load-utilization
+  - plan-freight-consolidation
+  - plan-multi-stop-shipment
+  - analyze-carrier-performance
+  - audit-freight-charge
+  - analyze-freight-accessorials
+  - manage-freight-claim
+  - analyze-detention
+  - analyze-demurrage
+  - interpret-bill-of-lading
+  - analyze-transportation-kpis
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/transportation-coordinator-multimode-core.md
+fixture_file: tests/fixtures/transportation-coordinator-multimode-core.json
