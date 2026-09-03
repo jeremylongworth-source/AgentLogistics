@@ -33,8 +33,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY`
 - `AGENTLOGISTICS_AL_15_REVERSE_LOGISTICS_READY`
 - `AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY`
+- `AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY`
 
-The next planned wave is AL-17: United States Logistics Safety and Compliance.
+The next planned wave is AL-18: Professional Skillset Composition.
 
 ## Scope
 
@@ -157,6 +158,10 @@ Canada specialization:
 
 - `specializations/canada/`
 
+United States specialization:
+
+- `specializations/united-states/`
+
 Current test target:
 
 - `tests/fixtures/calculate-reorder-point-cases.json`
@@ -171,6 +176,7 @@ Current test target:
 - `tests/fixtures/warehouse-manager-labor-operating-plan.json`
 - `tests/fixtures/reverse-logistics-return-lifecycle.json`
 - `tests/fixtures/canada-compliance-source-triage.json`
+- `tests/fixtures/us-compliance-source-triage.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

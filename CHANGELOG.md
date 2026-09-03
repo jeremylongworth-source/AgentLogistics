@@ -102,3 +102,10 @@ does not have public releases yet.
   report, shared authority map, and AL-16 handoff.
 - Added specialization validation and extended test validation for Canada
   jurisdiction, official-source, and compliance-boundary checks.
+- Completed Wave AL-17 United States logistics safety and compliance.
+- Added the United States specialization under `specializations/united-states/`
+  with 11 source-backed research packages.
+- Added the US compliance source-triage scenario, fixture, evaluation report,
+  shared authority map, and AL-17 handoff.
+- Extended specialization and test validation for US jurisdiction,
+  official-source, OSHA state-plan, hazmat, and compliance-boundary checks.

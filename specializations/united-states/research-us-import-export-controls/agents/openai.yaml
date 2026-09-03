@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research US Import Export Controls
+short_description: Prepare CBP-centered United States import and export research briefs for logistics evidence, documentation, release, reporting, and broker review.
+default_prompt: Use $research-us-import-export-controls to prepare a source-backed United States logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

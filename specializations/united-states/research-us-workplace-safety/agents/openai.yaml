@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research US Workplace Safety
+short_description: Prepare source-backed United States workplace safety research briefs for logistics operations without issuing compliance determinations.
+default_prompt: Use $research-us-workplace-safety to prepare a source-backed United States logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

@@ -46,8 +46,11 @@ REQUIRED_FILES = (
     "docs/development/handoffs/AL-14-final-handoff.md",
     "docs/development/handoffs/AL-15-final-handoff.md",
     "docs/development/handoffs/AL-16-final-handoff.md",
+    "docs/development/handoffs/AL-17-final-handoff.md",
     "specializations/canada/README.md",
     "specializations/canada/references/canadian-authority-map.md",
+    "specializations/united-states/README.md",
+    "specializations/united-states/references/us-authority-map.md",
 )
 
 REQUIRED_TOKENS = {
@@ -163,6 +166,15 @@ REQUIRED_TOKENS = {
     ),
     "specializations/canada/references/canadian-authority-map.md": (
         "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY",
+    ),
+    "docs/development/handoffs/AL-17-final-handoff.md": (
+        "AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY",
+    ),
+    "specializations/united-states/README.md": (
+        "AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY",
+    ),
+    "specializations/united-states/references/us-authority-map.md": (
+        "AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY",
     ),
 }
 

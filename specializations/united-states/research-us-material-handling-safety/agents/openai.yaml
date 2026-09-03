@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research US Material Handling Safety
+short_description: Prepare United States material-handling safety research briefs for warehouse movement, storage, lifting, traffic, and ergonomic risks.
+default_prompt: Use $research-us-material-handling-safety to prepare a source-backed United States logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

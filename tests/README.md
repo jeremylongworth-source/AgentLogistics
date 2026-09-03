@@ -70,6 +70,10 @@ The Canada specialization target is:
 
 - `specializations/canada/`
 
+The United States specialization target is:
+
+- `specializations/united-states/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -91,6 +95,7 @@ Coverage includes:
 - the AL-14 warehouse-manager labor operating plan scenario and fixture.
 - the AL-15 reverse-logistics return lifecycle scenario and fixture.
 - the AL-16 Canada compliance source-triage scenario and fixture.
+- the AL-17 United States compliance source-triage scenario and fixture.
 
 Run:
 

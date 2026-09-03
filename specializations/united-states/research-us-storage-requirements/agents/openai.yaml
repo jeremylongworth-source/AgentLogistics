@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research US Storage Requirements
+short_description: Prepare United States storage requirement research briefs for warehouses, yards, hazardous materials, hazardous waste, inventory status, and facility controls.
+default_prompt: Use $research-us-storage-requirements to prepare a source-backed United States logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

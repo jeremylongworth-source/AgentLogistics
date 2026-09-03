@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research US Loading Security
+short_description: Prepare United States loading, cargo securement, seal, yard, dock, and shipment security research briefs for logistics operations.
+default_prompt: Use $research-us-loading-security to prepare a source-backed United States logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

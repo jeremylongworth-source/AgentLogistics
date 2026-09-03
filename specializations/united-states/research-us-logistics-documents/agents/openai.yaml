@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research US Logistics Documents
+short_description: Prepare United States logistics documentation research briefs for warehouse, transportation, hazmat, customs, import, export, carrier, and audit records.
+default_prompt: Use $research-us-logistics-documents to prepare a source-backed United States logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

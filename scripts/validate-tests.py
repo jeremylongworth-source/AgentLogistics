@@ -21,6 +21,7 @@ AL_13_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_13_CONTINUOUS_IMPROVEMENT_READY"
 AL_14_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_14_LABOR_PLANNING_READY"
 AL_15_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_15_REVERSE_LOGISTICS_READY"
 AL_16_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY"
+AL_17_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY"
 REQUIRED_CATEGORIES = {
     "correct_invocation",
     "incorrect_invocation",
@@ -216,6 +217,87 @@ REQUIRED_CANADA_SOURCE_URLS = (
     "https://tc.canada.ca/en/road-transportation/motor-vehicle-safety/commercial-vehicle-safety",
     "https://www.cbsa-asfc.gc.ca/import/guide-eng.html",
     "https://www.cbsa-asfc.gc.ca/services/export/menu-eng.html",
+)
+REQUIRED_US_SPECIALIZATIONS = {
+    "identify-us-logistics-jurisdiction",
+    "research-us-workplace-safety",
+    "research-us-material-handling-safety",
+    "research-us-powered-equipment-safety",
+    "research-us-transportation-rules",
+    "research-us-hazardous-materials-rules",
+    "research-us-commercial-vehicle-safety",
+    "research-us-loading-security",
+    "research-us-logistics-documents",
+    "research-us-import-export-controls",
+    "research-us-storage-requirements",
+}
+REQUIRED_US_AUTHORITY_CLASSES = (
+    "federal workplace safety",
+    "OSHA-approved state-plan workplace safety",
+    "Hazard Communication hazardous chemical communication",
+    "PHMSA hazardous materials transportation",
+    "FMCSA commercial vehicle and motor carrier safety",
+    "cargo loading and securement",
+    "import and export border controls",
+    "hazardous waste and environmental transport controls",
+    "carrier, terminal, port, airport, and facility rules",
+    "employer safety program and site procedure",
+    "manufacturer and equipment instructions",
+)
+REQUIRED_US_JURISDICTION_DIMENSIONS = (
+    "country",
+    "state_or_territory",
+    "federal_or_interstate_context",
+    "OSHA_state_plan_status",
+    "workplace_type",
+    "industry",
+    "activity",
+    "transportation_mode",
+    "route",
+    "product_or_hazard",
+    "customs_status",
+    "environmental_status",
+    "employer_program_scope",
+)
+REQUIRED_US_INVARIANTS = (
+    "no single unified US warehouse law",
+    "current official sources required",
+    "source access dates visible",
+    "federal state territorial separation",
+    "OSHA state-plan separation",
+    "mode and activity separation",
+    "product and hazard separation",
+    "user evidence treated as evidence only",
+    "operational preparation not approval",
+    "qualified-review boundary",
+    "source conflict handling",
+)
+REQUIRED_US_BLOCKED_CLAIMS = (
+    "legal_advice",
+    "compliance_declaration",
+    "safety_approval",
+    "equipment_certification",
+    "operator_certification",
+    "hazmat_classification_approval",
+    "customs_entry_approval",
+    "import_export_release_approval",
+    "vehicle_roadworthiness_certification",
+    "driver_qualification_approval",
+    "fire_building_structural_environmental_approval",
+    "live_system_change",
+)
+REQUIRED_US_SOURCE_URLS = (
+    "https://www.osha.gov/warehousing",
+    "https://www.osha.gov/stateplans",
+    "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.1200",
+    "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.178",
+    "https://www.phmsa.dot.gov/standards-rulemaking/hazmat/hazardous-materials-regulations",
+    "https://www.fmcsa.dot.gov/regulations/hours-of-service",
+    "https://www.fmcsa.dot.gov/regulations/cargo-securement/cargo-securement-rules",
+    "https://www.cbp.gov/trade/basic-import-export",
+    "https://www.cbp.gov/trade/automated/how-to-use-ace/introduction",
+    "https://www.epa.gov/hw/hazardous-waste-transportation",
+    "https://www.ecfr.gov/current/title-49",
 )
 
 
@@ -520,6 +602,49 @@ def validate_canada_compliance_fixture(repo_root: Path, known_skills: set[str]) 
     return errors
 
 
+def validate_us_compliance_fixture(repo_root: Path, known_skills: set[str]) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "us-compliance-source-triage.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing fixture file: tests/fixtures/us-compliance-source-triage.json"]
+
+    try:
+        fixture = read_fixture(fixture_path)
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if fixture.get("completion_token") != AL_17_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-17 completion token")
+
+    scenario_file = fixture.get("scenario_file")
+    if scenario_file != "tests/scenarios/us-compliance-source-triage.md":
+        errors.append(f"{relative}: missing US compliance scenario reference")
+    elif not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    expected_specializations = set(fixture.get("expected_specializations", []))
+    for package_name in sorted(REQUIRED_US_SPECIALIZATIONS - expected_specializations):
+        errors.append(f"{relative}: expected_specializations missing {package_name}")
+    for package_name in sorted(expected_specializations - known_skills):
+        errors.append(f"{relative}: expected specialization {package_name} has no package")
+
+    checks = (
+        ("required_authority_classes", REQUIRED_US_AUTHORITY_CLASSES),
+        ("required_jurisdiction_dimensions", REQUIRED_US_JURISDICTION_DIMENSIONS),
+        ("required_output_invariants", REQUIRED_US_INVARIANTS),
+        ("blocked_claims", REQUIRED_US_BLOCKED_CLAIMS),
+        ("official_source_urls", REQUIRED_US_SOURCE_URLS),
+    )
+    for field, required_values in checks:
+        values = set(fixture.get(field, []))
+        for value in required_values:
+            if value not in values:
+                errors.append(f"{relative}: {field} missing {value}")
+
+    return errors
+
+
 def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     fixture_path = repo_root / "tests" / "fixtures" / "calculate-reorder-point-cases.json"
@@ -578,6 +703,7 @@ def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
 
     errors.extend(validate_reverse_logistics_fixture(repo_root, known_skills))
     errors.extend(validate_canada_compliance_fixture(repo_root, known_skills))
+    errors.extend(validate_us_compliance_fixture(repo_root, known_skills))
     return errors
 
 
@@ -631,6 +757,10 @@ def validate_evaluation_reports(repo_root: Path) -> list[str]:
         (
             repo_root / "tests" / "evaluations" / "canada-compliance-al-16-report.md",
             AL_16_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "us-compliance-al-17-report.md",
+            AL_17_COMPLETION_TOKEN,
         ),
     )
 

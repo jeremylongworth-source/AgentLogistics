@@ -1,0 +1,4 @@
+interface: openai
+display_name: Research US Powered Equipment Safety
+short_description: Prepare United States powered industrial truck and powered equipment safety research briefs for logistics operations.
+default_prompt: Use $research-us-powered-equipment-safety to prepare a source-backed United States logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.

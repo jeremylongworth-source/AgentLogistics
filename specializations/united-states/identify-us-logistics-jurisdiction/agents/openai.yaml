@@ -1,0 +1,4 @@
+interface: openai
+display_name: Identify US Logistics Jurisdiction
+short_description: Identify federal, state, territorial, modal, product, workplace, and activity jurisdiction for United States logistics research.
+default_prompt: Use $identify-us-logistics-jurisdiction to prepare a source-backed United States logistics safety or compliance research brief with jurisdiction boundaries and qualified-review requirements.
