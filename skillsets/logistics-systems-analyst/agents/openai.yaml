@@ -1,0 +1,4 @@
+interface: openai
+display_name: Logistics Systems Analyst
+short_description: Analyze logistics systems, integrations, GS1-backed identifiers, scan events, EDI/API flows, and data quality across warehouse operations.
+default_prompt: Use $logistics-systems-analyst to coordinate AL-12 logistics systems and data skills, preserve source-system lineage, source GS1 concepts from official GS1 material where possible, and return planning support with qualified-review boundaries.

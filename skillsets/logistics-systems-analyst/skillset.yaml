@@ -1,0 +1,20 @@
+name: logistics-systems-analyst
+description: Logistics systems and data skillset for WMS, TMS, ERP, OMS, YMS, LMS, WCS, WES, EDI, API, GS1, scan-event, integration, and data-quality analysis.
+completion_token: AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY
+skills:
+  - map-wms-process
+  - analyze-wms-transaction-history
+  - diagnose-wms-inventory-issue
+  - validate-item-master-data
+  - validate-location-master-data
+  - analyze-logistics-scan-events
+  - design-logistics-barcode-flow
+  - interpret-gs1-identifiers
+  - design-logistics-unit-identification
+  - analyze-edi-logistics-flow
+  - map-erp-wms-integration
+  - map-wms-tms-integration
+  - analyze-logistics-data-quality
+agents_file: agents/openai.yaml
+scenario_file: tests/scenarios/logistics-systems-analyst-integration-data-quality.md
+fixture_file: tests/fixtures/logistics-systems-analyst-integration-data-quality.json

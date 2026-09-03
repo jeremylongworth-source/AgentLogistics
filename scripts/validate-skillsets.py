@@ -14,6 +14,7 @@ WAREHOUSE_PLANNER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_08_WAREHOUSE_PLANNING_RE
 FULFILLMENT_OPTIMIZER_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY"
 MATERIAL_HANDLING_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_READY"
 TRANSPORTATION_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY"
+SYSTEMS_DATA_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY"
 REQUIRED_WAREHOUSE_SKILLS = {
     "analyze-logistics-operation",
     "map-logistics-flow",
@@ -143,6 +144,21 @@ REQUIRED_TRANSPORTATION_COORDINATOR_SKILLS = {
     "analyze-demurrage",
     "interpret-bill-of-lading",
     "analyze-transportation-kpis",
+}
+REQUIRED_LOGISTICS_SYSTEMS_ANALYST_SKILLS = {
+    "map-wms-process",
+    "analyze-wms-transaction-history",
+    "diagnose-wms-inventory-issue",
+    "validate-item-master-data",
+    "validate-location-master-data",
+    "analyze-logistics-scan-events",
+    "design-logistics-barcode-flow",
+    "interpret-gs1-identifiers",
+    "design-logistics-unit-identification",
+    "analyze-edi-logistics-flow",
+    "map-erp-wms-integration",
+    "map-wms-tms-integration",
+    "analyze-logistics-data-quality",
 }
 REQUIRED_FLOW_STEPS = [
     "receive",
@@ -330,6 +346,63 @@ REQUIRED_TRANSPORTATION_BLOCKED_APPROVALS = (
     "no_legal_approval",
     "no_carrier_contract_approval",
 )
+REQUIRED_LOGISTICS_SYSTEMS = (
+    "WMS",
+    "TMS",
+    "ERP",
+    "OMS",
+    "YMS",
+    "LMS",
+    "WCS",
+    "WES",
+    "EDI",
+    "APIs",
+)
+REQUIRED_SYSTEMS_DATA_INVARIANTS = (
+    "WMS process map",
+    "WMS transaction chronology",
+    "WMS inventory issue diagnosis",
+    "item master validation",
+    "location master validation",
+    "scan-event analysis",
+    "barcode-flow design",
+    "GS1 identifier interpretation",
+    "logistics unit identification design",
+    "EDI logistics flow analysis",
+    "ERP-WMS integration map",
+    "WMS-TMS integration map",
+    "logistics data-quality analysis",
+    "GS1 source-backed boundary",
+    "no live system changes",
+    "qualified-review boundary",
+)
+REQUIRED_SYSTEMS_DATA_CONSTRAINTS = (
+    "source_system_lineage",
+    "timestamp_timezone_conflict",
+    "uom_pack_hierarchy_mismatch",
+    "missing_item_dimensions",
+    "location_pickable_flag_conflict",
+    "duplicate_sscc_scan",
+    "missing_ship_confirm",
+    "unsourced_gs1_claims_blocked",
+    "no_production_configuration",
+    "api_permission_boundary",
+)
+REQUIRED_SYSTEMS_DATA_GS1_SOURCES = (
+    "GS1 Application Identifiers",
+    "GS1 System Architecture",
+    "GS1 Digital Link URI Syntax",
+    "GS1 Barcode Syntax Resource",
+)
+REQUIRED_SYSTEMS_DATA_BLOCKED_ACTIONS = (
+    "live_wms_configuration",
+    "live_tms_configuration",
+    "live_erp_update",
+    "master_data_change_approval",
+    "edi_production_change",
+    "api_credential_use",
+    "regulatory_compliance_approval",
+)
 REQUIRED_README_HEADINGS = (
     "## Purpose",
     "## Included Skills",
@@ -376,6 +449,12 @@ SKILLSET_REQUIREMENTS = {
         "skills": REQUIRED_TRANSPORTATION_COORDINATOR_SKILLS,
         "prompt_token": "$transportation-coordinator",
         "fixture_validator": "transportation",
+    },
+    "logistics-systems-analyst": {
+        "completion_token": SYSTEMS_DATA_COMPLETION_TOKEN,
+        "skills": REQUIRED_LOGISTICS_SYSTEMS_ANALYST_SKILLS,
+        "prompt_token": "$logistics-systems-analyst",
+        "fixture_validator": "systems_data",
     },
 }
 
@@ -775,6 +854,67 @@ def validate_transportation_fixture(
     return errors
 
 
+def validate_systems_data_fixture(
+    path: Path,
+    repo_root: Path,
+    manifest_skills: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    relative = path.relative_to(repo_root)
+    if not path.is_file():
+        return [f"Missing systems data fixture: {relative}"]
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if data.get("skillset") != "logistics-systems-analyst":
+        errors.append(f"{relative}: skillset must be logistics-systems-analyst")
+    if data.get("completion_token") != SYSTEMS_DATA_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-12 completion token")
+
+    systems = set(data.get("required_systems", []))
+    for system in REQUIRED_LOGISTICS_SYSTEMS:
+        if system not in systems:
+            errors.append(f"{relative}: missing logistics system {system}")
+
+    for skill in data.get("expected_skills", []):
+        if skill not in manifest_skills:
+            errors.append(f"{relative}: expected skill {skill} is not in skillset manifest")
+    missing_expected_skills = sorted(
+        REQUIRED_LOGISTICS_SYSTEMS_ANALYST_SKILLS - set(data.get("expected_skills", []))
+    )
+    for skill in missing_expected_skills:
+        errors.append(f"{relative}: missing expected skill {skill}")
+
+    invariants = set(data.get("required_output_invariants", []))
+    for required in REQUIRED_SYSTEMS_DATA_INVARIANTS:
+        if required not in invariants:
+            errors.append(f"{relative}: missing output invariant {required}")
+
+    constraints = set(data.get("required_constraints", []))
+    for required in REQUIRED_SYSTEMS_DATA_CONSTRAINTS:
+        if required not in constraints:
+            errors.append(f"{relative}: missing constraint {required}")
+
+    gs1_sources = set(data.get("gs1_required_sources", []))
+    for required in REQUIRED_SYSTEMS_DATA_GS1_SOURCES:
+        if required not in gs1_sources:
+            errors.append(f"{relative}: missing GS1 source {required}")
+
+    blocked_actions = set(data.get("blocked_actions", []))
+    for required in REQUIRED_SYSTEMS_DATA_BLOCKED_ACTIONS:
+        if required not in blocked_actions:
+            errors.append(f"{relative}: missing blocked action {required}")
+
+    scenario_file = data.get("scenario_file")
+    if not scenario_file or not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario_file is missing or invalid")
+
+    return errors
+
+
 def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     manifest_path = skillset_dir / "skillset.yaml"
@@ -870,6 +1010,14 @@ def validate_skillset(repo_root: Path, skillset_dir: Path, known_skills: set[str
         elif requirements and requirements["fixture_validator"] == "transportation":
             errors.extend(
                 validate_transportation_fixture(
+                    fixture_path,
+                    repo_root,
+                    set(skills),
+                )
+            )
+        elif requirements and requirements["fixture_validator"] == "systems_data":
+            errors.extend(
+                validate_systems_data_fixture(
                     fixture_path,
                     repo_root,
                     set(skills),

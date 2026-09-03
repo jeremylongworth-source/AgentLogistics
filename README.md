@@ -28,8 +28,9 @@ Current completed gates:
 - `AGENTLOGISTICS_AL_09_FULFILLMENT_OPTIMIZATION_READY`
 - `AGENTLOGISTICS_AL_10_MATERIAL_HANDLING_READY`
 - `AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY`
+- `AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY`
 
-The next planned wave is AL-12: Logistics Systems and Data.
+The next planned wave is AL-13: Performance and Continuous Improvement.
 
 ## Scope
 
@@ -127,6 +128,10 @@ Transportation skillset:
 
 - `skillsets/transportation-coordinator/`
 
+Logistics systems skillset:
+
+- `skillsets/logistics-systems-analyst/`
+
 Current test target:
 
 - `tests/fixtures/calculate-reorder-point-cases.json`
@@ -135,6 +140,7 @@ Current test target:
 - `tests/fixtures/fulfillment-optimizer-order-profiles.json`
 - `tests/fixtures/material-handling-selection-analysis.json`
 - `tests/fixtures/transportation-coordinator-multimode-core.json`
+- `tests/fixtures/logistics-systems-analyst-integration-data-quality.json`
 - `tests/expected-routing.yaml`
 
 Shared foundations:

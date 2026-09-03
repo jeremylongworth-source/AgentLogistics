@@ -184,3 +184,20 @@ scenarios:
       - analyze-demurrage
       - interpret-bill-of-lading
       - analyze-transportation-kpis
+  logistics-systems-analyst-integration-data-quality:
+    prompt_file: tests/scenarios/logistics-systems-analyst-integration-data-quality.md
+    category: logistics_systems_data_quality
+    expected_routes:
+      - map-wms-process
+      - analyze-wms-transaction-history
+      - diagnose-wms-inventory-issue
+      - validate-item-master-data
+      - validate-location-master-data
+      - analyze-logistics-scan-events
+      - design-logistics-barcode-flow
+      - interpret-gs1-identifiers
+      - design-logistics-unit-identification
+      - analyze-edi-logistics-flow
+      - map-erp-wms-integration
+      - map-wms-tms-integration
+      - analyze-logistics-data-quality

@@ -1,0 +1,77 @@
+{
+  "skillset": "logistics-systems-analyst",
+  "completion_token": "AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY",
+  "scenario_file": "tests/scenarios/logistics-systems-analyst-integration-data-quality.md",
+  "required_systems": [
+    "WMS",
+    "TMS",
+    "ERP",
+    "OMS",
+    "YMS",
+    "LMS",
+    "WCS",
+    "WES",
+    "EDI",
+    "APIs"
+  ],
+  "expected_skills": [
+    "map-wms-process",
+    "analyze-wms-transaction-history",
+    "diagnose-wms-inventory-issue",
+    "validate-item-master-data",
+    "validate-location-master-data",
+    "analyze-logistics-scan-events",
+    "design-logistics-barcode-flow",
+    "interpret-gs1-identifiers",
+    "design-logistics-unit-identification",
+    "analyze-edi-logistics-flow",
+    "map-erp-wms-integration",
+    "map-wms-tms-integration",
+    "analyze-logistics-data-quality"
+  ],
+  "required_output_invariants": [
+    "WMS process map",
+    "WMS transaction chronology",
+    "WMS inventory issue diagnosis",
+    "item master validation",
+    "location master validation",
+    "scan-event analysis",
+    "barcode-flow design",
+    "GS1 identifier interpretation",
+    "logistics unit identification design",
+    "EDI logistics flow analysis",
+    "ERP-WMS integration map",
+    "WMS-TMS integration map",
+    "logistics data-quality analysis",
+    "GS1 source-backed boundary",
+    "no live system changes",
+    "qualified-review boundary"
+  ],
+  "required_constraints": [
+    "source_system_lineage",
+    "timestamp_timezone_conflict",
+    "uom_pack_hierarchy_mismatch",
+    "missing_item_dimensions",
+    "location_pickable_flag_conflict",
+    "duplicate_sscc_scan",
+    "missing_ship_confirm",
+    "unsourced_gs1_claims_blocked",
+    "no_production_configuration",
+    "api_permission_boundary"
+  ],
+  "gs1_required_sources": [
+    "GS1 Application Identifiers",
+    "GS1 System Architecture",
+    "GS1 Digital Link URI Syntax",
+    "GS1 Barcode Syntax Resource"
+  ],
+  "blocked_actions": [
+    "live_wms_configuration",
+    "live_tms_configuration",
+    "live_erp_update",
+    "master_data_change_approval",
+    "edi_production_change",
+    "api_credential_use",
+    "regulatory_compliance_approval"
+  ]
+}

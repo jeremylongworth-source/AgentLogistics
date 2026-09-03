@@ -68,3 +68,10 @@ does not have public releases yet.
 - Added the transportation-coordinator multimode scenario, fixture, evaluation
   report, and AL-11 handoff.
 - Extended validation for the transportation-coordinator skillset gate.
+- Completed Wave AL-12 logistics systems and data.
+- Added 13 logistics-systems-data skill packages and composed them into
+  `skillsets/logistics-systems-analyst/`.
+- Added the logistics-systems-analyst integration data-quality scenario,
+  fixture, evaluation report, and AL-12 handoff.
+- Extended validation for the logistics-systems-analyst skillset gate, including
+  GS1 source-boundary checks.

@@ -41,6 +41,7 @@ REQUIRED_FILES = (
     "docs/development/handoffs/AL-09-final-handoff.md",
     "docs/development/handoffs/AL-10-final-handoff.md",
     "docs/development/handoffs/AL-11-final-handoff.md",
+    "docs/development/handoffs/AL-12-final-handoff.md",
 )
 
 REQUIRED_TOKENS = {
@@ -135,6 +136,9 @@ REQUIRED_TOKENS = {
     ),
     "docs/development/handoffs/AL-11-final-handoff.md": (
         "AGENTLOGISTICS_AL_11_TRANSPORTATION_CORE_READY",
+    ),
+    "docs/development/handoffs/AL-12-final-handoff.md": (
+        "AGENTLOGISTICS_AL_12_SYSTEMS_DATA_READY",
     ),
 }
 

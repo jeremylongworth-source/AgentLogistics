@@ -46,6 +46,10 @@ The transportation skillset target is:
 
 - `skillsets/transportation-coordinator/`
 
+The logistics-systems skillset target is:
+
+- `skillsets/logistics-systems-analyst/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -59,6 +63,8 @@ Coverage includes:
 - the AL-09 fulfillment-optimizer order-profile scenario and fixture.
 - the AL-10 material-handling selection-analysis scenario and fixture.
 - the AL-11 transportation-coordinator multimode scenario and fixture.
+- the AL-12 logistics-systems-analyst integration data-quality scenario and
+  fixture.
 
 Run:
 
