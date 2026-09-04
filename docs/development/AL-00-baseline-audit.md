@@ -28,8 +28,8 @@ Recovered source facts:
   distribution, and related operational knowledge.
 - The original task transcript preserved the roadmap through AL-15 and started
   AL-16 before truncating.
-- The user later supplied the full roadmap text from
-  `C:\Users\jerem\Desktop\AgentLogistics Development Roadmap.txt`.
+- The user later supplied the full roadmap text as an attached project
+  document.
 - The recovered plan instructs Codex to complete AL-00 before architecture or
   content work begins.
 
@@ -37,7 +37,7 @@ Open source recovery note:
 
 - The local task API capped the relevant ChatGPT roadmap message at 20,000
   characters.
-- That truncation has been resolved by the user-supplied desktop source file.
+- That truncation has been resolved by the user-supplied roadmap document.
 - `ROADMAP.md` now contains the full roadmap text through AL-25 and the Codex
   execution protocol.
 

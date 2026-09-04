@@ -62,7 +62,7 @@ current source verification under the research and regulatory standards.
 - `python .\scripts\validate-docs.py --repo-root D:\AgentLogistics`
 - `python .\scripts\validate-taxonomy.py --repo-root D:\AgentLogistics`
 - `python .\scripts\validate-skills.py --repo-root D:\AgentLogistics`
-- `python C:\Users\jerem\.codex\skills\.system\skill-creator\scripts\quick_validate.py D:\AgentLogistics\skills\inventory-control\calculate-reorder-point`
+- `python <local-codex-skill-root>\skill-creator\scripts\quick_validate.py D:\AgentLogistics\skills\inventory-control\calculate-reorder-point`
 - `git diff --check`
 
 # Tests
