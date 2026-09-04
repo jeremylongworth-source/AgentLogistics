@@ -181,3 +181,8 @@ does not have public releases yet.
 - Updated `README.md` with the AL-25 completion token and current v1 audit
   verdict.
 - Extended documentation validation for AL-25 audit and handoff coverage.
+- Built the GitHub wiki with public orientation pages for getting started,
+  scope, repository structure, skill usage, skill authoring, validation,
+  skillsets, specializations, safety boundaries, roadmap status, v1 audit
+  status, and contributing.
+- Added the GitHub wiki link to `README.md`.

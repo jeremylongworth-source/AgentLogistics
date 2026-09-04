@@ -105,6 +105,16 @@ Example use cases:
   logistics triage and escalation support, not as emergency, legal, regulatory,
   or hazmat response authority.
 
+## Wiki
+
+The GitHub wiki provides a public orientation layer for setup, scope,
+repository structure, skill authoring, validation, skillsets, specializations,
+safety boundaries, roadmap status, and the v1 release-candidate audit:
+
+```text
+https://github.com/jeremylongworth-source/AgentLogistics/wiki
+```
+
 ## Repository Layout
 
 ```text
