@@ -78,7 +78,8 @@ Result: all AgentLogistics validation checks passed.
 - Add live model evaluation harness and scored reports.
 - Add repeatable source freshness and external-link checks.
 - Expand calculation fixtures for calculation-heavy skills.
-- Add CI visibility for validators.
+- Verify remote CI runs and decide whether the validator check should be
+  required before v1 tagging.
 - Prepare release notes and tag only after v1 conditions pass.
 
 ## Scope Explicitly Not Completed

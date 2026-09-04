@@ -83,7 +83,9 @@ no unresolved placeholder or sample-content markers found
   transportation sources.
 - Calculation-heavy skills beyond the reference reorder-point path need broader
   numerical test coverage and independent expected results.
-- GitHub Actions or another visible CI gate is not configured in the repository.
+- GitHub Actions was added after the AL-25 audit as a hardening follow-up; a
+  passing remote run and branch-protection decision remain release-readiness
+  evidence.
 - No v1 release tag, release notes, or repository-setting review has been
   completed.
 
@@ -118,7 +120,8 @@ calculation test expansion, and visible release/CI mechanics are complete.
   specializations, and AL-23 integration scenarios.
 - Add an external source freshness and reachability workflow for source maps.
 - Expand numerical fixtures for calculation-heavy skills.
-- Add CI that runs `.\scripts\validate-all.ps1` or the equivalent validator set.
+- Keep CI running `.\scripts\validate-all.ps1` or the equivalent validator set,
+  and decide whether the check should be required before v1 tagging.
 - Prepare v1 release notes and a tag only after the above checks pass.
 - Review GitHub repository description, topics, security settings, and release
   configuration outside the version-controlled file tree.

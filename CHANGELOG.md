@@ -186,3 +186,6 @@ does not have public releases yet.
   skillsets, specializations, safety boundaries, roadmap status, v1 audit
   status, and contributing.
 - Added the GitHub wiki link to `README.md`.
+- Added GitHub Actions validation for pushes, pull requests, and manual
+  dispatches.
+- Added the v1 hardening CI validation note.

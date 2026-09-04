@@ -15,6 +15,7 @@ REQUIRED_FILES = (
     "CODE_OF_CONDUCT.md",
     "SECURITY.md",
     ".github/FUNDING.yml",
+    ".github/workflows/validate.yml",
     ".github/ISSUE_TEMPLATE/skill-request.md",
     ".github/ISSUE_TEMPLATE/bug-report.md",
     ".github/ISSUE_TEMPLATE/documentation-issue.md",
@@ -23,6 +24,7 @@ REQUIRED_FILES = (
     "docs/development/AL-00-baseline-audit.md",
     "docs/development/AL-24-public-readiness-audit.md",
     "docs/development/AL-25-v1-release-candidate-audit.md",
+    "docs/development/v1-hardening-ci.md",
     "docs/architecture/domain-contract.md",
     "docs/architecture/scope-boundaries.md",
     "docs/architecture/master-taxonomy-v1.md",
@@ -266,6 +268,10 @@ REQUIRED_TOKENS = {
         "AGENTLOGISTICS_AL_25_V1_RC_AUDIT_COMPLETE",
         "V1_PARTIALLY_READY",
     ),
+    "docs/development/v1-hardening-ci.md": (
+        ".github/workflows/validate.yml",
+        ".\\scripts\\validate-all.ps1",
+    ),
     "docs/development/handoffs/AL-25-final-handoff.md": (
         "AGENTLOGISTICS_AL_25_V1_RC_AUDIT_COMPLETE",
         "V1_PARTIALLY_READY",
@@ -485,6 +491,31 @@ def validate_v1_release_candidate_audit(repo_root: Path) -> list[str]:
     return errors
 
 
+def validate_ci_workflow(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    relative = ".github/workflows/validate.yml"
+    path = repo_root / relative
+    if not path.is_file():
+        return errors
+
+    text = path.read_text(encoding="utf-8")
+    for phrase in (
+        "name: Validate",
+        "pull_request:",
+        "workflow_dispatch:",
+        "contents: read",
+        "runs-on: windows-latest",
+        "actions/checkout@v6",
+        "actions/setup-python@v7",
+        'python-version: "3.13"',
+        ".\\scripts\\validate-all.ps1",
+    ):
+        if phrase not in text:
+            errors.append(f"{relative}: missing CI workflow phrase {phrase}")
+
+    return errors
+
+
 def validate(repo_root: Path) -> list[str]:
     errors: list[str] = []
 
@@ -508,6 +539,7 @@ def validate(repo_root: Path) -> list[str]:
     errors.extend(validate_specialization_roadmap(repo_root))
     errors.extend(validate_public_readiness(repo_root))
     errors.extend(validate_v1_release_candidate_audit(repo_root))
+    errors.extend(validate_ci_workflow(repo_root))
     return errors
 
 

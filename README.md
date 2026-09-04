@@ -232,7 +232,8 @@ Current v1 audit verdict: `V1_PARTIALLY_READY`.
 
 No v1 release has been tagged. The next development focus is v1 hardening:
 live model evaluation, source freshness checks, expanded calculation fixtures,
-CI visibility, release notes, and release tagging only after those gates pass.
+release notes, and release tagging only after those gates pass. GitHub Actions
+validation is configured for repository checks.
 
 ## Contributing
 
