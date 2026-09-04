@@ -193,6 +193,10 @@ does not have public releases yet.
 - Added a scheduled and manual GitHub Actions source-link audit workflow.
 - Added remote verification evidence for the GitHub Actions validation and
   source-link audit workflows.
+- Added GitHub Copilot and `gh skill` setup documentation for AgentLogistics
+  skill preview, install, pinning, and maintainer publish checks.
+- Added `v0.1.0-public-preview` release notes for GitHub CLI agent-skills
+  publishing.
 
 ### Changed
 

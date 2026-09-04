@@ -76,6 +76,25 @@ All AgentLogistics validation checks passed.
 The validation scripts use Python and PowerShell. No package install is
 currently required for the repository checks.
 
+## GitHub Skill Install
+
+AgentLogistics passes `gh skill publish --dry-run` and can be previewed or
+installed through GitHub CLI agent skills. Because skills are grouped by domain,
+use namespaced skill names:
+
+```powershell
+gh skill preview jeremylongworth-source/AgentLogistics inventory-control/calculate-reorder-point
+gh skill install jeremylongworth-source/AgentLogistics inventory-control/calculate-reorder-point --agent github-copilot --scope project
+```
+
+AgentLogistics is pre-v1. Pin installs to a release tag or commit SHA when
+reproducibility matters.
+
+See [GitHub Copilot And `gh skill` Setup](docs/setup/github-copilot.md) for
+host-specific guidance.
+For the current public-preview boundary, see
+[v0.1.0 public preview release notes](docs/release-notes/v0.1.0-public-preview.md).
+
 ## How To Use The Skills
 
 AgentLogistics skills are written for AI agents that support progressive
