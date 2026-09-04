@@ -191,3 +191,11 @@ does not have public releases yet.
 - Added the v1 hardening CI validation note.
 - Added a manual source-link audit script for specialization source maps.
 - Added a scheduled and manual GitHub Actions source-link audit workflow.
+- Added remote verification evidence for the GitHub Actions validation and
+  source-link audit workflows.
+
+### Changed
+
+- Hardened the source-link audit to retry `GET` after failing `HEAD` requests
+  and report transient network or TLS failures without failing scheduled CI by
+  default.

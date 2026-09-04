@@ -72,7 +72,7 @@ no unresolved placeholder or sample-content markers found
 | Documentation | Ready for release candidate. Public README, contribution guidance, code of conduct, security guidance, changelog, license, and GitHub templates are present. | AL-24 public readiness validation. | Sufficient for release-candidate users. |
 | Repository hygiene | Ready for release candidate. Local validators pass, no placeholder markers were found, and no empty committed directories are allowed by validation. | `validate-docs.py`; placeholder scan. | Low residual risk. |
 | Licensing | Ready for release candidate. MIT license is present and public docs link to it. | `LICENSE`; `README.md`. | Low residual risk. |
-| Public usability | Partially ready. A public user can clone, inspect, run validation, and understand contribution and safety boundaries. | `README.md`, `CONTRIBUTING.md`, `.github/` templates. | Needs release tag, release notes, repository description/topics, and CI visibility before v1. |
+| Public usability | Partially ready. A public user can clone, inspect, run validation, and understand contribution and safety boundaries. | `README.md`, `CONTRIBUTING.md`, `.github/` templates. | Needs release tag, release notes, repository description/topics, and repository-setting review before v1. |
 
 ## Blockers To V1_READY
 
@@ -83,8 +83,8 @@ no unresolved placeholder or sample-content markers found
   maintenance decisions.
 - Calculation-heavy skills beyond the reference reorder-point path need broader
   numerical test coverage and independent expected results.
-- GitHub Actions was added after the AL-25 audit as a hardening follow-up; a
-  passing remote run and branch-protection decision remain release-readiness
+- GitHub Actions validation and source-link audit workflows now have passing
+  remote run evidence; a branch-protection decision remains release-readiness
   evidence.
 - No v1 release tag, release notes, or repository-setting review has been
   completed.
@@ -111,8 +111,8 @@ no unresolved placeholder or sample-content markers found
 Recommendation: do not declare v1 yet.
 
 AgentLogistics is suitable for a release-candidate hardening phase, but v1
-should wait until behavioral model evaluations, source freshness checks,
-calculation test expansion, and visible release/CI mechanics are complete.
+should wait until behavioral model evaluations, source freshness checks over
+time, calculation test expansion, and visible release mechanics are complete.
 
 ## Required Conditions For v1
 

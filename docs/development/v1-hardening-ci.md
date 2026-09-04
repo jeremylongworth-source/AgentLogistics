@@ -62,11 +62,22 @@ when investigating whether reported transient source failures are repeatable.
 - GitHub Actions workflow syntax:
   `https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax`
 
+## Remote Verification
+
+Verified on GitHub Actions on 2026-09-04:
+
+- `Validate` push run `33860184054` passed for commit `31a0cf5`.
+- `Source Link Audit` manual run `33860220295` passed for `main`.
+
+The source-link run reported no confirmed broken links. It did report transient
+timeouts for two `canada.ca` pages and expected access restrictions from some
+official sites; those are visible in workflow logs for maintenance review.
+
 ## Remaining v1 Release Conditions
 
 CI visibility is no longer a repository-file gap. Source-link audit visibility
-is also available through a manual and scheduled GitHub Actions workflow. AL-25
-still requires:
+is available through a manual and scheduled GitHub Actions workflow, and both
+remote workflows have passing run evidence. AL-25 still requires:
 
 - live model response scoring;
 - review of source freshness audit results over time;

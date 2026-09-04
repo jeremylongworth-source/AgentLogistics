@@ -68,19 +68,18 @@ Result: all AgentLogistics validation checks passed.
 ## Known Limitations
 
 - AL-25 did not execute live model response scoring.
-- AL-25 did not perform full external regulatory source reachability or
-  freshness verification.
-- AL-25 did not add CI, create a v1 tag, publish a release, or change GitHub
-  repository settings outside the version-controlled tree.
+- AL-25 did not perform long-running regulatory source freshness review.
+- Post-AL25 hardening added CI and source-link audit workflows with passing
+  remote run evidence, but did not create a v1 tag, publish a release, or
+  change GitHub repository settings outside the version-controlled tree.
 
 ## Unresolved Issues
 
 - Add live model evaluation harness and scored reports.
-- Review scheduled source-link audit results and maintain source freshness
-  records.
+- Review scheduled source-link audit results over time and maintain source
+  freshness records.
 - Expand calculation fixtures for calculation-heavy skills.
-- Verify remote CI runs and decide whether the validator check should be
-  required before v1 tagging.
+- Decide whether the validator check should be required before v1 tagging.
 - Prepare release notes and tag only after v1 conditions pass.
 
 ## Scope Explicitly Not Completed
