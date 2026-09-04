@@ -2,8 +2,8 @@
 
 All notable changes to AgentLogistics will be documented in this file.
 
-The format follows a lightweight, human-readable changelog style. This project
-does not have public releases yet.
+The format follows a lightweight, human-readable changelog style. The first
+public preview release is `v0.1.0-public-preview`.
 
 ## Unreleased
 
@@ -197,6 +197,8 @@ does not have public releases yet.
   skill preview, install, pinning, and maintainer publish checks.
 - Added `v0.1.0-public-preview` release notes for GitHub CLI agent-skills
   publishing.
+- Published AgentLogistics to GitHub CLI agent skills as
+  `v0.1.0-public-preview`.
 
 ### Changed
 

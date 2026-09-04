@@ -82,5 +82,5 @@ remote workflows have passing run evidence. AL-25 still requires:
 - live model response scoring;
 - review of source freshness audit results over time;
 - expanded numerical fixtures for calculation-heavy skills;
-- release notes and release tagging after gates pass;
+- v1 release notes and v1 release tagging after gates pass;
 - repository-setting review outside the version-controlled file tree.
