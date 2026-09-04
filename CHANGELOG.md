@@ -189,3 +189,5 @@ does not have public releases yet.
 - Added GitHub Actions validation for pushes, pull requests, and manual
   dispatches.
 - Added the v1 hardening CI validation note.
+- Added a manual source-link audit script for specialization source maps.
+- Added a scheduled and manual GitHub Actions source-link audit workflow.

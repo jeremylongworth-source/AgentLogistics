@@ -78,9 +78,9 @@ no unresolved placeholder or sample-content markers found
 
 - No live model evaluation harness has scored generated outputs against the
   scenarios and fixtures.
-- No repeatable external link and source-freshness check exists for
-  time-sensitive regulatory, safety, customs, dangerous-goods, food, and
-  transportation sources.
+- A repeatable external source-link audit was added after AL-25 as a hardening
+  follow-up; source freshness still needs periodic review and documented
+  maintenance decisions.
 - Calculation-heavy skills beyond the reference reorder-point path need broader
   numerical test coverage and independent expected results.
 - GitHub Actions was added after the AL-25 audit as a hardening follow-up; a
@@ -118,7 +118,8 @@ calculation test expansion, and visible release/CI mechanics are complete.
 
 - Add live model evaluation runs for representative skills, skillsets,
   specializations, and AL-23 integration scenarios.
-- Add an external source freshness and reachability workflow for source maps.
+- Review scheduled source-link audit results and record source freshness
+  maintenance decisions for source maps.
 - Expand numerical fixtures for calculation-heavy skills.
 - Keep CI running `.\scripts\validate-all.ps1` or the equivalent validator set,
   and decide whether the check should be required before v1 tagging.

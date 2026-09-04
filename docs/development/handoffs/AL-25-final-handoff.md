@@ -76,7 +76,8 @@ Result: all AgentLogistics validation checks passed.
 ## Unresolved Issues
 
 - Add live model evaluation harness and scored reports.
-- Add repeatable source freshness and external-link checks.
+- Review scheduled source-link audit results and maintain source freshness
+  records.
 - Expand calculation fixtures for calculation-heavy skills.
 - Verify remote CI runs and decide whether the validator check should be
   required before v1 tagging.

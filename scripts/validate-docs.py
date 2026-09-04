@@ -16,6 +16,7 @@ REQUIRED_FILES = (
     "SECURITY.md",
     ".github/FUNDING.yml",
     ".github/workflows/validate.yml",
+    ".github/workflows/source-links.yml",
     ".github/ISSUE_TEMPLATE/skill-request.md",
     ".github/ISSUE_TEMPLATE/bug-report.md",
     ".github/ISSUE_TEMPLATE/documentation-issue.md",
@@ -270,6 +271,7 @@ REQUIRED_TOKENS = {
     ),
     "docs/development/v1-hardening-ci.md": (
         ".github/workflows/validate.yml",
+        ".github/workflows/source-links.yml",
         ".\\scripts\\validate-all.ps1",
     ),
     "docs/development/handoffs/AL-25-final-handoff.md": (
@@ -516,6 +518,52 @@ def validate_ci_workflow(repo_root: Path) -> list[str]:
     return errors
 
 
+def validate_source_link_audit(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+
+    script_relative = "scripts/validate-source-links.py"
+    script_path = repo_root / script_relative
+    if not script_path.is_file():
+        errors.append(f"Missing required file: {script_relative}")
+    else:
+        script_text = script_path.read_text(encoding="utf-8")
+        for phrase in (
+            "DEFAULT_SOURCE_FILES",
+            "specializations/canada/references/canadian-authority-map.md",
+            "specializations/united-states/references/us-authority-map.md",
+            "specializations/food-cold-chain/references/food-cold-chain-source-map.md",
+            "specializations/dangerous-goods/references/dangerous-goods-source-map.md",
+            "specializations/international-logistics/references/international-logistics-source-map.md",
+            "ACCEPTED_RESTRICTED_STATUSES",
+            "--allow-tls-errors",
+            "Validated AgentLogistics source links.",
+        ):
+            if phrase not in script_text:
+                errors.append(f"{script_relative}: missing source-link audit phrase {phrase}")
+
+    workflow_relative = ".github/workflows/source-links.yml"
+    workflow_path = repo_root / workflow_relative
+    if not workflow_path.is_file():
+        return errors
+
+    workflow_text = workflow_path.read_text(encoding="utf-8")
+    for phrase in (
+        "name: Source Link Audit",
+        "schedule:",
+        "workflow_dispatch:",
+        "contents: read",
+        "runs-on: windows-latest",
+        "actions/checkout@v6",
+        "actions/setup-python@v7",
+        'python-version: "3.13"',
+        "python scripts\\validate-source-links.py",
+    ):
+        if phrase not in workflow_text:
+            errors.append(f"{workflow_relative}: missing source-link workflow phrase {phrase}")
+
+    return errors
+
+
 def validate(repo_root: Path) -> list[str]:
     errors: list[str] = []
 
@@ -540,6 +588,7 @@ def validate(repo_root: Path) -> list[str]:
     errors.extend(validate_public_readiness(repo_root))
     errors.extend(validate_v1_release_candidate_audit(repo_root))
     errors.extend(validate_ci_workflow(repo_root))
+    errors.extend(validate_source_link_audit(repo_root))
     return errors
 
 
