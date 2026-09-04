@@ -172,3 +172,12 @@ does not have public releases yet.
 - Extended documentation validation for AL-24 public-readiness files, README
   sections, contribution sections, templates, audit coverage, and completion
   token checks.
+- Completed Wave AL-25 v1 release candidate audit.
+- Added the AL-25 v1 release candidate audit and AL-25 handoff with a
+  `V1_PARTIALLY_READY` verdict.
+- Recorded v1 blockers for live model scoring, external source freshness and
+  reachability checks, expanded calculation verification, CI visibility, release
+  notes, release tagging, and repository-setting review.
+- Updated `README.md` with the AL-25 completion token and current v1 audit
+  verdict.
+- Extended documentation validation for AL-25 audit and handoff coverage.

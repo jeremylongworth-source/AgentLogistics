@@ -22,6 +22,7 @@ REQUIRED_FILES = (
     ".github/pull_request_template.md",
     "docs/development/AL-00-baseline-audit.md",
     "docs/development/AL-24-public-readiness-audit.md",
+    "docs/development/AL-25-v1-release-candidate-audit.md",
     "docs/architecture/domain-contract.md",
     "docs/architecture/scope-boundaries.md",
     "docs/architecture/master-taxonomy-v1.md",
@@ -64,6 +65,7 @@ REQUIRED_FILES = (
     "docs/development/handoffs/AL-22-final-handoff.md",
     "docs/development/handoffs/AL-23-final-handoff.md",
     "docs/development/handoffs/AL-24-final-handoff.md",
+    "docs/development/handoffs/AL-25-final-handoff.md",
     "skillsets/README.md",
     "specializations/canada/README.md",
     "specializations/canada/references/canadian-authority-map.md",
@@ -92,6 +94,8 @@ REQUIRED_TOKENS = {
     ),
     "README.md": (
         "AGENTLOGISTICS_AL_24_PUBLIC_READINESS_READY",
+        "AGENTLOGISTICS_AL_25_V1_RC_AUDIT_COMPLETE",
+        "V1_PARTIALLY_READY",
     ),
     "docs/development/AL-00-baseline-audit.md": (
         "AGENTLOGISTICS_AL_00_BASELINE_READY",
@@ -258,6 +262,14 @@ REQUIRED_TOKENS = {
     "docs/development/handoffs/AL-24-final-handoff.md": (
         "AGENTLOGISTICS_AL_24_PUBLIC_READINESS_READY",
     ),
+    "docs/development/AL-25-v1-release-candidate-audit.md": (
+        "AGENTLOGISTICS_AL_25_V1_RC_AUDIT_COMPLETE",
+        "V1_PARTIALLY_READY",
+    ),
+    "docs/development/handoffs/AL-25-final-handoff.md": (
+        "AGENTLOGISTICS_AL_25_V1_RC_AUDIT_COMPLETE",
+        "V1_PARTIALLY_READY",
+    ),
 }
 
 README_PUBLIC_SECTIONS = (
@@ -302,6 +314,23 @@ PR_TEMPLATE_PHRASES = (
     "Evidence And Sources",
     "Safety And Approval Boundaries",
     "Validation",
+)
+
+AL25_AUDIT_AREAS = (
+    "Skill completeness",
+    "Taxonomy coverage",
+    "Source integrity",
+    "Broken references",
+    "Calculation correctness",
+    "Test coverage",
+    "Stale regulatory material",
+    "Duplicated skills",
+    "Malformed metadata",
+    "Composition failures",
+    "Documentation",
+    "Repository hygiene",
+    "Licensing",
+    "Public usability",
 )
 
 SPECIALIZATION_CANDIDATES = (
@@ -429,6 +458,33 @@ def validate_public_readiness(repo_root: Path) -> list[str]:
     return errors
 
 
+def validate_v1_release_candidate_audit(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    relative = "docs/development/AL-25-v1-release-candidate-audit.md"
+    path = repo_root / relative
+    if not path.is_file():
+        return errors
+
+    text = path.read_text(encoding="utf-8")
+    for phrase in (
+        "Verdict: V1_PARTIALLY_READY",
+        "do not tag or announce v1",
+        "Blockers To V1_READY",
+        "Required Conditions For v1",
+        "live model evaluation",
+        "external source freshness",
+        "GitHub Actions",
+        "All AgentLogistics validation checks passed.",
+    ):
+        if phrase not in text:
+            errors.append(f"{relative}: missing AL-25 audit phrase {phrase}")
+    for area in AL25_AUDIT_AREAS:
+        if area not in text:
+            errors.append(f"{relative}: missing audit area {area}")
+
+    return errors
+
+
 def validate(repo_root: Path) -> list[str]:
     errors: list[str] = []
 
@@ -451,6 +507,7 @@ def validate(repo_root: Path) -> list[str]:
 
     errors.extend(validate_specialization_roadmap(repo_root))
     errors.extend(validate_public_readiness(repo_root))
+    errors.extend(validate_v1_release_candidate_audit(repo_root))
     return errors
 
 

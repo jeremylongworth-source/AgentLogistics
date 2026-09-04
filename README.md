@@ -215,9 +215,14 @@ AGENTLOGISTICS_AL_21_DANGEROUS_GOODS_READY
 AGENTLOGISTICS_AL_22_INTERNATIONAL_LOGISTICS_READY
 AGENTLOGISTICS_AL_23_INTEGRATION_VALIDATED
 AGENTLOGISTICS_AL_24_PUBLIC_READINESS_READY
+AGENTLOGISTICS_AL_25_V1_RC_AUDIT_COMPLETE
 ```
 
-The next planned wave is AL-25: v1 Release Candidate Audit.
+Current v1 audit verdict: `V1_PARTIALLY_READY`.
+
+No v1 release has been tagged. The next development focus is v1 hardening:
+live model evaluation, source freshness checks, expanded calculation fixtures,
+CI visibility, release notes, and release tagging only after those gates pass.
 
 ## Contributing
 
