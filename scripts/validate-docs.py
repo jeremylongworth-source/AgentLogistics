@@ -536,6 +536,7 @@ def validate_source_link_audit(repo_root: Path) -> list[str]:
             "specializations/international-logistics/references/international-logistics-source-map.md",
             "ACCEPTED_RESTRICTED_STATUSES",
             "--allow-tls-errors",
+            "--strict-transient",
             "Validated AgentLogistics source links.",
         ):
             if phrase not in script_text:

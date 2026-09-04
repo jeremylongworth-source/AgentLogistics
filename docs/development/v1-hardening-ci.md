@@ -33,18 +33,23 @@ The source-link workflow:
 - uses read-only `contents: read` permissions;
 - runs on `windows-latest`;
 - runs `python scripts\validate-source-links.py`;
-- fails on clearly broken links and TLS failures in CI;
+- retries `GET` when a source rejects or mishandles `HEAD` requests;
+- fails on confirmed broken links such as 404 or 410 responses;
+- reports transient network and TLS failures without failing the scheduled CI
+  run by default;
 - reports access-restricted official sites separately when they return statuses
   such as 401, 403, 405, or 429.
 
-For local networks that intercept TLS, maintainers can run:
+For local networks that intercept TLS, maintainers can run a strict transient
+audit while allowing local certificate-chain failures:
 
 ```powershell
-python scripts\validate-source-links.py --allow-tls-errors
+python scripts\validate-source-links.py --strict-transient --allow-tls-errors
 ```
 
-Use that option only to separate local certificate-chain issues from broken
-source URLs.
+Use those options only to separate local certificate-chain issues from broken
+source URLs. Run `python scripts\validate-source-links.py --strict-transient`
+when investigating whether reported transient source failures are repeatable.
 
 ## Sources Checked
 

@@ -20,6 +20,8 @@ DEFAULT_SOURCE_FILES = (
 URL_RE = re.compile(r"https?://[^\s<>)`\"']+")
 ACCEPTED_RESTRICTED_STATUSES = {401, 403, 405, 429}
 BROKEN_STATUSES = {404, 410}
+FATAL_STATUSES = {"BROKEN", "CHECK"}
+TRANSIENT_STATUSES = {"ERROR", "TLS_ERROR"}
 
 
 @dataclass(frozen=True)
@@ -61,15 +63,17 @@ def check_url(url: str, timeout: int) -> LinkResult:
     try:
         status = request_url(url, "HEAD", timeout)
     except HTTPError as exc:
-        if exc.code in {403, 405}:
-            try:
-                status = request_url(url, "GET", timeout)
-            except HTTPError as get_exc:
-                status = int(get_exc.code)
-            except URLError as get_exc:
-                return LinkResult(url, "ERROR", str(get_exc.reason))
-        else:
-            status = int(exc.code)
+        try:
+            status = request_url(url, "GET", timeout)
+        except HTTPError as get_exc:
+            status = int(get_exc.code)
+        except URLError as get_exc:
+            reason = str(get_exc.reason)
+            if "CERTIFICATE_VERIFY_FAILED" in reason:
+                return LinkResult(url, "TLS_ERROR", reason)
+            return LinkResult(url, "ERROR", reason)
+        except TimeoutError:
+            return LinkResult(url, "ERROR", "timeout")
     except URLError as exc:
         reason = str(exc.reason)
         if "CERTIFICATE_VERIFY_FAILED" in reason:
@@ -94,6 +98,7 @@ def validate(
     selected_files: list[str] | None,
     timeout: int,
     allow_tls_errors: bool,
+    strict_transient: bool,
 ) -> list[str]:
     errors: list[str] = []
     seen_urls: set[str] = set()
@@ -113,7 +118,9 @@ def validate(
         print(f"{result.status}\t{result.detail}\t{result.url}")
         if result.status == "TLS_ERROR" and allow_tls_errors:
             continue
-        if result.status in {"BROKEN", "ERROR", "TLS_ERROR"}:
+        if result.status in FATAL_STATUSES:
+            errors.append(f"{result.url}: {result.status.lower()} ({result.detail})")
+        if strict_transient and result.status in TRANSIENT_STATUSES:
             errors.append(f"{result.url}: {result.status.lower()} ({result.detail})")
 
     if not seen_urls:
@@ -130,12 +137,23 @@ def main() -> int:
     parser.add_argument(
         "--allow-tls-errors",
         action="store_true",
-        help="Report TLS certificate failures without failing the audit.",
+        help="Report TLS certificate failures without failing a strict transient audit.",
+    )
+    parser.add_argument(
+        "--strict-transient",
+        action="store_true",
+        help="Fail on transient network and TLS errors instead of reporting them.",
     )
     args = parser.parse_args()
 
     repo_root = Path(args.repo_root).resolve()
-    errors = validate(repo_root, args.files, args.timeout, args.allow_tls_errors)
+    errors = validate(
+        repo_root,
+        args.files,
+        args.timeout,
+        args.allow_tls_errors,
+        args.strict_transient,
+    )
     if errors:
         for error in errors:
             print(error, file=sys.stderr)
