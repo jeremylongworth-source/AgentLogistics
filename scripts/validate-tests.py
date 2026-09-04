@@ -24,6 +24,10 @@ AL_16_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY"
 AL_17_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY"
 AL_18_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY"
 AL_19_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_19_SPECIALIZATION_FRAMEWORK_READY"
+AL_20_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_20_FOOD_COLD_CHAIN_READY"
+AL_21_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_21_DANGEROUS_GOODS_READY"
+AL_22_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_22_INTERNATIONAL_LOGISTICS_READY"
+AL_23_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_23_INTEGRATION_VALIDATED"
 REQUIRED_CATEGORIES = {
     "correct_invocation",
     "incorrect_invocation",
@@ -359,6 +363,315 @@ REQUIRED_SPECIALIZATION_BLOCKED_ACTIONS = (
     "treat_candidate_skill_names_as_ready_packages",
     "make_hard_cross_project_dependency",
 )
+REQUIRED_FOOD_COLD_CHAIN_SPECIALIZATIONS = {
+    "classify-food-cold-chain-requirements",
+    "plan-temperature-controlled-storage",
+    "monitor-cold-chain-temperature",
+    "triage-temperature-excursion",
+    "plan-fefo-inventory-rotation",
+    "manage-expiry-controlled-food-inventory",
+    "trace-food-lot-movement",
+    "plan-sanitation-sensitive-logistics",
+    "plan-food-segregation",
+    "support-food-recall-logistics",
+    "plan-cold-chain-transportation",
+    "plan-cold-chain-handoff",
+}
+REQUIRED_FOOD_COLD_CHAIN_CAPABILITIES = (
+    "temperature-controlled storage",
+    "temperature monitoring",
+    "excursion handling",
+    "FEFO",
+    "expiry controls",
+    "lot traceability",
+    "sanitation-sensitive logistics",
+    "food segregation",
+    "recall logistics",
+    "cold-chain transportation",
+    "cold-chain handoffs",
+)
+REQUIRED_FOOD_COLD_CHAIN_INVARIANTS = (
+    "product and jurisdiction scope",
+    "temperature basis and monitoring evidence",
+    "excursion chronology without release approval",
+    "FEFO and expiry-control handoff",
+    "lot traceability packet",
+    "sanitation and segregation review boundary",
+    "recall logistics packet without recall approval",
+    "cold-chain transportation handoff",
+    "source dates and official source list",
+    "qualified-review boundary",
+    "AgentLogistics ChefSkills independence",
+)
+REQUIRED_FOOD_COLD_CHAIN_BLOCKED_CLAIMS = (
+    "legal advice",
+    "compliance declarations",
+    "food safety approvals",
+    "product release approvals",
+    "temperature excursion disposition approvals",
+    "recall initiation approvals",
+    "sanitation approvals",
+    "equipment certifications",
+    "carrier approvals",
+    "customer commitment approvals",
+    "financial approvals",
+    "live system changes",
+)
+REQUIRED_FOOD_COLD_CHAIN_SOURCE_URLS = (
+    "https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-sanitary-transportation-human-and-animal-food",
+    "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/guidance-industry-sanitary-transportation-food",
+    "https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-requirements-additional-traceability-records-certain-foods",
+    "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/industry-guidance-recalls",
+    "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/danger-zone-40f-140f",
+    "https://www.fsis.usda.gov/policy/fsis-directives/8080.1",
+    "https://inspection.canada.ca/en/food-safety-industry/preventive-control-plans",
+    "https://inspection.canada.ca/en/food-safety-industry/preventive-control-plans/regulatory-requirements",
+    "https://inspection.canada.ca/en/inspection-and-enforcement/guidance-food-activities/preventive-control-inspection/traceability-inspection",
+)
+REQUIRED_DANGEROUS_GOODS_SPECIALIZATIONS = {
+    "classify-dangerous-goods-logistics-requirements",
+    "plan-dangerous-goods-storage-segregation",
+    "prepare-dangerous-goods-shipping-research",
+    "triage-dangerous-goods-incident-logistics",
+}
+REQUIRED_DANGEROUS_GOODS_CAPABILITIES = (
+    "classification",
+    "packaging",
+    "marking",
+    "labeling",
+    "documentation",
+    "storage",
+    "segregation",
+    "transport mode",
+    "jurisdiction",
+    "personnel qualification requirements",
+)
+REQUIRED_DANGEROUS_GOODS_INVARIANTS = (
+    "material and jurisdiction scope",
+    "mode-specific source separation",
+    "classification evidence without classification approval",
+    "packaging marking labeling documentation research packet",
+    "storage and segregation review boundary",
+    "transport mode handoff",
+    "personnel qualification evidence without certification",
+    "incident logistics handoff without emergency response approval",
+    "source dates and official source list",
+    "qualified-review boundary",
+)
+REQUIRED_DANGEROUS_GOODS_BLOCKED_CLAIMS = (
+    "legal advice",
+    "compliance declarations",
+    "safety approvals",
+    "certifications",
+    "dangerous-goods classification approvals",
+    "hazardous materials classification approvals",
+    "packaging design approvals",
+    "marking or labeling approvals",
+    "shipping paper approvals",
+    "emergency response approvals",
+    "environmental determinations",
+    "carrier approvals",
+    "personnel qualification certifications",
+    "customs approvals",
+    "customer commitment approvals",
+    "financial approvals",
+    "live system changes",
+)
+REQUIRED_DANGEROUS_GOODS_SOURCE_URLS = (
+    "https://www.phmsa.dot.gov/standards-rulemaking/hazmat/hazardous-materials-regulations",
+    "https://www.phmsa.dot.gov/training/hazmat/publications",
+    "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C",
+    "https://tc.canada.ca/en/dangerous-goods/transportation-dangerous-goods-canada",
+    "https://tc.canada.ca/en/corporate-services/acts-regulations/list-regulations/transportation-dangerous-goods-regulations",
+    "https://laws-lois.justice.gc.ca/eng/regulations/sor-2001-286/",
+    "https://unece.org/transport/dangerous-goods/un-model-regulations-rev-24",
+    "https://www.icao.int/Dangerous-Goods/Technical-Instructions",
+    "https://www.iata.org/en/publications/dgr/",
+    "https://www.imo.org/en/ourwork/safety/pages/dangerousgoods-default.aspx",
+    "https://www.imo.org/en/publications/pages/imdg%20code.aspx",
+    "https://www.osha.gov/chemical-hazards",
+    "https://www.epa.gov/hw/hazardous-waste-transportation",
+)
+REQUIRED_INTERNATIONAL_LOGISTICS_SPECIALIZATIONS = {
+    "map-cross-border-logistics-flow",
+    "prepare-international-shipment-document-research",
+    "plan-customs-broker-handoff",
+    "triage-port-terminal-exception",
+}
+REQUIRED_INTERNATIONAL_LOGISTICS_CAPABILITIES = (
+    "Incoterms",
+    "import/export concepts",
+    "customs",
+    "customs brokers",
+    "duties",
+    "commercial invoices",
+    "packing lists",
+    "international bills of lading",
+    "ocean freight",
+    "air freight",
+    "container logistics",
+    "drayage",
+    "ports",
+    "international freight forwarding",
+)
+REQUIRED_INTERNATIONAL_LOGISTICS_INVARIANTS = (
+    "lane and jurisdiction scope",
+    "party-role map",
+    "mode-specific source separation",
+    "Incoterms context without contract advice",
+    "commercial invoice and packing list research packet",
+    "customs broker handoff without customs approval",
+    "export filing evidence without filing approval",
+    "sanctions and export-control escalation without determination",
+    "duty and tax questions without determination",
+    "port terminal and drayage exception handoff",
+    "source dates and official source list",
+    "qualified-review boundary",
+)
+REQUIRED_INTERNATIONAL_LOGISTICS_BLOCKED_CLAIMS = (
+    "legal advice",
+    "compliance declarations",
+    "customs entry approvals",
+    "customs release approvals",
+    "export filing approvals",
+    "sanctions determinations",
+    "export-control classification approvals",
+    "license requirement determinations",
+    "duty or tax determinations",
+    "Incoterms contract advice",
+    "bill of lading approvals",
+    "commercial invoice approvals",
+    "packing list approvals",
+    "carrier approvals",
+    "port or terminal release approvals",
+    "freight forwarder approvals",
+    "financial approvals",
+    "customer commitment approvals",
+    "live system changes",
+)
+REQUIRED_INTERNATIONAL_LOGISTICS_SOURCE_URLS = (
+    "https://iccwbo.org/business-solutions/incoterms-rules/",
+    "https://iccwbo.org/business-solutions/incoterms-rules/incoterms-2020/",
+    "https://www.trade.gov/know-your-incoterms",
+    "https://www.cbp.gov/trade/basic-import-export",
+    "https://www.ecfr.gov/current/title-19/chapter-I/part-141/subpart-F",
+    "https://www.cbsa-asfc.gc.ca/import/guide-eng.html",
+    "https://www.cbsa-asfc.gc.ca/services/export/menu-eng.html",
+    "https://www.wcoomd.org/en/topics/nomenclature/overview/what-is-the-harmonized-system.aspx",
+    "https://www.wcoomd.org/en/topics/valuation/overview/what-is-customs-valuation.aspx",
+    "https://www.wcoomd.org/en/topics/origin/overview.aspx",
+    "https://www.wcoomd.org/en/topics/facilitation/instrument-and-tools/frameworks-of-standards/safe_package.aspx",
+    "https://www.census.gov/foreign-trade/aes/",
+    "https://www.census.gov/foreign-trade/regulations/",
+    "https://www.bis.gov/regulations/ear",
+    "https://www.bis.gov/regulations/ear/interactive-commerce-control-list",
+    "https://ofac.treasury.gov/sanctions-programs-and-country-information",
+    "https://www.fmc.gov/detention-and-demurrage/",
+    "https://www.imo.org/en/about/conventions/pages/convention-on-facilitation-of-international-maritime-traffic-%28fal%29.aspx",
+    "https://www.trade.gov/common-export-documents",
+    "https://www.cbp.gov/border-security/ports-entry/cargo-security/importer-security-filing-102",
+)
+REQUIRED_INTEGRATION_SCENARIO_FILES = (
+    "tests/scenarios/integration-inbound-shortage.md",
+    "tests/scenarios/integration-throughput-collapse.md",
+    "tests/scenarios/integration-inventory-accuracy-deterioration.md",
+    "tests/scenarios/integration-capacity-constraint.md",
+    "tests/scenarios/integration-transportation-cost-increase.md",
+)
+REQUIRED_INTEGRATION_SCENARIOS = (
+    "inbound shortage",
+    "warehouse throughput collapse",
+    "inventory accuracy deterioration",
+    "capacity constraint",
+    "transportation cost increase",
+)
+REQUIRED_INTEGRATION_COMPONENTS = (
+    "receiving discrepancy",
+    "ASN evidence",
+    "inventory reconciliation",
+    "WMS transaction chronology",
+    "carrier evidence",
+    "order profile",
+    "replenishment constraints",
+    "picking bottleneck",
+    "labor capacity",
+    "congestion",
+    "KPI analysis",
+    "root cause",
+    "improvement plan",
+    "cycle count evidence",
+    "scan-event evidence",
+    "Pareto analysis",
+    "storage utilization",
+    "pallet positions",
+    "slotting",
+    "dock capacity",
+    "capacity forecast",
+    "shipment profile",
+    "freight rates",
+    "accessorials",
+    "load utilization",
+    "carrier performance",
+    "consolidation scenario",
+)
+REQUIRED_INTEGRATION_INVARIANTS = (
+    "cross-skill routing map",
+    "source-by-source evidence table",
+    "chronology",
+    "quantity reconciliation",
+    "unit checks",
+    "facts assumptions and inferences separated",
+    "source conflicts labeled",
+    "missing evidence requests",
+    "operational next steps",
+    "owner handoffs",
+    "observation evidence inference root cause recommendation expected effect measurement plan",
+    "qualified-review boundary",
+)
+REQUIRED_INTEGRATION_BOUNDARY_CLASSES = (
+    "inventory adjustment approval",
+    "freight claim approval",
+    "supplier claim approval",
+    "customer commitment approval",
+    "financial approval",
+    "live WMS change",
+    "live TMS change",
+    "staffing approval",
+    "equipment approval",
+    "structural approval",
+    "food safety approval",
+    "carrier selection approval",
+    "rate acceptance approval",
+    "demurrage payment approval",
+    "HR decision",
+)
+REQUIRED_INTEGRATION_ROUTE_GROUPS = {
+    "integration-inbound-shortage": {
+        "inbound-receiving",
+        "inventory-control",
+        "logistics-systems-data",
+        "transportation-freight",
+    },
+    "integration-throughput-collapse": {
+        "replenishment-picking",
+        "labor-operating-planning",
+        "performance-continuous-improvement",
+    },
+    "integration-inventory-accuracy-deterioration": {
+        "inventory-control",
+        "logistics-systems-data",
+        "performance-continuous-improvement",
+    },
+    "integration-capacity-constraint": {
+        "storage-warehousing",
+        "warehouse-design-capacity",
+        "food-cold-chain",
+    },
+    "integration-transportation-cost-increase": {
+        "transportation-freight",
+        "performance-continuous-improvement",
+    },
+}
 
 
 def skill_names(repo_root: Path) -> set[str]:
@@ -803,6 +1116,192 @@ def validate_specialization_framework_fixture(repo_root: Path) -> list[str]:
     return errors
 
 
+def validate_food_cold_chain_fixture(repo_root: Path, known_skills: set[str]) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "food-cold-chain-source-triage.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing fixture file: tests/fixtures/food-cold-chain-source-triage.json"]
+
+    try:
+        fixture = read_fixture(fixture_path)
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if fixture.get("completion_token") != AL_20_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-20 completion token")
+
+    scenario_file = fixture.get("scenario_file")
+    if scenario_file != "tests/scenarios/food-cold-chain-source-triage.md":
+        errors.append(f"{relative}: missing food cold-chain scenario reference")
+    elif not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    expected_specializations = set(fixture.get("expected_specializations", []))
+    for package_name in sorted(REQUIRED_FOOD_COLD_CHAIN_SPECIALIZATIONS - expected_specializations):
+        errors.append(f"{relative}: expected_specializations missing {package_name}")
+    for package_name in sorted(expected_specializations - known_skills):
+        errors.append(f"{relative}: expected specialization {package_name} has no package")
+
+    checks = (
+        ("required_capabilities", REQUIRED_FOOD_COLD_CHAIN_CAPABILITIES),
+        ("required_output_invariants", REQUIRED_FOOD_COLD_CHAIN_INVARIANTS),
+        ("blocked_claims", REQUIRED_FOOD_COLD_CHAIN_BLOCKED_CLAIMS),
+        ("official_source_urls", REQUIRED_FOOD_COLD_CHAIN_SOURCE_URLS),
+    )
+    for field, required_values in checks:
+        values = set(fixture.get(field, []))
+        for value in required_values:
+            if value not in values:
+                errors.append(f"{relative}: {field} missing {value}")
+
+    authority_classes = fixture.get("required_authority_classes", [])
+    if not isinstance(authority_classes, list) or len(authority_classes) < 6:
+        errors.append(f"{relative}: required_authority_classes must contain source categories")
+
+    return errors
+
+
+def validate_dangerous_goods_fixture(repo_root: Path, known_skills: set[str]) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "dangerous-goods-source-triage.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing fixture file: tests/fixtures/dangerous-goods-source-triage.json"]
+
+    try:
+        fixture = read_fixture(fixture_path)
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if fixture.get("completion_token") != AL_21_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-21 completion token")
+
+    scenario_file = fixture.get("scenario_file")
+    if scenario_file != "tests/scenarios/dangerous-goods-source-triage.md":
+        errors.append(f"{relative}: missing dangerous-goods scenario reference")
+    elif not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    expected_specializations = set(fixture.get("expected_specializations", []))
+    for package_name in sorted(REQUIRED_DANGEROUS_GOODS_SPECIALIZATIONS - expected_specializations):
+        errors.append(f"{relative}: expected_specializations missing {package_name}")
+    for package_name in sorted(expected_specializations - known_skills):
+        errors.append(f"{relative}: expected specialization {package_name} has no package")
+
+    checks = (
+        ("required_capabilities", REQUIRED_DANGEROUS_GOODS_CAPABILITIES),
+        ("required_output_invariants", REQUIRED_DANGEROUS_GOODS_INVARIANTS),
+        ("blocked_claims", REQUIRED_DANGEROUS_GOODS_BLOCKED_CLAIMS),
+        ("official_source_urls", REQUIRED_DANGEROUS_GOODS_SOURCE_URLS),
+    )
+    for field, required_values in checks:
+        values = set(fixture.get(field, []))
+        for value in required_values:
+            if value not in values:
+                errors.append(f"{relative}: {field} missing {value}")
+
+    authority_classes = fixture.get("required_authority_classes", [])
+    if not isinstance(authority_classes, list) or len(authority_classes) < 8:
+        errors.append(f"{relative}: required_authority_classes must contain source categories")
+
+    return errors
+
+
+def validate_international_logistics_fixture(repo_root: Path, known_skills: set[str]) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "international-logistics-source-triage.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing fixture file: tests/fixtures/international-logistics-source-triage.json"]
+
+    try:
+        fixture = read_fixture(fixture_path)
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if fixture.get("completion_token") != AL_22_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-22 completion token")
+
+    scenario_file = fixture.get("scenario_file")
+    if scenario_file != "tests/scenarios/international-logistics-source-triage.md":
+        errors.append(f"{relative}: missing international-logistics scenario reference")
+    elif not (repo_root / scenario_file).is_file():
+        errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    expected_specializations = set(fixture.get("expected_specializations", []))
+    for package_name in sorted(REQUIRED_INTERNATIONAL_LOGISTICS_SPECIALIZATIONS - expected_specializations):
+        errors.append(f"{relative}: expected_specializations missing {package_name}")
+    for package_name in sorted(expected_specializations - known_skills):
+        errors.append(f"{relative}: expected specialization {package_name} has no package")
+
+    checks = (
+        ("required_capabilities", REQUIRED_INTERNATIONAL_LOGISTICS_CAPABILITIES),
+        ("required_output_invariants", REQUIRED_INTERNATIONAL_LOGISTICS_INVARIANTS),
+        ("blocked_claims", REQUIRED_INTERNATIONAL_LOGISTICS_BLOCKED_CLAIMS),
+        ("official_source_urls", REQUIRED_INTERNATIONAL_LOGISTICS_SOURCE_URLS),
+    )
+    for field, required_values in checks:
+        values = set(fixture.get(field, []))
+        for value in required_values:
+            if value not in values:
+                errors.append(f"{relative}: {field} missing {value}")
+
+    authority_classes = fixture.get("required_authority_classes", [])
+    if not isinstance(authority_classes, list) or len(authority_classes) < 10:
+        errors.append(f"{relative}: required_authority_classes must contain source categories")
+
+    return errors
+
+
+def validate_repository_wide_integration_fixture(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    fixture_path = repo_root / "tests" / "fixtures" / "repository-wide-integration.json"
+    relative = fixture_path.relative_to(repo_root)
+    if not fixture_path.is_file():
+        return ["Missing fixture file: tests/fixtures/repository-wide-integration.json"]
+
+    try:
+        fixture = read_fixture(fixture_path)
+    except json.JSONDecodeError as exc:
+        return [f"{relative}: invalid JSON: {exc}"]
+
+    if fixture.get("completion_token") != AL_23_COMPLETION_TOKEN:
+        errors.append(f"{relative}: missing AL-23 completion token")
+
+    scenario_files = set(fixture.get("scenario_files", []))
+    for scenario_file in REQUIRED_INTEGRATION_SCENARIO_FILES:
+        if scenario_file not in scenario_files:
+            errors.append(f"{relative}: scenario_files missing {scenario_file}")
+        elif not (repo_root / scenario_file).is_file():
+            errors.append(f"{relative}: scenario file {scenario_file} does not exist")
+
+    checks = (
+        ("required_scenarios", REQUIRED_INTEGRATION_SCENARIOS),
+        ("required_cross_domain_components", REQUIRED_INTEGRATION_COMPONENTS),
+        ("required_output_invariants", REQUIRED_INTEGRATION_INVARIANTS),
+        ("required_boundary_classes", REQUIRED_INTEGRATION_BOUNDARY_CLASSES),
+    )
+    for field, required_values in checks:
+        values = set(fixture.get(field, []))
+        for value in required_values:
+            if value not in values:
+                errors.append(f"{relative}: {field} missing {value}")
+
+    route_groups = fixture.get("scenario_route_groups", {})
+    if not isinstance(route_groups, dict):
+        errors.append(f"{relative}: scenario_route_groups must be an object")
+        return errors
+
+    for scenario_name, required_groups in REQUIRED_INTEGRATION_ROUTE_GROUPS.items():
+        groups = set(route_groups.get(scenario_name, []))
+        for group in required_groups:
+            if group not in groups:
+                errors.append(f"{relative}: scenario_route_groups {scenario_name} missing {group}")
+
+    return errors
+
+
 def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     errors: list[str] = []
     fixture_path = repo_root / "tests" / "fixtures" / "calculate-reorder-point-cases.json"
@@ -864,6 +1363,10 @@ def validate_fixtures(repo_root: Path, known_skills: set[str]) -> list[str]:
     errors.extend(validate_us_compliance_fixture(repo_root, known_skills))
     errors.extend(validate_professional_composition_fixture(repo_root, known_skills))
     errors.extend(validate_specialization_framework_fixture(repo_root))
+    errors.extend(validate_food_cold_chain_fixture(repo_root, known_skills))
+    errors.extend(validate_dangerous_goods_fixture(repo_root, known_skills))
+    errors.extend(validate_international_logistics_fixture(repo_root, known_skills))
+    errors.extend(validate_repository_wide_integration_fixture(repo_root))
     return errors
 
 
@@ -929,6 +1432,22 @@ def validate_evaluation_reports(repo_root: Path) -> list[str]:
         (
             repo_root / "tests" / "evaluations" / "specialization-framework-al-19-report.md",
             AL_19_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "food-cold-chain-al-20-report.md",
+            AL_20_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "dangerous-goods-al-21-report.md",
+            AL_21_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "international-logistics-al-22-report.md",
+            AL_22_COMPLETION_TOKEN,
+        ),
+        (
+            repo_root / "tests" / "evaluations" / "repository-wide-integration-al-23-report.md",
+            AL_23_COMPLETION_TOKEN,
         ),
     )
 

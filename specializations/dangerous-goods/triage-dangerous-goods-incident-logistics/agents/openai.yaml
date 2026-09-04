@@ -1,0 +1,4 @@
+interface: openai
+display_name: Triage Dangerous Goods Incident Logistics
+short_description: Triage dangerous-goods incident logistics evidence and handoffs.
+default_prompt: Use $triage-dangerous-goods-incident-logistics to prepare source-backed dangerous-goods incident logistics support with material, jurisdiction, mode, evidence, and qualified-review boundaries.

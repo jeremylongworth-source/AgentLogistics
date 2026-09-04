@@ -1,0 +1,4 @@
+interface: openai
+display_name: Monitor Cold-Chain Temperature
+short_description: Review cold-chain temperature monitoring evidence and gaps.
+default_prompt: Use $monitor-cold-chain-temperature to prepare source-backed food cold-chain logistics planning support with product, jurisdiction, evidence, and qualified-review boundaries.

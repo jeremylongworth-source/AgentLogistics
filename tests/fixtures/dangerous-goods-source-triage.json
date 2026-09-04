@@ -1,0 +1,82 @@
+{
+  "completion_token": "AGENTLOGISTICS_AL_21_DANGEROUS_GOODS_READY",
+  "scenario_file": "tests/scenarios/dangerous-goods-source-triage.md",
+  "expected_specializations": [
+    "classify-dangerous-goods-logistics-requirements",
+    "plan-dangerous-goods-storage-segregation",
+    "prepare-dangerous-goods-shipping-research",
+    "triage-dangerous-goods-incident-logistics"
+  ],
+  "required_capabilities": [
+    "classification",
+    "packaging",
+    "marking",
+    "labeling",
+    "documentation",
+    "storage",
+    "segregation",
+    "transport mode",
+    "jurisdiction",
+    "personnel qualification requirements"
+  ],
+  "required_authority_classes": [
+    "PHMSA hazardous materials transportation",
+    "eCFR Title 49 HMR",
+    "Transport Canada TDG",
+    "Justice Laws TDG Regulations",
+    "UNECE Model Regulations",
+    "ICAO Technical Instructions",
+    "IATA DGR",
+    "IMO IMDG Code",
+    "OSHA workplace chemical hazards",
+    "EPA hazardous waste transportation",
+    "carrier, terminal, port, airport, and facility rules",
+    "SDS, manufacturer, customer, employer program, and qualified review"
+  ],
+  "required_output_invariants": [
+    "material and jurisdiction scope",
+    "mode-specific source separation",
+    "classification evidence without classification approval",
+    "packaging marking labeling documentation research packet",
+    "storage and segregation review boundary",
+    "transport mode handoff",
+    "personnel qualification evidence without certification",
+    "incident logistics handoff without emergency response approval",
+    "source dates and official source list",
+    "qualified-review boundary"
+  ],
+  "blocked_claims": [
+    "legal advice",
+    "compliance declarations",
+    "safety approvals",
+    "certifications",
+    "dangerous-goods classification approvals",
+    "hazardous materials classification approvals",
+    "packaging design approvals",
+    "marking or labeling approvals",
+    "shipping paper approvals",
+    "emergency response approvals",
+    "environmental determinations",
+    "carrier approvals",
+    "personnel qualification certifications",
+    "customs approvals",
+    "customer commitment approvals",
+    "financial approvals",
+    "live system changes"
+  ],
+  "official_source_urls": [
+    "https://www.phmsa.dot.gov/standards-rulemaking/hazmat/hazardous-materials-regulations",
+    "https://www.phmsa.dot.gov/training/hazmat/publications",
+    "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C",
+    "https://tc.canada.ca/en/dangerous-goods/transportation-dangerous-goods-canada",
+    "https://tc.canada.ca/en/corporate-services/acts-regulations/list-regulations/transportation-dangerous-goods-regulations",
+    "https://laws-lois.justice.gc.ca/eng/regulations/sor-2001-286/",
+    "https://unece.org/transport/dangerous-goods/un-model-regulations-rev-24",
+    "https://www.icao.int/Dangerous-Goods/Technical-Instructions",
+    "https://www.iata.org/en/publications/dgr/",
+    "https://www.imo.org/en/ourwork/safety/pages/dangerousgoods-default.aspx",
+    "https://www.imo.org/en/publications/pages/imdg%20code.aspx",
+    "https://www.osha.gov/chemical-hazards",
+    "https://www.epa.gov/hw/hazardous-waste-transportation"
+  ]
+}

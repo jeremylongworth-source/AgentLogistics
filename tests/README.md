@@ -89,6 +89,18 @@ The United States specialization target is:
 
 - `specializations/united-states/`
 
+The food cold-chain specialization target is:
+
+- `specializations/food-cold-chain/`
+
+The dangerous goods specialization target is:
+
+- `specializations/dangerous-goods/`
+
+The international logistics specialization target is:
+
+- `specializations/international-logistics/`
+
 Coverage includes:
 
 - routing scenarios for the AL-04 required categories;
@@ -115,6 +127,10 @@ Coverage includes:
 - AL-18 role fixtures for receiving specialist, logistics coordinator,
   distribution manager, and logistics operations manager.
 - the AL-19 specialization framework scenario and fixture.
+- the AL-20 food cold-chain source-triage scenario and fixture.
+- the AL-21 dangerous-goods source-triage scenario and fixture.
+- the AL-22 international-logistics source-triage scenario and fixture.
+- the AL-23 repository-wide integration scenarios and fixture.
 
 Run:
 

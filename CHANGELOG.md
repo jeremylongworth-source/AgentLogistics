@@ -125,3 +125,50 @@ does not have public releases yet.
   report, and handoff.
 - Extended docs and test validation for AL-19 candidate fields, priorities,
   extension rules, and specialization-boundary checks.
+- Completed Wave AL-20 food and cold-chain logistics.
+- Added the `specializations/food-cold-chain/` industry specialization with
+  twelve source-backed planning packages.
+- Added the food cold-chain source map, source-triage scenario, fixture,
+  evaluation report, and AL-20 handoff.
+- Extended specialization, docs, and test validation for AL-20 package coverage,
+  official source URLs, roadmap capabilities, blocked claims, and
+  AgentLogistics/ChefSkills independence.
+- Completed Wave AL-21 dangerous goods logistics.
+- Added the `specializations/dangerous-goods/` source-backed specialization
+  with four research and planning packages.
+- Added the dangerous-goods source map, source-triage scenario, fixture,
+  evaluation report, and AL-21 handoff.
+- Extended specialization, docs, and test validation for AL-21 package coverage,
+  official source URLs, roadmap requirements, blocked claims, mode-specific
+  research, jurisdiction-specific research, and personnel qualification
+  boundaries.
+- Completed Wave AL-22 international logistics.
+- Added the `specializations/international-logistics/` source-backed
+  specialization with four research and handoff packages.
+- Added the international-logistics source map, source-triage scenario, fixture,
+  evaluation report, and AL-22 handoff.
+- Extended specialization, docs, and test validation for AL-22 package coverage,
+  official source URLs, roadmap areas, blocked claims, lane-specific research,
+  jurisdiction-specific research, mode-specific research, customs broker
+  handoffs, freight forwarder handoffs, and trade-compliance boundaries.
+- Completed Wave AL-23 repository-wide integration evaluation.
+- Added five integration scenarios covering inbound shortage, warehouse
+  throughput collapse, inventory accuracy deterioration, capacity constraint,
+  and transportation cost increase.
+- Added the repository-wide integration fixture, AL-23 evaluation report, and
+  AL-23 handoff.
+- Extended docs and test validation for AL-23 scenario coverage, cross-domain
+  route groups, output invariants, blocked approval classes, and evaluation
+  report coverage.
+- Completed Wave AL-24 documentation and public readiness.
+- Reworked `README.md` for public users with audience, capabilities, quick
+  start, skill examples, structure, limitations, contribution process, safety
+  boundaries, security, license, completed gates, and next wave.
+- Expanded `CONTRIBUTING.md` with contributor priorities, skill standards,
+  evidence rules, calculation requirements, safety boundaries, validation
+  commands, pull request expectations, and issue guidance.
+- Added GitHub issue templates, a pull request template, the AL-24 public
+  readiness audit, and the AL-24 handoff.
+- Extended documentation validation for AL-24 public-readiness files, README
+  sections, contribution sections, templates, audit coverage, and completion
+  token checks.

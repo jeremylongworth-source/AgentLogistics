@@ -1,0 +1,4 @@
+interface: openai
+display_name: Manage Expiry-Controlled Food Inventory
+short_description: Manage expiry-controlled food inventory evidence and handoffs.
+default_prompt: Use $manage-expiry-controlled-food-inventory to prepare source-backed food cold-chain logistics planning support with product, jurisdiction, evidence, and qualified-review boundaries.

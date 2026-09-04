@@ -1,0 +1,4 @@
+interface: openai
+display_name: Plan Dangerous Goods Storage Segregation
+short_description: Plan dangerous-goods storage and segregation research handoffs.
+default_prompt: Use $plan-dangerous-goods-storage-segregation to prepare source-backed dangerous-goods storage and segregation planning support with material, jurisdiction, mode, evidence, and qualified-review boundaries.

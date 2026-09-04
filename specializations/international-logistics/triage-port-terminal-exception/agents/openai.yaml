@@ -1,0 +1,4 @@
+interface: openai
+display_name: Triage Port Terminal Exception
+short_description: Triage port, terminal, container, and drayage exceptions.
+default_prompt: Use $triage-port-terminal-exception to prepare source-backed port or terminal exception triage with lane, jurisdiction, mode, party-role, evidence, and qualified-review boundaries.

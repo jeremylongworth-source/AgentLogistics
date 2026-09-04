@@ -8,6 +8,9 @@ from pathlib import Path
 
 CANADA_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY"
 US_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_17_US_COMPLIANCE_READY"
+FOOD_COLD_CHAIN_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_20_FOOD_COLD_CHAIN_READY"
+DANGEROUS_GOODS_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_21_DANGEROUS_GOODS_READY"
+INTERNATIONAL_LOGISTICS_COMPLETION_TOKEN = "AGENTLOGISTICS_AL_22_INTERNATIONAL_LOGISTICS_READY"
 PACKAGE_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 FRONTMATTER_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---\r?\n", re.DOTALL)
 PLACEHOLDER_RE = re.compile(r"\b(TODO|TBD|FIXME|PLACEHOLDER)\b", re.IGNORECASE)
@@ -37,6 +40,32 @@ REQUIRED_US_PACKAGES = {
     "research-us-logistics-documents",
     "research-us-import-export-controls",
     "research-us-storage-requirements",
+}
+REQUIRED_FOOD_COLD_CHAIN_PACKAGES = {
+    "classify-food-cold-chain-requirements",
+    "plan-temperature-controlled-storage",
+    "monitor-cold-chain-temperature",
+    "triage-temperature-excursion",
+    "plan-fefo-inventory-rotation",
+    "manage-expiry-controlled-food-inventory",
+    "trace-food-lot-movement",
+    "plan-sanitation-sensitive-logistics",
+    "plan-food-segregation",
+    "support-food-recall-logistics",
+    "plan-cold-chain-transportation",
+    "plan-cold-chain-handoff",
+}
+REQUIRED_DANGEROUS_GOODS_PACKAGES = {
+    "classify-dangerous-goods-logistics-requirements",
+    "plan-dangerous-goods-storage-segregation",
+    "prepare-dangerous-goods-shipping-research",
+    "triage-dangerous-goods-incident-logistics",
+}
+REQUIRED_INTERNATIONAL_LOGISTICS_PACKAGES = {
+    "map-cross-border-logistics-flow",
+    "prepare-international-shipment-document-research",
+    "plan-customs-broker-handoff",
+    "triage-port-terminal-exception",
 }
 
 REQUIRED_SECTIONS = (
@@ -82,6 +111,45 @@ REQUIRED_US_AUTHORITY_MAP_PHRASES = (
     "import and export border controls",
     "qualified-review handoffs",
 )
+REQUIRED_FOOD_COLD_CHAIN_SOURCE_MAP_PHRASES = (
+    FOOD_COLD_CHAIN_COMPLETION_TOKEN,
+    "Access date for the AL-20 source list: 2026-09-03.",
+    "food and cold-chain requirements are product-specific and jurisdiction-specific",
+    "FDA sanitary transportation",
+    "FDA traceability",
+    "FDA recall guidance",
+    "USDA FSIS",
+    "CFIA preventive-control",
+    "AgentLogistics and ChefSkills independent",
+)
+REQUIRED_DANGEROUS_GOODS_SOURCE_MAP_PHRASES = (
+    DANGEROUS_GOODS_COMPLETION_TOKEN,
+    "Access date for the AL-21 source list: 2026-09-03.",
+    "dangerous goods requirements are mode-specific and jurisdiction-specific",
+    "PHMSA hazardous materials transportation",
+    "eCFR Title 49 HMR",
+    "Transport Canada TDG",
+    "Justice Laws TDG Regulations",
+    "UNECE Model Regulations",
+    "ICAO Technical Instructions",
+    "IATA DGR",
+    "IMO IMDG Code",
+)
+REQUIRED_INTERNATIONAL_LOGISTICS_SOURCE_MAP_PHRASES = (
+    INTERNATIONAL_LOGISTICS_COMPLETION_TOKEN,
+    "Access date for the AL-22 source list: 2026-09-03.",
+    "international logistics requirements are lane-specific and jurisdiction-specific",
+    "ICC Incoterms",
+    "CBP import",
+    "CBSA import and export",
+    "WCO HS",
+    "US Census AES",
+    "BIS EAR",
+    "OFAC sanctions",
+    "FMC detention and demurrage",
+    "IMO FAL",
+    "ITA common export document",
+)
 
 REQUIRED_SOURCE_URLS = (
     "https://www.ccohs.ca/oshanswers/legisl/legislation/intro.html",
@@ -108,6 +176,54 @@ REQUIRED_US_SOURCE_URLS = (
     "https://www.epa.gov/hw/hazardous-waste-transportation",
     "https://www.ecfr.gov/current/title-49",
 )
+REQUIRED_FOOD_COLD_CHAIN_SOURCE_URLS = (
+    "https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-sanitary-transportation-human-and-animal-food",
+    "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/guidance-industry-sanitary-transportation-food",
+    "https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-requirements-additional-traceability-records-certain-foods",
+    "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/industry-guidance-recalls",
+    "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/danger-zone-40f-140f",
+    "https://www.fsis.usda.gov/policy/fsis-directives/8080.1",
+    "https://inspection.canada.ca/en/food-safety-industry/preventive-control-plans",
+    "https://inspection.canada.ca/en/food-safety-industry/preventive-control-plans/regulatory-requirements",
+    "https://inspection.canada.ca/en/inspection-and-enforcement/guidance-food-activities/preventive-control-inspection/traceability-inspection",
+)
+REQUIRED_DANGEROUS_GOODS_SOURCE_URLS = (
+    "https://www.phmsa.dot.gov/standards-rulemaking/hazmat/hazardous-materials-regulations",
+    "https://www.phmsa.dot.gov/training/hazmat/publications",
+    "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C",
+    "https://tc.canada.ca/en/dangerous-goods/transportation-dangerous-goods-canada",
+    "https://tc.canada.ca/en/corporate-services/acts-regulations/list-regulations/transportation-dangerous-goods-regulations",
+    "https://laws-lois.justice.gc.ca/eng/regulations/sor-2001-286/",
+    "https://unece.org/transport/dangerous-goods/un-model-regulations-rev-24",
+    "https://www.icao.int/Dangerous-Goods/Technical-Instructions",
+    "https://www.iata.org/en/publications/dgr/",
+    "https://www.imo.org/en/ourwork/safety/pages/dangerousgoods-default.aspx",
+    "https://www.imo.org/en/publications/pages/imdg%20code.aspx",
+    "https://www.osha.gov/chemical-hazards",
+    "https://www.epa.gov/hw/hazardous-waste-transportation",
+)
+REQUIRED_INTERNATIONAL_LOGISTICS_SOURCE_URLS = (
+    "https://iccwbo.org/business-solutions/incoterms-rules/",
+    "https://iccwbo.org/business-solutions/incoterms-rules/incoterms-2020/",
+    "https://www.trade.gov/know-your-incoterms",
+    "https://www.cbp.gov/trade/basic-import-export",
+    "https://www.ecfr.gov/current/title-19/chapter-I/part-141/subpart-F",
+    "https://www.cbsa-asfc.gc.ca/import/guide-eng.html",
+    "https://www.cbsa-asfc.gc.ca/services/export/menu-eng.html",
+    "https://www.wcoomd.org/en/topics/nomenclature/overview/what-is-the-harmonized-system.aspx",
+    "https://www.wcoomd.org/en/topics/valuation/overview/what-is-customs-valuation.aspx",
+    "https://www.wcoomd.org/en/topics/origin/overview.aspx",
+    "https://www.wcoomd.org/en/topics/facilitation/instrument-and-tools/frameworks-of-standards/safe_package.aspx",
+    "https://www.census.gov/foreign-trade/aes/",
+    "https://www.census.gov/foreign-trade/regulations/",
+    "https://www.bis.gov/regulations/ear",
+    "https://www.bis.gov/regulations/ear/interactive-commerce-control-list",
+    "https://ofac.treasury.gov/sanctions-programs-and-country-information",
+    "https://www.fmc.gov/detention-and-demurrage/",
+    "https://www.imo.org/en/about/conventions/pages/convention-on-facilitation-of-international-maritime-traffic-%28fal%29.aspx",
+    "https://www.trade.gov/common-export-documents",
+    "https://www.cbp.gov/border-security/ports-entry/cargo-security/importer-security-filing-102",
+)
 
 BLOCKED_OUTPUT_PHRASES = (
     "legal advice",
@@ -128,6 +244,60 @@ US_BLOCKED_OUTPUT_PHRASES = (
     "environmental determinations",
     "live system changes",
 )
+FOOD_COLD_CHAIN_BLOCKED_OUTPUT_PHRASES = (
+    "legal advice",
+    "compliance declarations",
+    "food safety approvals",
+    "product release approvals",
+    "temperature excursion disposition approvals",
+    "recall initiation approvals",
+    "sanitation approvals",
+    "equipment certifications",
+    "carrier approvals",
+    "customer commitment approvals",
+    "financial approvals",
+    "live system changes",
+)
+DANGEROUS_GOODS_BLOCKED_OUTPUT_PHRASES = (
+    "legal advice",
+    "compliance declarations",
+    "safety approvals",
+    "certifications",
+    "dangerous-goods classification approvals",
+    "hazardous materials classification approvals",
+    "packaging design approvals",
+    "marking or labeling approvals",
+    "shipping paper approvals",
+    "emergency response approvals",
+    "environmental determinations",
+    "carrier approvals",
+    "personnel qualification certifications",
+    "customs approvals",
+    "customer commitment approvals",
+    "financial approvals",
+    "live system changes",
+)
+INTERNATIONAL_LOGISTICS_BLOCKED_OUTPUT_PHRASES = (
+    "legal advice",
+    "compliance declarations",
+    "customs entry approvals",
+    "customs release approvals",
+    "export filing approvals",
+    "sanctions determinations",
+    "export-control classification approvals",
+    "license requirement determinations",
+    "duty or tax determinations",
+    "Incoterms contract advice",
+    "bill of lading approvals",
+    "commercial invoice approvals",
+    "packing list approvals",
+    "carrier approvals",
+    "port or terminal release approvals",
+    "freight forwarder approvals",
+    "financial approvals",
+    "customer commitment approvals",
+    "live system changes",
+)
 
 
 def parse_frontmatter(text: str) -> dict[str, str]:
@@ -142,6 +312,10 @@ def parse_frontmatter(text: str) -> dict[str, str]:
         key, value = line.split(":", 1)
         data[key.strip()] = value.strip().strip('"').strip("'")
     return data
+
+
+def contains_phrase(text: str, phrase: str) -> bool:
+    return " ".join(phrase.split()) in " ".join(text.split())
 
 
 def package_paths(repo_root: Path) -> list[Path]:
@@ -189,6 +363,24 @@ def validate_package(repo_root: Path, path: Path) -> list[str]:
         reference_name = "us-compliance-checklist.md"
         source_urls = REQUIRED_US_SOURCE_URLS
         label = "United States"
+    elif specialization == "food-cold-chain":
+        completion_token = FOOD_COLD_CHAIN_COMPLETION_TOKEN
+        country_boundary = "food and cold-chain requirements are product-specific and jurisdiction-specific"
+        reference_name = "food-cold-chain-checklist.md"
+        source_urls = REQUIRED_FOOD_COLD_CHAIN_SOURCE_URLS
+        label = "Food cold-chain"
+    elif specialization == "dangerous-goods":
+        completion_token = DANGEROUS_GOODS_COMPLETION_TOKEN
+        country_boundary = "dangerous goods requirements are mode-specific and jurisdiction-specific"
+        reference_name = "dangerous-goods-checklist.md"
+        source_urls = REQUIRED_DANGEROUS_GOODS_SOURCE_URLS
+        label = "Dangerous goods"
+    elif specialization == "international-logistics":
+        completion_token = INTERNATIONAL_LOGISTICS_COMPLETION_TOKEN
+        country_boundary = "international logistics requirements are lane-specific and jurisdiction-specific"
+        reference_name = "international-logistics-checklist.md"
+        source_urls = REQUIRED_INTERNATIONAL_LOGISTICS_SOURCE_URLS
+        label = "International logistics"
     else:
         return [f"{relative}: unexpected specialization {specialization}"]
 
@@ -211,7 +403,7 @@ def validate_package(repo_root: Path, path: Path) -> list[str]:
         "qualified-review",
         "Do not state that",
     ):
-        if phrase not in text:
+        if not contains_phrase(text, phrase):
             errors.append(f"{relative}: missing {label} specialization boundary phrase {phrase}")
 
     agent_config = package_dir / "agents" / "openai.yaml"
@@ -262,7 +454,7 @@ def validate_canada_root(repo_root: Path) -> list[str]:
             if package_name not in readme_text:
                 errors.append(f"specializations/canada/README.md: missing package {package_name}")
         for phrase in BLOCKED_OUTPUT_PHRASES:
-            if phrase not in readme_text:
+            if not contains_phrase(readme_text, phrase):
                 errors.append(f"specializations/canada/README.md: missing boundary phrase {phrase}")
 
     authority_path = canada_root / "references" / "canadian-authority-map.md"
@@ -271,7 +463,7 @@ def validate_canada_root(repo_root: Path) -> list[str]:
     else:
         authority_text = authority_path.read_text(encoding="utf-8")
         for phrase in REQUIRED_AUTHORITY_MAP_PHRASES:
-            if phrase not in authority_text:
+            if not contains_phrase(authority_text, phrase):
                 errors.append(f"{authority_path.relative_to(repo_root)}: missing {phrase}")
         for url in REQUIRED_SOURCE_URLS:
             if url not in authority_text:
@@ -297,7 +489,7 @@ def validate_us_root(repo_root: Path) -> list[str]:
             if package_name not in readme_text:
                 errors.append(f"specializations/united-states/README.md: missing package {package_name}")
         for phrase in US_BLOCKED_OUTPUT_PHRASES:
-            if phrase not in readme_text:
+            if not contains_phrase(readme_text, phrase):
                 errors.append(f"specializations/united-states/README.md: missing boundary phrase {phrase}")
 
     authority_path = us_root / "references" / "us-authority-map.md"
@@ -306,11 +498,118 @@ def validate_us_root(repo_root: Path) -> list[str]:
     else:
         authority_text = authority_path.read_text(encoding="utf-8")
         for phrase in REQUIRED_US_AUTHORITY_MAP_PHRASES:
-            if phrase not in authority_text:
+            if not contains_phrase(authority_text, phrase):
                 errors.append(f"{authority_path.relative_to(repo_root)}: missing {phrase}")
         for url in REQUIRED_US_SOURCE_URLS:
             if url not in authority_text:
                 errors.append(f"{authority_path.relative_to(repo_root)}: missing official source URL {url}")
+
+    return errors
+
+
+def validate_food_cold_chain_root(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    root = repo_root / "specializations" / "food-cold-chain"
+    if not root.is_dir():
+        return ["Missing food cold-chain specialization directory: specializations/food-cold-chain"]
+
+    readme_path = root / "README.md"
+    if not readme_path.is_file():
+        errors.append("Missing food cold-chain specialization README: specializations/food-cold-chain/README.md")
+    else:
+        readme_text = readme_path.read_text(encoding="utf-8")
+        if FOOD_COLD_CHAIN_COMPLETION_TOKEN not in readme_text:
+            errors.append("specializations/food-cold-chain/README.md: missing AL-20 completion token")
+        for package_name in REQUIRED_FOOD_COLD_CHAIN_PACKAGES:
+            if package_name not in readme_text:
+                errors.append(f"specializations/food-cold-chain/README.md: missing package {package_name}")
+        for phrase in FOOD_COLD_CHAIN_BLOCKED_OUTPUT_PHRASES:
+            if not contains_phrase(readme_text, phrase):
+                errors.append(f"specializations/food-cold-chain/README.md: missing boundary phrase {phrase}")
+        if not contains_phrase(readme_text, "AgentLogistics and ChefSkills independent"):
+            errors.append("specializations/food-cold-chain/README.md: missing ChefSkills independence boundary")
+
+    source_map_path = root / "references" / "food-cold-chain-source-map.md"
+    if not source_map_path.is_file():
+        errors.append("Missing food cold-chain source map: specializations/food-cold-chain/references/food-cold-chain-source-map.md")
+    else:
+        source_map_text = source_map_path.read_text(encoding="utf-8")
+        for phrase in REQUIRED_FOOD_COLD_CHAIN_SOURCE_MAP_PHRASES:
+            if not contains_phrase(source_map_text, phrase):
+                errors.append(f"{source_map_path.relative_to(repo_root)}: missing {phrase}")
+        for url in REQUIRED_FOOD_COLD_CHAIN_SOURCE_URLS:
+            if url not in source_map_text:
+                errors.append(f"{source_map_path.relative_to(repo_root)}: missing official source URL {url}")
+
+    return errors
+
+
+def validate_dangerous_goods_root(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    root = repo_root / "specializations" / "dangerous-goods"
+    if not root.is_dir():
+        return ["Missing dangerous-goods specialization directory: specializations/dangerous-goods"]
+
+    readme_path = root / "README.md"
+    if not readme_path.is_file():
+        errors.append("Missing dangerous-goods specialization README: specializations/dangerous-goods/README.md")
+    else:
+        readme_text = readme_path.read_text(encoding="utf-8")
+        if DANGEROUS_GOODS_COMPLETION_TOKEN not in readme_text:
+            errors.append("specializations/dangerous-goods/README.md: missing AL-21 completion token")
+        for package_name in REQUIRED_DANGEROUS_GOODS_PACKAGES:
+            if package_name not in readme_text:
+                errors.append(f"specializations/dangerous-goods/README.md: missing package {package_name}")
+        for phrase in DANGEROUS_GOODS_BLOCKED_OUTPUT_PHRASES:
+            if not contains_phrase(readme_text, phrase):
+                errors.append(f"specializations/dangerous-goods/README.md: missing boundary phrase {phrase}")
+
+    source_map_path = root / "references" / "dangerous-goods-source-map.md"
+    if not source_map_path.is_file():
+        errors.append("Missing dangerous-goods source map: specializations/dangerous-goods/references/dangerous-goods-source-map.md")
+    else:
+        source_map_text = source_map_path.read_text(encoding="utf-8")
+        for phrase in REQUIRED_DANGEROUS_GOODS_SOURCE_MAP_PHRASES:
+            if not contains_phrase(source_map_text, phrase):
+                errors.append(f"{source_map_path.relative_to(repo_root)}: missing {phrase}")
+        for url in REQUIRED_DANGEROUS_GOODS_SOURCE_URLS:
+            if url not in source_map_text:
+                errors.append(f"{source_map_path.relative_to(repo_root)}: missing official source URL {url}")
+
+    return errors
+
+
+def validate_international_logistics_root(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    root = repo_root / "specializations" / "international-logistics"
+    if not root.is_dir():
+        return ["Missing international-logistics specialization directory: specializations/international-logistics"]
+
+    readme_path = root / "README.md"
+    if not readme_path.is_file():
+        errors.append("Missing international-logistics specialization README: specializations/international-logistics/README.md")
+    else:
+        readme_text = readme_path.read_text(encoding="utf-8")
+        if INTERNATIONAL_LOGISTICS_COMPLETION_TOKEN not in readme_text:
+            errors.append("specializations/international-logistics/README.md: missing AL-22 completion token")
+        for package_name in REQUIRED_INTERNATIONAL_LOGISTICS_PACKAGES:
+            if package_name not in readme_text:
+                errors.append(f"specializations/international-logistics/README.md: missing package {package_name}")
+        for phrase in INTERNATIONAL_LOGISTICS_BLOCKED_OUTPUT_PHRASES:
+            if not contains_phrase(readme_text, phrase):
+                errors.append(f"specializations/international-logistics/README.md: missing boundary phrase {phrase}")
+
+    source_map_path = root / "references" / "international-logistics-source-map.md"
+    if not source_map_path.is_file():
+        errors.append("Missing international-logistics source map: specializations/international-logistics/references/international-logistics-source-map.md")
+    else:
+        source_map_text = source_map_path.read_text(encoding="utf-8")
+        for phrase in REQUIRED_INTERNATIONAL_LOGISTICS_SOURCE_MAP_PHRASES:
+            if not contains_phrase(source_map_text, phrase):
+                errors.append(f"{source_map_path.relative_to(repo_root)}: missing {phrase}")
+        for url in REQUIRED_INTERNATIONAL_LOGISTICS_SOURCE_URLS:
+            if url not in source_map_text:
+                errors.append(f"{source_map_path.relative_to(repo_root)}: missing official source URL {url}")
 
     return errors
 
@@ -321,6 +620,9 @@ def validate(repo_root: Path) -> list[str]:
 
     errors.extend(validate_canada_root(repo_root))
     errors.extend(validate_us_root(repo_root))
+    errors.extend(validate_food_cold_chain_root(repo_root))
+    errors.extend(validate_dangerous_goods_root(repo_root))
+    errors.extend(validate_international_logistics_root(repo_root))
 
     found_canada_packages = {
         path.parent.name for path in paths if path.relative_to(repo_root).parts[1] == "canada"
@@ -328,10 +630,25 @@ def validate(repo_root: Path) -> list[str]:
     found_us_packages = {
         path.parent.name for path in paths if path.relative_to(repo_root).parts[1] == "united-states"
     }
+    found_food_cold_chain_packages = {
+        path.parent.name for path in paths if path.relative_to(repo_root).parts[1] == "food-cold-chain"
+    }
+    found_dangerous_goods_packages = {
+        path.parent.name for path in paths if path.relative_to(repo_root).parts[1] == "dangerous-goods"
+    }
+    found_international_logistics_packages = {
+        path.parent.name for path in paths if path.relative_to(repo_root).parts[1] == "international-logistics"
+    }
     for package_name in sorted(REQUIRED_CANADA_PACKAGES - found_canada_packages):
         errors.append(f"Missing Canada specialization package: specializations/canada/{package_name}")
     for package_name in sorted(REQUIRED_US_PACKAGES - found_us_packages):
         errors.append(f"Missing United States specialization package: specializations/united-states/{package_name}")
+    for package_name in sorted(REQUIRED_FOOD_COLD_CHAIN_PACKAGES - found_food_cold_chain_packages):
+        errors.append(f"Missing food cold-chain specialization package: specializations/food-cold-chain/{package_name}")
+    for package_name in sorted(REQUIRED_DANGEROUS_GOODS_PACKAGES - found_dangerous_goods_packages):
+        errors.append(f"Missing dangerous-goods specialization package: specializations/dangerous-goods/{package_name}")
+    for package_name in sorted(REQUIRED_INTERNATIONAL_LOGISTICS_PACKAGES - found_international_logistics_packages):
+        errors.append(f"Missing international-logistics specialization package: specializations/international-logistics/{package_name}")
 
     for path in paths:
         specialization = path.relative_to(repo_root).parts[1]
@@ -339,6 +656,21 @@ def validate(repo_root: Path) -> list[str]:
             errors.append(f"{path.relative_to(repo_root)}: unexpected Canada specialization package")
         if specialization == "united-states" and path.parent.name not in REQUIRED_US_PACKAGES:
             errors.append(f"{path.relative_to(repo_root)}: unexpected United States specialization package")
+        if (
+            specialization == "food-cold-chain"
+            and path.parent.name not in REQUIRED_FOOD_COLD_CHAIN_PACKAGES
+        ):
+            errors.append(f"{path.relative_to(repo_root)}: unexpected food cold-chain specialization package")
+        if (
+            specialization == "dangerous-goods"
+            and path.parent.name not in REQUIRED_DANGEROUS_GOODS_PACKAGES
+        ):
+            errors.append(f"{path.relative_to(repo_root)}: unexpected dangerous-goods specialization package")
+        if (
+            specialization == "international-logistics"
+            and path.parent.name not in REQUIRED_INTERNATIONAL_LOGISTICS_PACKAGES
+        ):
+            errors.append(f"{path.relative_to(repo_root)}: unexpected international-logistics specialization package")
         errors.extend(validate_package(repo_root, path))
 
     return errors

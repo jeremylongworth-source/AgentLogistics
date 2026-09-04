@@ -1,0 +1,4 @@
+interface: openai
+display_name: Prepare International Shipment Document Research
+short_description: Prepare international shipment document research packets.
+default_prompt: Use $prepare-international-shipment-document-research to prepare source-backed international shipment document research with lane, jurisdiction, mode, party-role, evidence, and qualified-review boundaries.

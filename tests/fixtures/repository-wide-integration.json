@@ -1,0 +1,104 @@
+{
+  "completion_token": "AGENTLOGISTICS_AL_23_INTEGRATION_VALIDATED",
+  "scenario_files": [
+    "tests/scenarios/integration-inbound-shortage.md",
+    "tests/scenarios/integration-throughput-collapse.md",
+    "tests/scenarios/integration-inventory-accuracy-deterioration.md",
+    "tests/scenarios/integration-capacity-constraint.md",
+    "tests/scenarios/integration-transportation-cost-increase.md"
+  ],
+  "required_scenarios": [
+    "inbound shortage",
+    "warehouse throughput collapse",
+    "inventory accuracy deterioration",
+    "capacity constraint",
+    "transportation cost increase"
+  ],
+  "required_cross_domain_components": [
+    "receiving discrepancy",
+    "ASN evidence",
+    "inventory reconciliation",
+    "WMS transaction chronology",
+    "carrier evidence",
+    "order profile",
+    "replenishment constraints",
+    "picking bottleneck",
+    "labor capacity",
+    "congestion",
+    "KPI analysis",
+    "root cause",
+    "improvement plan",
+    "cycle count evidence",
+    "scan-event evidence",
+    "Pareto analysis",
+    "storage utilization",
+    "pallet positions",
+    "slotting",
+    "dock capacity",
+    "capacity forecast",
+    "shipment profile",
+    "freight rates",
+    "accessorials",
+    "load utilization",
+    "carrier performance",
+    "consolidation scenario"
+  ],
+  "required_output_invariants": [
+    "cross-skill routing map",
+    "source-by-source evidence table",
+    "chronology",
+    "quantity reconciliation",
+    "unit checks",
+    "facts assumptions and inferences separated",
+    "source conflicts labeled",
+    "missing evidence requests",
+    "operational next steps",
+    "owner handoffs",
+    "observation evidence inference root cause recommendation expected effect measurement plan",
+    "qualified-review boundary"
+  ],
+  "required_boundary_classes": [
+    "inventory adjustment approval",
+    "freight claim approval",
+    "supplier claim approval",
+    "customer commitment approval",
+    "financial approval",
+    "live WMS change",
+    "live TMS change",
+    "staffing approval",
+    "equipment approval",
+    "structural approval",
+    "food safety approval",
+    "carrier selection approval",
+    "rate acceptance approval",
+    "demurrage payment approval",
+    "HR decision"
+  ],
+  "scenario_route_groups": {
+    "integration-inbound-shortage": [
+      "inbound-receiving",
+      "inventory-control",
+      "logistics-systems-data",
+      "transportation-freight"
+    ],
+    "integration-throughput-collapse": [
+      "replenishment-picking",
+      "labor-operating-planning",
+      "performance-continuous-improvement"
+    ],
+    "integration-inventory-accuracy-deterioration": [
+      "inventory-control",
+      "logistics-systems-data",
+      "performance-continuous-improvement"
+    ],
+    "integration-capacity-constraint": [
+      "storage-warehousing",
+      "warehouse-design-capacity",
+      "food-cold-chain"
+    ],
+    "integration-transportation-cost-increase": [
+      "transportation-freight",
+      "performance-continuous-improvement"
+    ]
+  }
+}

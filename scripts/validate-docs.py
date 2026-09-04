@@ -12,7 +12,16 @@ REQUIRED_FILES = (
     "CHANGELOG.md",
     "LICENSE",
     "AGENTS.md",
+    "CODE_OF_CONDUCT.md",
+    "SECURITY.md",
+    ".github/FUNDING.yml",
+    ".github/ISSUE_TEMPLATE/skill-request.md",
+    ".github/ISSUE_TEMPLATE/bug-report.md",
+    ".github/ISSUE_TEMPLATE/documentation-issue.md",
+    ".github/ISSUE_TEMPLATE/config.yml",
+    ".github/pull_request_template.md",
     "docs/development/AL-00-baseline-audit.md",
+    "docs/development/AL-24-public-readiness-audit.md",
     "docs/architecture/domain-contract.md",
     "docs/architecture/scope-boundaries.md",
     "docs/architecture/master-taxonomy-v1.md",
@@ -50,11 +59,22 @@ REQUIRED_FILES = (
     "docs/development/handoffs/AL-18-final-handoff.md",
     "docs/architecture/specialization-roadmap.md",
     "docs/development/handoffs/AL-19-final-handoff.md",
+    "docs/development/handoffs/AL-20-final-handoff.md",
+    "docs/development/handoffs/AL-21-final-handoff.md",
+    "docs/development/handoffs/AL-22-final-handoff.md",
+    "docs/development/handoffs/AL-23-final-handoff.md",
+    "docs/development/handoffs/AL-24-final-handoff.md",
     "skillsets/README.md",
     "specializations/canada/README.md",
     "specializations/canada/references/canadian-authority-map.md",
     "specializations/united-states/README.md",
     "specializations/united-states/references/us-authority-map.md",
+    "specializations/food-cold-chain/README.md",
+    "specializations/food-cold-chain/references/food-cold-chain-source-map.md",
+    "specializations/dangerous-goods/README.md",
+    "specializations/dangerous-goods/references/dangerous-goods-source-map.md",
+    "specializations/international-logistics/README.md",
+    "specializations/international-logistics/references/international-logistics-source-map.md",
 )
 
 REQUIRED_TOKENS = {
@@ -62,8 +82,16 @@ REQUIRED_TOKENS = {
         "AGENTLOGISTICS_AL_16_CANADA_COMPLIANCE_READY",
         "AGENTLOGISTICS_AL_18_PROFESSIONAL_SKILLSETS_READY",
         "AGENTLOGISTICS_AL_19_SPECIALIZATION_FRAMEWORK_READY",
+        "AGENTLOGISTICS_AL_20_FOOD_COLD_CHAIN_READY",
+        "AGENTLOGISTICS_AL_21_DANGEROUS_GOODS_READY",
+        "AGENTLOGISTICS_AL_22_INTERNATIONAL_LOGISTICS_READY",
+        "AGENTLOGISTICS_AL_23_INTEGRATION_VALIDATED",
+        "AGENTLOGISTICS_AL_24_PUBLIC_READINESS_READY",
         "AGENTLOGISTICS_AL_25_V1_RC_AUDIT_COMPLETE",
         "Roadmap version: 0.1",
+    ),
+    "README.md": (
+        "AGENTLOGISTICS_AL_24_PUBLIC_READINESS_READY",
     ),
     "docs/development/AL-00-baseline-audit.md": (
         "AGENTLOGISTICS_AL_00_BASELINE_READY",
@@ -194,7 +222,87 @@ REQUIRED_TOKENS = {
     "docs/development/handoffs/AL-19-final-handoff.md": (
         "AGENTLOGISTICS_AL_19_SPECIALIZATION_FRAMEWORK_READY",
     ),
+    "docs/development/handoffs/AL-20-final-handoff.md": (
+        "AGENTLOGISTICS_AL_20_FOOD_COLD_CHAIN_READY",
+    ),
+    "specializations/food-cold-chain/README.md": (
+        "AGENTLOGISTICS_AL_20_FOOD_COLD_CHAIN_READY",
+    ),
+    "specializations/food-cold-chain/references/food-cold-chain-source-map.md": (
+        "AGENTLOGISTICS_AL_20_FOOD_COLD_CHAIN_READY",
+    ),
+    "docs/development/handoffs/AL-21-final-handoff.md": (
+        "AGENTLOGISTICS_AL_21_DANGEROUS_GOODS_READY",
+    ),
+    "specializations/dangerous-goods/README.md": (
+        "AGENTLOGISTICS_AL_21_DANGEROUS_GOODS_READY",
+    ),
+    "specializations/dangerous-goods/references/dangerous-goods-source-map.md": (
+        "AGENTLOGISTICS_AL_21_DANGEROUS_GOODS_READY",
+    ),
+    "docs/development/handoffs/AL-22-final-handoff.md": (
+        "AGENTLOGISTICS_AL_22_INTERNATIONAL_LOGISTICS_READY",
+    ),
+    "specializations/international-logistics/README.md": (
+        "AGENTLOGISTICS_AL_22_INTERNATIONAL_LOGISTICS_READY",
+    ),
+    "specializations/international-logistics/references/international-logistics-source-map.md": (
+        "AGENTLOGISTICS_AL_22_INTERNATIONAL_LOGISTICS_READY",
+    ),
+    "docs/development/handoffs/AL-23-final-handoff.md": (
+        "AGENTLOGISTICS_AL_23_INTEGRATION_VALIDATED",
+    ),
+    "docs/development/AL-24-public-readiness-audit.md": (
+        "AGENTLOGISTICS_AL_24_PUBLIC_READINESS_READY",
+    ),
+    "docs/development/handoffs/AL-24-final-handoff.md": (
+        "AGENTLOGISTICS_AL_24_PUBLIC_READINESS_READY",
+    ),
 }
+
+README_PUBLIC_SECTIONS = (
+    "## Who It Is For",
+    "## What It Can Do",
+    "## Quick Start",
+    "## How To Use The Skills",
+    "## Repository Layout",
+    "## Skillsets",
+    "## Limitations",
+    "## Contributing",
+    "## Security And Safety",
+    "## License",
+)
+
+CONTRIBUTING_PUBLIC_SECTIONS = (
+    "## Contribution Priorities",
+    "## Skill Contributions",
+    "## Evidence And Sources",
+    "## Calculations",
+    "## Safety Boundaries",
+    "## Local Checks",
+    "## Pull Request Checklist",
+    "## Issues",
+)
+
+PUBLIC_READINESS_PHRASES = (
+    "decision-support content",
+    "Regulatory and safety-sensitive material is jurisdiction-specific",
+    ".\\scripts\\validate-all.ps1",
+    "AGENTLOGISTICS_AL_24_PUBLIC_READINESS_READY",
+)
+
+ISSUE_TEMPLATE_PHRASES = (
+    "Evidence And Sources",
+    "Safety Or Approval Boundaries",
+    "Validation",
+)
+
+PR_TEMPLATE_PHRASES = (
+    "Roadmap Wave",
+    "Evidence And Sources",
+    "Safety And Approval Boundaries",
+    "Validation",
+)
 
 SPECIALIZATION_CANDIDATES = (
     "cold-chain",
@@ -258,6 +366,69 @@ def validate_specialization_roadmap(repo_root: Path) -> list[str]:
     return errors
 
 
+def validate_public_readiness(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+
+    readme = repo_root / "README.md"
+    if readme.is_file():
+        text = readme.read_text(encoding="utf-8")
+        for section in README_PUBLIC_SECTIONS:
+            if section not in text:
+                errors.append(f"README.md: missing public-readiness section {section}")
+        for phrase in PUBLIC_READINESS_PHRASES:
+            if phrase not in text:
+                errors.append(f"README.md: missing public-readiness phrase {phrase}")
+
+    contributing = repo_root / "CONTRIBUTING.md"
+    if contributing.is_file():
+        text = contributing.read_text(encoding="utf-8")
+        for section in CONTRIBUTING_PUBLIC_SECTIONS:
+            if section not in text:
+                errors.append(f"CONTRIBUTING.md: missing contributor section {section}")
+        for phrase in (
+            "Do not create empty folders",
+            "authoritative sources",
+            "Validate unit compatibility explicitly.",
+            "Do not include secrets",
+        ):
+            if phrase not in text:
+                errors.append(f"CONTRIBUTING.md: missing contributor phrase {phrase}")
+
+    for relative in (
+        ".github/ISSUE_TEMPLATE/skill-request.md",
+        ".github/ISSUE_TEMPLATE/bug-report.md",
+        ".github/ISSUE_TEMPLATE/documentation-issue.md",
+    ):
+        path = repo_root / relative
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for phrase in ISSUE_TEMPLATE_PHRASES:
+            if phrase not in text:
+                errors.append(f"{relative}: missing issue-template phrase {phrase}")
+
+    pr_template = repo_root / ".github/pull_request_template.md"
+    if pr_template.is_file():
+        text = pr_template.read_text(encoding="utf-8")
+        for phrase in PR_TEMPLATE_PHRASES:
+            if phrase not in text:
+                errors.append(f".github/pull_request_template.md: missing PR-template phrase {phrase}")
+
+    audit = repo_root / "docs/development/AL-24-public-readiness-audit.md"
+    if audit.is_file():
+        text = audit.read_text(encoding="utf-8")
+        for phrase in (
+            "Public Documentation Inventory",
+            "Readiness Checklist",
+            "GitHub repository description, topics",
+            "AL-25 v1 release candidate audit",
+        ):
+            if phrase not in text:
+                errors.append(f"docs/development/AL-24-public-readiness-audit.md: missing audit phrase {phrase}")
+
+    return errors
+
+
 def validate(repo_root: Path) -> list[str]:
     errors: list[str] = []
 
@@ -279,6 +450,7 @@ def validate(repo_root: Path) -> list[str]:
         errors.append(f"Empty directory should not be committed: {path.relative_to(repo_root)}")
 
     errors.extend(validate_specialization_roadmap(repo_root))
+    errors.extend(validate_public_readiness(repo_root))
     return errors
 
 

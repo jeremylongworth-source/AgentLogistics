@@ -1,0 +1,4 @@
+interface: openai
+display_name: Triage Temperature Excursion
+short_description: Triage food cold-chain excursions and blocked release decisions.
+default_prompt: Use $triage-temperature-excursion to prepare source-backed food cold-chain logistics planning support with product, jurisdiction, evidence, and qualified-review boundaries.

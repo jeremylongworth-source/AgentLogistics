@@ -1,0 +1,4 @@
+interface: openai
+display_name: Prepare Dangerous Goods Shipping Research
+short_description: Prepare dangerous-goods shipping research packets for review.
+default_prompt: Use $prepare-dangerous-goods-shipping-research to prepare source-backed dangerous-goods shipping research support with material, jurisdiction, mode, evidence, and qualified-review boundaries.

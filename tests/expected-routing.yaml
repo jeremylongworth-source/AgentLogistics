@@ -308,3 +308,138 @@ scenarios:
     prompt_file: tests/scenarios/specialization-framework-roadmap.md
     category: specialization_framework
     expected_routes: []
+  food-cold-chain-source-triage:
+    prompt_file: tests/scenarios/food-cold-chain-source-triage.md
+    category: food_cold_chain_source_triage
+    expected_routes:
+      - classify-food-cold-chain-requirements
+      - plan-temperature-controlled-storage
+      - monitor-cold-chain-temperature
+      - triage-temperature-excursion
+      - plan-fefo-inventory-rotation
+      - manage-expiry-controlled-food-inventory
+      - trace-food-lot-movement
+      - plan-sanitation-sensitive-logistics
+      - plan-food-segregation
+      - support-food-recall-logistics
+      - plan-cold-chain-transportation
+      - plan-cold-chain-handoff
+  dangerous-goods-source-triage:
+    prompt_file: tests/scenarios/dangerous-goods-source-triage.md
+    category: dangerous_goods_source_triage
+    expected_routes:
+      - classify-dangerous-goods-logistics-requirements
+      - plan-dangerous-goods-storage-segregation
+      - prepare-dangerous-goods-shipping-research
+      - triage-dangerous-goods-incident-logistics
+  international-logistics-source-triage:
+    prompt_file: tests/scenarios/international-logistics-source-triage.md
+    category: international_logistics_source_triage
+    expected_routes:
+      - map-cross-border-logistics-flow
+      - prepare-international-shipment-document-research
+      - plan-customs-broker-handoff
+      - triage-port-terminal-exception
+  integration-inbound-shortage:
+    prompt_file: tests/scenarios/integration-inbound-shortage.md
+    category: integration_inbound_shortage
+    expected_routes:
+      - plan-inbound-receiving
+      - verify-inbound-shipment
+      - reconcile-asn
+      - process-receiving-discrepancy
+      - validate-item-master-data
+      - validate-location-master-data
+      - analyze-wms-transaction-history
+      - diagnose-wms-inventory-issue
+      - reconcile-inventory
+      - investigate-inventory-discrepancy
+      - manage-lot-controlled-inventory
+      - manage-freight-claim
+      - analyze-logistics-data-quality
+  integration-throughput-collapse:
+    prompt_file: tests/scenarios/integration-throughput-collapse.md
+    category: integration_throughput_collapse
+    expected_routes:
+      - analyze-order-profile
+      - calculate-replenishment-demand
+      - prioritize-replenishment
+      - plan-picking-wave
+      - plan-zone-picking
+      - optimize-pick-path
+      - diagnose-picking-bottleneck
+      - calculate-pick-productivity
+      - forecast-warehouse-workload
+      - calculate-labor-requirements
+      - balance-warehouse-workload
+      - analyze-labor-productivity
+      - analyze-warehouse-kpis
+      - analyze-throughput
+      - diagnose-throughput-loss
+      - identify-logistics-bottleneck
+      - perform-logistics-root-cause-analysis
+      - build-logistics-improvement-plan
+      - measure-improvement-result
+  integration-inventory-accuracy-deterioration:
+    prompt_file: tests/scenarios/integration-inventory-accuracy-deterioration.md
+    category: integration_inventory_accuracy_deterioration
+    expected_routes:
+      - design-cycle-count-program
+      - plan-physical-inventory
+      - calculate-inventory-accuracy
+      - reconcile-inventory
+      - investigate-inventory-discrepancy
+      - analyze-inventory-shrinkage
+      - analyze-stockout
+      - analyze-wms-transaction-history
+      - analyze-logistics-scan-events
+      - perform-logistics-pareto-analysis
+      - perform-logistics-root-cause-analysis
+      - build-logistics-improvement-plan
+      - measure-improvement-result
+  integration-capacity-constraint:
+    prompt_file: tests/scenarios/integration-capacity-constraint.md
+    category: integration_capacity_constraint
+    expected_routes:
+      - classify-storage-requirements
+      - calculate-storage-capacity
+      - calculate-pallet-positions
+      - calculate-cube-utilization
+      - analyze-storage-utilization
+      - plan-reserve-storage
+      - plan-forward-pick-storage
+      - slot-warehouse-inventory
+      - analyze-slotting-efficiency
+      - optimize-storage-density
+      - evaluate-racking-strategy
+      - forecast-capacity-requirements
+      - analyze-space-utilization
+      - plan-warehouse-zones
+      - plan-dock-capacity
+      - analyze-warehouse-flow
+      - identify-warehouse-congestion
+      - design-conceptual-warehouse-layout
+      - compare-warehouse-layouts
+      - plan-warehouse-expansion
+      - classify-food-cold-chain-requirements
+      - plan-temperature-controlled-storage
+  integration-transportation-cost-increase:
+    prompt_file: tests/scenarios/integration-transportation-cost-increase.md
+    category: integration_transportation_cost_increase
+    expected_routes:
+      - select-transportation-mode
+      - plan-freight-shipment
+      - select-carrier
+      - compare-freight-rates
+      - calculate-freight-cost
+      - calculate-load-utilization
+      - plan-freight-consolidation
+      - plan-multi-stop-shipment
+      - analyze-carrier-performance
+      - audit-freight-charge
+      - analyze-freight-accessorials
+      - analyze-detention
+      - analyze-demurrage
+      - analyze-transportation-kpis
+      - compare-logistics-scenarios
+      - build-logistics-improvement-plan

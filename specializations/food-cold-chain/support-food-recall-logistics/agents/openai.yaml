@@ -1,0 +1,4 @@
+interface: openai
+display_name: Support Food Recall Logistics
+short_description: Support food recall logistics evidence, holds, and handoffs.
+default_prompt: Use $support-food-recall-logistics to prepare source-backed food cold-chain logistics planning support with product, jurisdiction, evidence, and qualified-review boundaries.

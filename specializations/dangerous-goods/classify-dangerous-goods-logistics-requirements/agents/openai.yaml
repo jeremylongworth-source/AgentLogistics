@@ -1,0 +1,4 @@
+interface: openai
+display_name: Classify Dangerous Goods Logistics Requirements
+short_description: Classify dangerous-goods logistics research needs and evidence gaps.
+default_prompt: Use $classify-dangerous-goods-logistics-requirements to prepare source-backed dangerous-goods logistics research support with material, jurisdiction, mode, evidence, and qualified-review boundaries.
